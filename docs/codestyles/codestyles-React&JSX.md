@@ -1,7 +1,3 @@
-# React&JSX 书写规范
-
-[toc]
-
 ## React&JSX 书写规范
 
 > 本规范基本基于标准的 JavaScript 语法规范
