@@ -7,7 +7,7 @@ import lombok.Data;
  *
  * @author 天狗
  * @version 1.0
- * @date 2024/1/24 19:39
+ * @since 2024/5/4
  */
 @Data
 public class AuthConstants {

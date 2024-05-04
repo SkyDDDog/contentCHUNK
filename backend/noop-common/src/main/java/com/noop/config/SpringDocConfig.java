@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
  * SpringDoc在线文档全局配置
  *
  * @author 天狗
+ * @since 2024/5/4
  * @version 1.0
- * @date 2024/1/21 17:13
  */
 
 @OpenAPIDefinition(

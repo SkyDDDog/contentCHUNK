@@ -5,7 +5,7 @@ package com.noop.constant;
  *
  * @author 天狗
  * @version 1.0
- * @date 2024/1/23 22:33
+ * @since 2024/5/4
  */
 public class JwtTokenConstants {
 

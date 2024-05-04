@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author 天狗
  * @version 1.0
- * @date 2024/1/20 22:21
+ * @since 2024/5/4
  */
 public class CrudService<M extends BaseMapper<T>,T extends DataEntity<T>> {
 

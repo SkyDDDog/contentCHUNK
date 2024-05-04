@@ -4,21 +4,17 @@ import com.noop.common.MsgCodeUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serial;
 
 /**
  * 业务异常类
  *
  * @author 天狗
  * @version 1.0
- * @date 2024/1/19 23:43
+ * @since 2024/05/04
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class BusinessException extends RuntimeException {
-
-    @Serial
-    private static final long serialVersionUID = 2070023437618433443L;
 
     private final int code;
 
