@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-
+/* 添加注释 */
 // 1. Import the extendTheme function
 import { extendTheme } from '@chakra-ui/react';
 
