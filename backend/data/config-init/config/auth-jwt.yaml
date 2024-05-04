@@ -1,0 +1,20 @@
+auth:
+  enabled: false # 是否开启认证功能
+  jwt:
+    enabled: true   # 是否开启JWT登录认证功能
+    secret: noop  # JWT 私钥，用于校验JWT令牌的合法性
+    expiration: 3600 # JWT 令牌的有效期，用于校验JWT令牌的合法性，一个小时
+    header: Authorization # HTTP 请求的 Header 名称，该 Header作为参数传递 JWT 令牌
+    userParamName: userId  # 用户登录认证用户名参数名称
+    pwdParamName: password  # 用户登录认证密码参数名称
+    useDefaultController: true # 是否使用默认的JwtAuthController
+    skipValidUrl: \/auth\/.*  # 跳过JWT认证的URL，支持正则表达式
+  ignore:
+    whites: # 自定义白名单
+      - /test/token
+      - /auth/login
+      - /auth/token/refresh
+      - /auth/register
+      - /v3/api-docs
+  rbac:
+    enabled: false # 是否开启RBAC权限控制

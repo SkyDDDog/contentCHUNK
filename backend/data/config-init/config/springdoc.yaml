@@ -1,0 +1,17 @@
+springdoc:
+  api-docs:
+    # 默认生产环境关闭文档功能。
+    enabled: true
+    # 文档基本信息
+    info:
+      title: ${spring.application.name}-api文档
+      description: 文档说明
+      terms-of-service: https://github.com/SkyDDDog
+      gateway-url: http://gateway-service:10001/${spring.application.name}
+      contact:
+        name: Lear
+        email: lear@qq.com
+        url: https://github.com/SkyDDDog
+      version: 1.0.0
+    security:
+      name: Authentication
