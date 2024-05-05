@@ -1,0 +1,7 @@
+
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+echo "Current working directory: $(pwd)"
+npx lint-staged
+echo "Node executable: $(command -v node)"
+echo "npm executable: $(command -v npm)"
