@@ -11,7 +11,7 @@
 
     <modules>
         <module>noop-common</module>
-        <module>noop-common</module>
+        <module>noop-gateway</module>
     </modules>
 
     <properties>
