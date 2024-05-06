@@ -12,6 +12,7 @@
     <modules>
         <module>noop-common</module>
         <module>noop-gateway</module>
+        <module>noop-auth</module>
     </modules>
 
     <properties>
