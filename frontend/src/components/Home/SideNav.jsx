@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Spacer,
@@ -18,7 +18,7 @@ import {
   NavGroup,
 } from '@saas-ui/react'
 
-import { FiHome, FiUsers, FiSettings } from 'react-icons/fi'
+import { FiHome, FiUsers, FiSettings, FiBook } from 'react-icons/fi'
 // import { ResizeBox, /* ResizeHandle, useResize */ } from "./saas-ui-pro/react/src/resize/index.ts";
 import {
   ResizeHandle,
@@ -26,10 +26,23 @@ import {
 } from '../../saas-ui-pro/react/src/resize/index.ts'
 
 import Tree from '../Tree.jsx'
+import { useNavigate } from 'react-router-dom'
+
 export default function SideNav() {
+  const navigate = useNavigate()
+  /* sideNav about */
+  const [activeNavItem, setActiveNavItem] = useState(null)
+  const handleNavItemClick = (itemName) => {
+    setActiveNavItem(itemName)
+    navigate(`/${itemName}`)
+  }
+  function onSideNavChange(e) {
+    console.log(e.target)
+  }
+  /* drag-resize about */
   const { getContainerProps, getHandleProps } = useResize({
     onHandleClick: () => {
-      alert('Resize handle clicked')
+      console.log('Resize handle clicked')
     },
   })
   return (
@@ -41,7 +54,7 @@ export default function SideNav() {
       width="200px"
       minWidth="15vw"
       maxWidth="30vw"
-      height="100vh"
+      height="89vh"
     >
       <ResizeHandle
         {...getHandleProps()}
@@ -99,15 +112,39 @@ export default function SideNav() {
               <NavItem icon={<FiUsers size="1.2em" />}>Contacts</NavItem>
             </SidebarSection> */}
         <SidebarSection flex="1" overflowY="auto">
-          <NavGroup>
-            <NavItem icon={<FiHome />} isActive>
-              Home
-            </NavItem>
-            <NavItem icon={<FiUsers />}>Users</NavItem>
-            <NavItem icon={<FiSettings />}>Settings</NavItem>
-          </NavGroup>
-
-          <Tree></Tree>
+          <NavItem
+            icon={<FiHome />}
+            isActive={!activeNavItem || activeNavItem === 'home'}
+            onClick={() => handleNavItemClick('home')}
+          >
+            Home
+          </NavItem>
+          <NavItem
+            icon={<FiUsers />}
+            isActive={activeNavItem === 'test'}
+            onClick={() => handleNavItemClick('test')}
+          >
+            Users
+          </NavItem>
+          <NavItem
+            icon={<FiSettings />}
+            isActive={activeNavItem === 'setting'}
+            onClick={() => handleNavItemClick('setting')}
+          >
+            Settings
+          </NavItem>
+          <NavItem
+            icon={<FiBook />}
+            isActive={activeNavItem === 'page'}
+            onClick={() => handleNavItemClick('page')}
+          >
+            内容中心
+          </NavItem>
+          {activeNavItem === 'page' && (
+            <NavGroup onClick={onSideNavChange} isCollapsible title="teamspace">
+              <Tree></Tree>
+            </NavGroup>
+          )}
         </SidebarSection>
       </Sidebar>
     </Box>

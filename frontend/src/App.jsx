@@ -4,7 +4,9 @@ import { AppShell } from '@saas-ui/react'
 
 import TopNav from './components/Home/TopNav.jsx'
 import SideNav from './components/Home/SideNav.jsx'
-import Page from './components/Page.jsx'
+// import Page from './components/Page.jsx'
+// import BlockNote from './components/BlockNote.jsx'
+import { Outlet } from 'react-router-dom'
 
 function App() {
   return (
@@ -17,8 +19,10 @@ function App() {
           display="flex"
           flexDirection="column"
           margin="0 auto"
+          maxHeight={'80vh'}
         >
-          <Page></Page>
+          {/* <BlockNote></BlockNote> */}
+          <Outlet></Outlet>
         </Container>
       </Box>
     </AppShell>
