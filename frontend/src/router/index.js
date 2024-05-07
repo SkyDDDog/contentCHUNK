@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import App from '../App'
 import BlockNote from '../components/BlockNote'
+import Manage from "../views/Manage";
 const router = createBrowserRouter([
   {
     path: '/',
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: 'setting',
         element: <div>setting</div>,
+      },
+      {
+        path: 'manage',
+        element: <Manage></Manage>,
       },
     ],
   },

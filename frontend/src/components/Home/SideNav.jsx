@@ -140,6 +140,13 @@ export default function SideNav() {
           >
             内容中心
           </NavItem>
+          <NavItem
+            icon={<FiBook />}
+            isActive={activeNavItem === 'manage'}
+            onClick={() => handleNavItemClick('manage')}
+          >
+            运营管理
+          </NavItem>
           {activeNavItem === 'page' && (
             <NavGroup onClick={onSideNavChange} isCollapsible title="teamspace">
               <Tree></Tree>
