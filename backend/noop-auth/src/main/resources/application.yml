@@ -1,0 +1,30 @@
+server:
+  port: 10002
+
+
+spring:
+  application:
+    name: auth-service
+  output:
+    ansi:
+      enabled: always
+  #  cache:
+  #    type: caffeine
+  cloud:
+    nacos:
+      discovery:
+        watch:
+          enabled: true
+        server-addr: nacos-server:18848
+        namespace: noop
+        group: NOOP_GROUP
+        username: nacos
+        password: nacos
+  redis:
+    host:
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
