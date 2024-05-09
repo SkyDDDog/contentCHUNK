@@ -4,6 +4,7 @@ import { store } from './redux/store'
 import { Provider } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
 import router from './router/index.js'
+import './assets/css/index.css'
 
 import { extendTheme } from '@chakra-ui/react'
 import { SaasProvider, theme as baseTheme } from '@saas-ui/react'

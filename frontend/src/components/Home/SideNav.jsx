@@ -51,6 +51,7 @@ export default function SideNav() {
       position="relative"
       bg="blackAlpha.200"
       borderRightWidth="2px"
+      /* handlePosition="left" */
       width="200px"
       minWidth="15vw"
       maxWidth="30vw"
