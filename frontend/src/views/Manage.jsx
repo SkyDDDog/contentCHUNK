@@ -2,6 +2,7 @@ import {Tab, TabList, TabPanel, TabPanels, Tabs} from "@chakra-ui/react";
 import React from "react";
 import ManageOverview from "./ManageOverview";
 import ManageContent from "./ManageContent";
+import ManageTable from "./ManageTable";
 
 export default function Manage(){
   return (
@@ -14,6 +15,9 @@ export default function Manage(){
           <Tab>
             内容管理
           </Tab>
+          <Tab>
+            表格视图
+          </Tab>
         </TabList>
 
         <TabPanels>
@@ -22,6 +26,9 @@ export default function Manage(){
           </TabPanel>
           <TabPanel>
             <ManageContent />
+          </TabPanel>
+          <TabPanel>
+            <ManageTable />
           </TabPanel>
         </TabPanels>
       </Tabs>
