@@ -7,7 +7,7 @@ seataConfig=$(cat ../config/seata.yaml)
 springdocConfig=$(cat ../config/springdoc.yaml)
 consumerConfig=$(cat ../config/mq-consumer.yaml)
 providerConfig=$(cat ../config/mq-provider.yaml)
-groupId="template-example"
+groupId="NOOP_GROUP"
 curl -X POST "nacos-server:8848/nacos/v1/cs/configs" -d "dataId=auth-jwt.yaml&group=${groupId}&content=${authConfig}"
 curl -X POST "nacos-server:8848/nacos/v1/cs/configs" -d "dataId=mysql-druid.yaml&group=${groupId}&content=${datasourceConfig}"
 curl -X POST "nacos-server:8848/nacos/v1/cs/configs" -d "dataId=redis.yaml&group=${groupId}&content=${redisConfig}"
