@@ -20,7 +20,7 @@ export default function TopNav() {
       borderBottomWidth="1px"
       background="transparent"
       backdropFilter="blur(10px)"
-      height="10vh"
+      height="8vh"
     >
       <NavbarBrand>
         <FiHome width="100px" />

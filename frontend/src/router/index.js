@@ -12,8 +12,8 @@ const router = createBrowserRouter([
         element: <Navigate replace to={'/home'}></Navigate>,
       },
       {
-        path: 'test',
-        element: <div>123</div>,
+        path: 'user',
+        element: <div>账号管理</div>,
       },
       {
         path: 'page',
@@ -30,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: 'manage',
         element: <Manage></Manage>,
+      },
+      {
+        path: 'distribute',
+        element: <div>distribute</div>,
       },
     ],
   },

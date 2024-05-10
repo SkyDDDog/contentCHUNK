@@ -118,21 +118,7 @@ export default function SideNav() {
             isActive={!activeNavItem || activeNavItem === 'home'}
             onClick={() => handleNavItemClick('home')}
           >
-            Home
-          </NavItem>
-          <NavItem
-            icon={<FiUsers />}
-            isActive={activeNavItem === 'test'}
-            onClick={() => handleNavItemClick('test')}
-          >
-            Users
-          </NavItem>
-          <NavItem
-            icon={<FiSettings />}
-            isActive={activeNavItem === 'setting'}
-            onClick={() => handleNavItemClick('setting')}
-          >
-            Settings
+            团队主页
           </NavItem>
           <NavItem
             icon={<FiBook />}
@@ -141,6 +127,18 @@ export default function SideNav() {
           >
             内容中心
           </NavItem>
+          {activeNavItem === 'page' && (
+            <NavGroup onClick={onSideNavChange} isCollapsible title="teamspace">
+              <Tree></Tree>
+            </NavGroup>
+          )}
+          <NavItem
+            icon={<FiBook />}
+            isActive={activeNavItem === 'distribute'}
+            onClick={() => handleNavItemClick('distribute')}
+          >
+            自动分发
+          </NavItem>
           <NavItem
             icon={<FiBook />}
             isActive={activeNavItem === 'manage'}
@@ -148,11 +146,20 @@ export default function SideNav() {
           >
             运营管理
           </NavItem>
-          {activeNavItem === 'page' && (
-            <NavGroup onClick={onSideNavChange} isCollapsible title="teamspace">
-              <Tree></Tree>
-            </NavGroup>
-          )}
+          <NavItem
+            icon={<FiUsers />}
+            isActive={activeNavItem === 'user'}
+            onClick={() => handleNavItemClick('user')}
+          >
+            账号管理
+          </NavItem>
+          <NavItem
+            icon={<FiSettings />}
+            isActive={activeNavItem === 'setting'}
+            onClick={() => handleNavItemClick('setting')}
+          >
+            其他设置
+          </NavItem>
         </SidebarSection>
       </Sidebar>
     </Box>
