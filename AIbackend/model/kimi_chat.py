@@ -2,7 +2,7 @@
 import logging
 from typing import Any
 from langchain_core.language_models import LLM
-from openai import OpenAI
+import openai
 from langchain_core.messages import HumanMessage, SystemMessage
 #自定义的包装器类继承langchain_core.language_models.LLM类
 class Kimi(LLM):
@@ -19,7 +19,7 @@ class Kimi(LLM):
     def _call(self, prompt: str, **kwargs: Any) -> str:
     
         try:
-            client = OpenAI(
+            client = openai.AsyncOpenAI(
                 #此处请替换自己的api
                 api_key="sk-H42Y6H7VvQbYxk26csvGosoeg6RBTq7LzxQdaQC0somYg1Ql",
                 base_url="https://api.moonshot.cn/v1",
@@ -39,7 +39,7 @@ class Kimi(LLM):
 if __name__ == '__main__':
     llm = Kimi()
     
-    print(llm.invoke("你是谁"))
+    print(llm.astream("你是谁"))
 
     #使用示例2：
     llm = Kimi()
