@@ -6,16 +6,48 @@ import '@chatui/core/es/styles/index.less'
 import '@chatui/core/dist/index.css'
 // 引入定制的样式
 import '../../assets/css/chatui-theme.css'
-
+/* redux */
+import { useDispatch } from 'react-redux'
+import { setBoxWidth, setChatExpended } from '../../redux/chat'
 export default function AliChat() {
   const wrapper = useRef()
+  /* redux */
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const bot = new window.ChatSDK({
       root: wrapper.current,
+      components: {
+        // 推荐主动指定 name 属性
+        'adaptable-action-card': {
+          name: 'AlimeComponentAdaptableActionCard',
+          url: '//g.alicdn.com/alime-components/adaptable-action-card/0.1.7/index.js',
+        },
+      },
       config: {
         navbar: {
-          title: '辅助创作',
+          title: (
+            <div style={{ display: 'flex', position: 'relative' }}>
+              <div>辅助创作</div>
+            </div>
+          ),
+          rightContent: [
+            {
+              icon: 'close',
+              onClick: () => {
+                console.log('关闭')
+                dispatch(setChatExpended(false))
+                setBoxWidth(0)
+              },
+            },
+          ],
+        },
+        renderNavbar: () => {
+          return (
+            <div style={{ display: 'flex', position: 'relative' }}>
+              <div>辅助创作</div>
+            </div>
+          )
         },
         brand: {},
         robot: {
@@ -127,25 +159,28 @@ export default function AliChat() {
       requests: {
         /* ... */
         send: function (msg) {
-          const data = msg.content
+          console.log(msg)
 
           // 发送文本消息时
           if (msg.type === 'text') {
             return {
-              url: '/xiaomi/ask.do',
-              data: {
-                q: data.text,
+              type: 'text',
+              content: {
+                text: '123',
               },
+              position: 'left',
+              _id: '123',
             }
-          }
-          // ... 其它消息类型的处理
+            // ... 其它消息类型的处理
 
-          // 当需要增加header或者websocket、sse等特殊形式消息处理时，可以返回Promise，假如返回Promise对象是空对象，则不会展示消息内容
+            // 当需要增加header或者websocket、sse等特殊形式消息处理时，可以返回Promise，假如返回Promise对象是空对象，则不会展示消息内容
+          }
         },
       },
       handlers: {
         /* ... */
         parseResponse: function (res, requestType) {
+          console.log('res', res, requestType)
           // 根据 requestType 处理数据
           if (requestType === 'send' && res.Messages) {
             // 用 isv 消息解析器处理数据
@@ -159,6 +194,14 @@ export default function AliChat() {
     })
 
     bot.run()
+    // 获取 ctx 对象
+    let ctx = bot.getCtx()
+    ctx.appendMessage({
+      type: 'text',
+      content: {
+        text: '你好',
+      },
+    })
   }, [])
 
   // 注意 wrapper 的高度
