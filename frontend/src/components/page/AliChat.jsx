@@ -166,7 +166,7 @@ export default function AliChat() {
             return {
               type: 'text',
               content: {
-                text: '123',
+                text: '...',
               },
               position: 'left',
               _id: '123',

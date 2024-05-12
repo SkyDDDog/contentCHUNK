@@ -6,6 +6,9 @@ import {
   findItemByKey,
   updateTitleByKeyInChildren,
 } from '../utils/tree'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addActivePage } from '../redux/page'
 
 // Tree原始数据
 // 保证key唯一，表示的是item在Tree中的位置，以 '0-'（隐藏的根节点）开头
@@ -20,15 +23,15 @@ const defaultData = [
         key: '0-0-0', // 表示
         children: [
           {
-            title: 'leaf',
+            title: 'leaf1',
             key: '0-0-0-0',
           },
           {
-            title: 'leaf',
+            title: 'leaf2',
             key: '0-0-0-1',
           },
           {
-            title: 'leaf',
+            title: 'leaf3',
             key: '0-0-0-2',
           },
         ],
@@ -75,6 +78,9 @@ const App = () => {
   const [gData, setGData] = useState(defaultData)
   const [expandedKeys] = useState(['0-0', '0-0-0', '0-0-0-0'])
   const [openRename, setopenRename] = useState(false) // 控制重命名
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   function handleOpenChange(e) {
     console.log(e)
   }
@@ -251,9 +257,16 @@ const App = () => {
 
   function onSelect(selectedKeys, info) {
     console.log('selected', selectedKeys, info)
+    let payload = {
+      title: info.node.title,
+      pageId: info.node.key,
+    }
     if (!info.node.children) {
       //是叶子节点
       console.log('叶子')
+      // 更新仓库状态
+      dispatch(addActivePage(payload))
+      navigate(`/page/${info.node.key}`)
     }
   }
 

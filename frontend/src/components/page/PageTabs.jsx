@@ -1,70 +1,50 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Tabs } from 'antd'
-const initialItems = [
-  {
-    label: 'Tab 1',
-    key: '1',
-  },
-  {
-    label: 'Tab 2',
-    key: '2',
-  },
-  {
-    label: 'Tab 3',
-    key: '3',
-    closable: false,
-  },
-]
+import { useDispatch, useSelector } from 'react-redux'
+import { removeActiveTabItem } from '../../redux/page'
+
 const App = () => {
-  const [activeKey, setActiveKey] = useState(initialItems[0].key)
-  const [items, setItems] = useState(initialItems)
-  const newTabIndex = useRef(0)
+  const dispatch = useDispatch()
+
+  const [activeKey, setActiveKey] = useState('1')
+  const tabPages = useSelector((state) => state.page.tabPages)
+  const activeTabKey = useSelector((state) => state.page.activePageKey)
+  /* 当点击Nav的时候也会更新Tab的状态 */
+  useEffect(() => {
+    setActiveKey(activeTabKey)
+  }, [activeTabKey])
+
+  const tabItems = useMemo(() => {
+    /* setActiveKey(tabPages[tabPages.length - 1].pageId) */
+    return tabPages.map((page) => {
+      return {
+        label: page.title,
+        key: page.pageId,
+      }
+    })
+  }, [tabPages])
   const onChange = (newActiveKey) => {
     setActiveKey(newActiveKey)
+    console.log('onChange', newActiveKey)
   }
-  const add = () => {
-    const newActiveKey = `newTab${newTabIndex.current++}`
-    const newPanes = [...items]
-    newPanes.push({
-      label: 'New Tab',
-      key: newActiveKey,
-    })
-    setItems(newPanes)
-    setActiveKey(newActiveKey)
-  }
+
   const remove = (targetKey) => {
-    let newActiveKey = activeKey
-    let lastIndex = -1
-    items.forEach((item, i) => {
-      if (item.key === targetKey) {
-        lastIndex = i - 1
-      }
-    })
-    const newPanes = items.filter((item) => item.key !== targetKey)
-    if (newPanes.length && newActiveKey === targetKey) {
-      if (lastIndex >= 0) {
-        newActiveKey = newPanes[lastIndex].key
-      } else {
-        newActiveKey = newPanes[0].key
-      }
-    }
-    setItems(newPanes)
-    setActiveKey(newActiveKey)
+    dispatch(removeActiveTabItem({ pageId: targetKey }))
   }
   const onEdit = (targetKey, action) => {
-    if (action === 'add') {
-      add()
-    } else {
+    if (action === 'remove') {
       remove(targetKey)
     }
   }
+
   return (
     <Tabs
       type="editable-card"
       onChange={onChange}
       activeKey={activeKey}
+      items={tabItems}
       onEdit={onEdit}
-      items={items}
+      hideAdd
     />
   )
 }

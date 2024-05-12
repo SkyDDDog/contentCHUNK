@@ -36,6 +36,10 @@ export default function SideNav() {
   const [activeNavItem, setActiveNavItem] = useState(null)
   const handleNavItemClick = (itemName) => {
     setActiveNavItem(itemName)
+    if (itemName === 'page') {
+      navigate(`/${itemName}/1`)
+      return
+    }
     navigate(`/${itemName}`)
   }
   function onSideNavChange(e) {
@@ -69,7 +73,7 @@ export default function SideNav() {
     return () => {
       observer.disconnect()
     }
-  },[])
+  }, [])
 
   /* tree about */
   const { treeData } = useState({})
