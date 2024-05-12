@@ -18,7 +18,8 @@ import '@blocknote/react/style.css'
 import '@blocknote/mantine/style.css'
 import useMainWidth from '../../utils/useMainWidth'
 import { useSelector } from 'react-redux'
-import { BlueButton } from './editor/toolbar/BlueButton'
+import { ExpendButton } from './editor/toolbar/ExpendButton'
+import { useEffect } from 'react'
 
 export default function App() {
   // Creates a new editor instance
@@ -67,6 +68,32 @@ export default function App() {
       },
     ],
   })
+  /*  editor.insertBlocks([{ id: '1', type: 'paragraph', text: '123' }]) */
+
+  /* 从Chat部分添加内容 */
+  const contentToAdd = useSelector((state) => state.chat.contentToAdd)
+  const count = useSelector((state) => state.chat.addCount)
+  useEffect(() => {
+    console.log('123123123contentToAdd', contentToAdd)
+    /* 获取最后一个块 */
+    let lastBlock = editor.document[editor.document.length - 1]
+    console.log(lastBlock)
+    console.log(editor.document)
+    if (!contentToAdd) return
+    console.log('123123123123')
+    editor.insertBlocks(
+      [
+        {
+          type: 'paragraph',
+          content: contentToAdd,
+        },
+      ],
+      lastBlock,
+      'after',
+    )
+  }, [count])
+
+  /* layout about */
   const leftWidth = useSelector((state) => state.sideNav.sideNavWidth)
   const rightWidth = useSelector((state) => state.chat.boxWidth)
   const mainWidth = useMainWidth(leftWidth, rightWidth)
@@ -84,7 +111,7 @@ export default function App() {
               <BlockTypeSelect key={'blockTypeSelect'} />
 
               {/* Extra button to toggle blue text & background */}
-              <BlueButton key={'customButton'} />
+              <ExpendButton key={'customButton'} />
 
               <ImageCaptionButton key={'imageCaptionButton'} />
               <ReplaceImageButton key={'replaceImageButton'} />

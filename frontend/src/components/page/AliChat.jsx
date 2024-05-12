@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import '@chatui/core/es/styles/index.less'
 // 引入组件
 // import Chat, { Bubble, useMessages } from '@chatui/core'
@@ -7,13 +7,19 @@ import '@chatui/core/dist/index.css'
 // 引入定制的样式
 import '../../assets/css/chatui-theme.css'
 /* redux */
-import { useDispatch } from 'react-redux'
-import { setBoxWidth, setChatExpended } from '../../redux/chat'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setBoxWidth,
+  setChatExpended,
+  setEditorAddedContent,
+} from '../../redux/chat'
+let ctx
 export default function AliChat() {
   const wrapper = useRef()
+
   /* redux */
   const dispatch = useDispatch()
-
+  const selectedText = useSelector((state) => state.chat.selectedText)
   useEffect(() => {
     const bot = new window.ChatSDK({
       root: wrapper.current,
@@ -42,13 +48,7 @@ export default function AliChat() {
             },
           ],
         },
-        renderNavbar: () => {
-          return (
-            <div style={{ display: 'flex', position: 'relative' }}>
-              <div>辅助创作</div>
-            </div>
-          )
-        },
+
         brand: {},
         robot: {
           /*  avatar: '//gw.alicdn.com/tfs/TB1U7FBiAT2gK0jSZPcXXcKkpXa-108-108.jpg', */
@@ -160,21 +160,35 @@ export default function AliChat() {
         /* ... */
         send: function (msg) {
           console.log(msg)
-
           // 发送文本消息时
           if (msg.type === 'text') {
             return {
-              type: 'text',
+              _id: '1',
+              type: 'card',
               content: {
-                text: '...',
+                code: 'knowledge',
+                data: {
+                  text: '...',
+                },
               },
-              position: 'left',
-              _id: '123',
+              meta: {
+                evaluable: true, // 是否展示点赞点踩按钮
+              },
             }
             // ... 其它消息类型的处理
 
             // 当需要增加header或者websocket、sse等特殊形式消息处理时，可以返回Promise，假如返回Promise对象是空对象，则不会展示消息内容
           }
+        },
+
+        evaluate() {
+          /*  return {
+            _id: '1',
+            type: 'text',
+            content: {
+              text: '感谢您的评价，我们会继续努力的哦！',
+            },
+          } */
         },
       },
       handlers: {
@@ -195,14 +209,101 @@ export default function AliChat() {
 
     bot.run()
     // 获取 ctx 对象
-    let ctx = bot.getCtx()
+    ctx = bot.getCtx()
+  }, [])
+
+  /* 事件委托,绑定点击应用的事件 */
+  useEffect(() => {
+    const messageListDOM = document.querySelector('.MessageList')
+    console.log('messageListDOM', messageListDOM)
+    // 定义事件处理函数
+    function handleClick(event) {
+      // 检查事件目标是否是你想要的类名
+      if (
+        event.target.classList.contains('Btn') &&
+        event.target.textContent == '应用'
+      ) {
+        console.log('dispatch setEditorAddedContent', contentToAdd)
+        dispatch(setEditorAddedContent({ contentToAdd }))
+      }
+    }
+    // 在父元素上添加事件监听器，实现事件委托
+    messageListDOM.addEventListener('click', handleClick)
+
+    // 返回一个清理函数，在组件销毁时移除事件监听器
+    return () => {
+      messageListDOM.removeEventListener('click', handleClick)
+    }
+  })
+
+  let [contentToAdd, setContentToAdd] = useState('')
+  useEffect(() => {
+    if (!contentToAdd) return
     ctx.appendMessage({
-      type: 'text',
+      type: 'card',
       content: {
-        text: '你好',
+        code: 'adaptable-action-card', // 卡片code
+        data: {
+          title: '扩写结果',
+          // picUrl:
+          //   'https://gw.alicdn.com/tfs/TB1FwxTGxnaK1RjSZFtXXbC2VXa-1200-800.jpg',
+          content: contentToAdd,
+          actionList: [
+            {
+              text: '应用',
+              action: '',
+              style: 'default',
+              param: {
+                /* url: 'https://www.taobao.com', */
+              },
+            },
+            {
+              text: '重写',
+              action: 'sendText',
+              style: 'default',
+              param: {
+                text: '重新生成中',
+              },
+            },
+          ],
+        }, // 卡片数据
       },
     })
-  }, [])
+
+    let applyBtn = document.querySelector('.CardActions .Btn')
+    if (!applyBtn) return
+    console.log('applyBtn', applyBtn)
+    applyBtn.addEventListener('click', () => {
+      ctx.appendMessage({
+        type: 'text',
+        content: {
+          text: '扩写完成',
+        },
+        position: 'left',
+      })
+    })
+  }, [contentToAdd])
+
+  /* 监听是否有选中的内容(点击扩写会改变) */
+  useEffect(() => {
+    if (selectedText) {
+      /* 插入Chat */
+      ctx.appendMessage({
+        type: 'text',
+        content: {
+          text: selectedText,
+        },
+        position: 'right',
+      })
+
+      /* 扩写 */
+      /* 模拟获取扩写的结果 */
+      setContentToAdd(
+        Math.random() +
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptatibus pariatur numquam reiciendis enim ab, odio placeat dolorum error, officia porro vitae aut nobis nulla asperiores omnis minima nesciunt. Corporis?',
+      )
+    }
+  }, [selectedText]) /* 到时候这里改成扩写的Flag */
 
   // 注意 wrapper 的高度
   return <div style={{ height: '100%' }} ref={wrapper} />
