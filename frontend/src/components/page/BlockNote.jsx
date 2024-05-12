@@ -17,7 +17,6 @@ export default function App() {
       },
       {
         type: 'paragraph',
-在我的觉员任期内，我深刻认识到自己所肩负的责任和义务。我始终以觉员的标准严格要求自己，将党组织的建议作为自己的行动指南。我不断加强政治理论修养，积极参与廉洁自律的实践，努力提高服务质量和行政效率。
         content:
           "Press the '/' key - the hovered Slash Menu items are also blue",
       },

@@ -36,7 +36,7 @@ function App() {
                 <Outlet></Outlet>
               </Box>
               <div className="charWrap">
-                {pathname === '/page' && <AsideChat />}
+                {pathname.match(/\/page/) && <AsideChat />}
               </div>
             </div>
           </PageBody>
