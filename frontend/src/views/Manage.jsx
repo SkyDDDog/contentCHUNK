@@ -3,6 +3,7 @@ import React from "react";
 import ManageOverview from "./ManageOverview";
 import ManageContent from "./ManageContent";
 import ManageTable from "./ManageTable";
+import ManageCard from "./ManageCard";
 
 export default function Manage(){
   return (
@@ -18,6 +19,9 @@ export default function Manage(){
           <Tab>
             表格视图
           </Tab>
+          <Tab>
+            卡片视图
+          </Tab>
         </TabList>
 
         <TabPanels>
@@ -29,6 +33,9 @@ export default function Manage(){
           </TabPanel>
           <TabPanel>
             <ManageTable />
+          </TabPanel>
+          <TabPanel>
+            <ManageCard />
           </TabPanel>
         </TabPanels>
       </Tabs>
