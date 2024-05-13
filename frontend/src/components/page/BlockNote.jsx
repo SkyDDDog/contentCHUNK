@@ -17,9 +17,11 @@ import { BlockNoteView } from '@blocknote/mantine'
 import '@blocknote/react/style.css'
 import '@blocknote/mantine/style.css'
 import useMainWidth from '../../utils/useMainWidth'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ExpendButton } from './editor/toolbar/ExpendButton'
 import { useEffect } from 'react'
+import { setPageFirstRenderFlag } from '../../redux/page'
+import { setAddCount } from '../../redux/chat'
 
 export default function App() {
   // Creates a new editor instance
@@ -73,14 +75,22 @@ export default function App() {
   /* 从Chat部分添加内容 */
   const contentToAdd = useSelector((state) => state.chat.contentToAdd)
   const count = useSelector((state) => state.chat.addCount)
+  const pageFirstRenderFlag = useSelector(
+    (state) => state.page.PageFirstRenderFlag,
+  )
+  const dispatch = useDispatch()
   useEffect(() => {
-    console.log('123123123contentToAdd', contentToAdd)
+    console.log('flag', pageFirstRenderFlag)
+    if (pageFirstRenderFlag) {
+      dispatch(setPageFirstRenderFlag({ flag: false }))
+      return
+    }
+
+    if (!contentToAdd) return
+    /* 避免组件重新加载的时候添加内容 */
+    if (count === 0) return
     /* 获取最后一个块 */
     let lastBlock = editor.document[editor.document.length - 1]
-    console.log(lastBlock)
-    console.log(editor.document)
-    if (!contentToAdd) return
-    console.log('123123123123')
     editor.insertBlocks(
       [
         {
@@ -91,6 +101,8 @@ export default function App() {
       lastBlock,
       'after',
     )
+    console.log(editor.document)
+    dispatch(setAddCount({ count: count - 1 }))
   }, [count])
 
   /* layout about */

@@ -20,6 +20,7 @@ export default function AliChat() {
   /* redux */
   const dispatch = useDispatch()
   const selectedText = useSelector((state) => state.chat.selectedText)
+  let [contentToAdd, setContentToAdd] = useState('')
   useEffect(() => {
     const bot = new window.ChatSDK({
       root: wrapper.current,
@@ -224,9 +225,11 @@ export default function AliChat() {
         event.target.textContent == '应用'
       ) {
         console.log('dispatch setEditorAddedContent', contentToAdd)
+        /* 派发，告诉Editor添加 */
         dispatch(setEditorAddedContent({ contentToAdd }))
       }
     }
+
     // 在父元素上添加事件监听器，实现事件委托
     messageListDOM.addEventListener('click', handleClick)
 
@@ -234,9 +237,9 @@ export default function AliChat() {
     return () => {
       messageListDOM.removeEventListener('click', handleClick)
     }
-  })
+  }, [contentToAdd])
 
-  let [contentToAdd, setContentToAdd] = useState('')
+  /* 生成了需要添加的内容后，将其插入卡片 */
   useEffect(() => {
     if (!contentToAdd) return
     ctx.appendMessage({
@@ -269,19 +272,6 @@ export default function AliChat() {
         }, // 卡片数据
       },
     })
-
-    let applyBtn = document.querySelector('.CardActions .Btn')
-    if (!applyBtn) return
-    console.log('applyBtn', applyBtn)
-    applyBtn.addEventListener('click', () => {
-      ctx.appendMessage({
-        type: 'text',
-        content: {
-          text: '扩写完成',
-        },
-        position: 'left',
-      })
-    })
   }, [contentToAdd])
 
   /* 监听是否有选中的内容(点击扩写会改变) */
@@ -298,6 +288,7 @@ export default function AliChat() {
 
       /* 扩写 */
       /* 模拟获取扩写的结果 */
+      console.log('setContentTOadd hereherehere')
       setContentToAdd(
         Math.random() +
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptatibus pariatur numquam reiciendis enim ab, odio placeat dolorum error, officia porro vitae aut nobis nulla asperiores omnis minima nesciunt. Corporis?',

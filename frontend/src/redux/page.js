@@ -8,6 +8,7 @@ const initialState = {
     } */
   ],
   activePageKey: '',
+  PageFirstRenderFlag: true,
 }
 
 export const pageSlice = createSlice({
@@ -37,11 +38,19 @@ export const pageSlice = createSlice({
         state.tabPages.splice(index, 1)
       }
     },
+    setPageFirstRenderFlag: (state, { payload }) => {
+      console.log('setset')
+      state.PageFirstRenderFlag = payload.flag
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addActivePage, removeActiveTabItem, setActivePageKey } =
-  pageSlice.actions
+export const {
+  addActivePage,
+  removeActiveTabItem,
+  setActivePageKey,
+  setPageFirstRenderFlag,
+} = pageSlice.actions
 
 export default pageSlice.reducer

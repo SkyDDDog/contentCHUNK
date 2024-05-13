@@ -11,7 +11,6 @@ import { Outlet, useLocation } from 'react-router-dom'
 import AsideChat from './components/Home/AsideChat.jsx'
 import { Page, PageHeader, PageBody } from './saas-ui-pro/react/src/page'
 
-
 function App() {
   let location = useLocation()
   const { pathname } = location
@@ -37,8 +36,13 @@ function App() {
               >
                 <Outlet></Outlet>
               </Box>
-              <div className="charWrap">
-                {pathname.match(/\/page/) && <AsideChat />}
+              <div
+                className="charWrap"
+                style={{
+                  display: pathname.match(/\/page/) ? 'block' : 'none',
+                }}
+              >
+                {<AsideChat />}
               </div>
             </div>
           </PageBody>
