@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   sideNavWidth: 0,
+  
 }
 
 export const sideNavSlice = createSlice({

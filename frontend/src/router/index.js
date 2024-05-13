@@ -16,7 +16,7 @@ const router = createBrowserRouter([
         element: <div>账号管理</div>,
       },
       {
-        path: 'page',
+        path: 'page/:pageId',
         element: <Page></Page>,
       },
       {
