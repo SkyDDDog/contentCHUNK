@@ -1,10 +1,9 @@
-import os
-import sys
-from langchain_community.chat_models.moonshot import MoonshotChat
-from langchain_core.messages import HumanMessage, SystemMessage
 import asyncio
+
+from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate
-from AIbackend.model.init_llm import init_llm
+import time
+from model.init_llm import init_llm
 
 prompt = ChatPromptTemplate.from_template("tell me a joke about {topic}")
 
@@ -12,10 +11,10 @@ prompt = ChatPromptTemplate.from_template("tell me a joke about {topic}")
 
 messages = [
     SystemMessage(
-        content="You are a helpful assistant that translates English to French."
+        content="You are a helpful assistant."
     ),
     HumanMessage(
-        content="给我输出一篇小红书文案，主题是鼠标"
+        content="{text}"
     ),
 ]
 
@@ -24,21 +23,29 @@ messages1 = [
         content="You are a helpful assistant that translates English to French."
     ),
     HumanMessage(
-        content="给我输出一篇小红书文案，主题是键盘"
+        content="{text}"
     ),
 ]
+prompt1 = ChatPromptTemplate.from_messages(messages)
 
 
 async def base_chat(topic):
     llm=init_llm("zhipu")
-    chain = prompt | llm
-    async for chunk in chain.astream({"topic": topic}):
+    chain = prompt1 | llm
+    #async for chunk in chain.astream({"test":}):
+    async for chunk in chain.astream({"text":"帮我写个小红书文案，主题是鼠标"}):
         #print(chunk.content, end="", flush=True)
         yield chunk.content
 
+async def main() :
+    content= base_chat("bear")
+    async for chunk in content :
 
-
+        print(chunk)
+# chunk =  base_chat("bear")
+# for s in chunk :
+#     print(s.content)
 # 在异步环境中运行
-asyncio.run(base_chat("bear"))
+asyncio.run(main())
 
 

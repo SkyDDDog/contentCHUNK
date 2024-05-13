@@ -2,8 +2,9 @@ import React from 'react'
 
 import { Navbar, NavbarContent, NavbarItem } from '@saas-ui/react'
 
-import { Button } from '@chakra-ui/react'
 import PageTabs from '../page/PageTabs'
+import Login from '../../views/Login'
+import Signup from '../../views/Signup'
 export default function TopNav() {
   return (
     <Navbar
@@ -16,10 +17,10 @@ export default function TopNav() {
       <PageTabs></PageTabs>
       <NavbarContent justifyContent="flex-end" spacing="2">
         <NavbarItem>
-          <Button href="#">Login</Button>
+          <Login></Login>
         </NavbarItem>
         <NavbarItem>
-          <Button variant="primary">Sign up</Button>
+          <Signup></Signup>
         </NavbarItem>
       </NavbarContent>
     </Navbar>

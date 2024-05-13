@@ -5,7 +5,7 @@ const initialState = {
   boxWidth: 0,
   selectedText: '',
   contentToAdd: '',
-  addCount:0
+  addCount: 0,
 }
 
 export const chatSlice = createSlice({
@@ -24,12 +24,20 @@ export const chatSlice = createSlice({
     setEditorAddedContent: (state, { payload }) => {
       state.contentToAdd = payload.contentToAdd
       state.addCount = state.addCount + 1
-    }
+    },
+    setAddCount: (state, { payload }) => {
+      state.addCount = payload.count
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setChatExpended, setBoxWidth, setSelectedText, setEditorAddedContent } =
-  chatSlice.actions
+export const {
+  setChatExpended,
+  setBoxWidth,
+  setSelectedText,
+  setEditorAddedContent,
+  setAddCount,
+} = chatSlice.actions
 
 export default chatSlice.reducer
