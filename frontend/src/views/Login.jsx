@@ -19,8 +19,8 @@ import { Login } from '../api/userRequest'
 export default function App() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef()
-  const [username, setUsername] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [username, setUsername] = React.useState('lear')
+  const [password, setPassword] = React.useState('123465')
   const toast = useToast()
   function login() {
     let data = {
@@ -28,38 +28,35 @@ export default function App() {
       password,
     }
     Login(data)
-      .then(
-        (res) => {
-          console.log('res', res)
+      .then((res) => {
+        console.log('res', res)
+        if (res.status === 500 || res.data.msgCode != 0) {
           toast({
-            title: 'Account created.',
-            description: "We've created your account for you.",
-            status: 'success',
-            duration: 9000,
+            title: '登录失败.',
+            description: res.msg,
+            status: 'error',
+            duration: 3000,
             isClosable: true,
           })
-          /* 关闭对话框 */
-          onClose()
-        },
-        (err) => {
-          console.log('err', err)
-          toast({
-            title: 'Account created.',
-            description: "We've created your account for you.",
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-          })
-        },
-      )
-      .catch((err) => {
+          return
+        }
+        /* 登录成功 */
+        /* 设置token */
+        const token = res.data.item.token.access_token
+        if (token) {
+          localStorage.setItem('token', token)
+        }
         toast({
-          title: 'Login Filed.',
-          description: err,
-          status: 'error',
+          title: '登录成功.',
+          description: "Let's create !",
+          status: 'success',
           duration: 3000,
           isClosable: true,
         })
+      })
+      .finally(() => {
+        /* 关闭对话框 */
+        onClose()
       })
   }
   return (
