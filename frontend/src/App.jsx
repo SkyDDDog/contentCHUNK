@@ -10,6 +10,8 @@ import { Outlet, useLocation } from 'react-router-dom'
 // import Chat from './components/page/Chat.jsx'
 import AsideChat from './components/Home/AsideChat.jsx'
 import { Page, PageHeader, PageBody } from './saas-ui-pro/react/src/page'
+
+
 function App() {
   let location = useLocation()
   const { pathname } = location
