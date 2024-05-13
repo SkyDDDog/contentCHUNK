@@ -13,7 +13,9 @@ import {
 } from '@chakra-ui/react'
 import { Input } from '@chatui/core'
 import React from 'react'
-export default function Login() {
+
+
+export default function Signup() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef()
 
