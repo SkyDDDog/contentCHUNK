@@ -1,10 +1,9 @@
+import logging
 from typing import (
     TYPE_CHECKING,
     Any,
     Tuple
 )
-import sys
-import logging
 
 logger = logging.getLogger(__name__)
 

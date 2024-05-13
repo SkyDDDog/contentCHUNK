@@ -1,9 +1,9 @@
-import socket
-import sys
-import threading
 import json
-import numpy as np
+import socket
+import threading
+
 from tag import train2
+
 # nn=network.getNetWork()
 # cnn = conv.main(False)
 nnservice = train2.NNService(model='model/20180731.ckpt-1000')

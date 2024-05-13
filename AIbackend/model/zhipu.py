@@ -1,10 +1,9 @@
-from langchain_core.callbacks.manager import CallbackManager
-from langchain_core.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 import os
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.chat_models import ChatZhipuAI
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
-import asyncio
+import os
+
+from langchain_community.chat_models import ChatZhipuAI
+
 
 def init_zhipu() :
     os.environ["ZHIPUAI_API_KEY"] = "915b89224da38cece05322ee52849c9c.hlqKFSidGqZqL0jI"

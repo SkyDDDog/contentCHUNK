@@ -1,5 +1,6 @@
-from functools import wraps
 from contextlib import contextmanager
+from functools import wraps
+
 from server.db.base import SessionLocal
 from sqlalchemy.orm import Session
 

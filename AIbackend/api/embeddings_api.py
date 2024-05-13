@@ -1,10 +1,11 @@
-from langchain.docstore.document import Document
+from typing import Dict, List
+
 from configs import EMBEDDING_MODEL, logger
-from server.model.base import ApiEmbeddingsParams
-from utils.utils import BaseResponse, get_model_worker_config, list_embed_models, list_online_embed_models
 from fastapi import Body
 from fastapi.concurrency import run_in_threadpool
-from typing import Dict, List
+from langchain.docstore.document import Document
+from server.model.base import ApiEmbeddingsParams
+from utils.utils import BaseResponse, get_model_worker_config, list_online_embed_models
 
 online_embed_models = list_online_embed_models()
 

@@ -1,11 +1,9 @@
 import uvicorn
+from configs import VERSION, OPEN_CROSS_DOMAIN
 from fastapi import FastAPI
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
-
-from configs import VERSION, OPEN_CROSS_DOMAIN
-from server.chat.base_chat import base_chat
 
 
 # app = FastAPI()

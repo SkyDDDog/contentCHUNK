@@ -1,33 +1,11 @@
-import pydantic
-from pydantic import BaseModel
-from typing import List
-from fastapi import FastAPI
 from pathlib import Path
-import asyncio
-from configs import (LLM_MODELS, LLM_DEVICE, EMBEDDING_DEVICE,
-                     MODEL_PATH, MODEL_ROOT_PATH, ONLINE_LLM_MODEL, logger, log_verbose,
-                     FSCHAT_MODEL_WORKERS, HTTPX_DEFAULT_TIMEOUT)
-import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from langchain.chat_models import ChatOpenAI
-from langchain.llms import OpenAI
-import httpx
 from typing import (
-    TYPE_CHECKING,
     Literal,
-    Optional,
-    Callable,
-    Generator,
-    Dict,
-    Any,
-    Awaitable,
-    Union,
-    Tuple
+    Optional
 )
-import logging
-import torch
 
-from server.chat.chat_openai import MinxChatOpenAI
+from configs import (LLM_DEVICE, MODEL_PATH, MODEL_ROOT_PATH)
+
 
 def get_model_path(model_name: str, type: str = None) -> Optional[str]:
     if type in MODEL_PATH:

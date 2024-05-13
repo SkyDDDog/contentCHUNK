@@ -1,19 +1,20 @@
-from fastapi import Body
-from sse_starlette.sse import EventSourceResponse
-from configs import LLM_MODELS, TEMPERATURE
-from utils.utils import wrap_done, get_ChatOpenAI
-from langchain.chains import LLMChain
-from langchain.callbacks import AsyncIteratorCallbackHandler
-from typing import AsyncIterable
 import asyncio
 import json
-from langchain.prompts.chat import ChatPromptTemplate
+from typing import AsyncIterable
 from typing import List, Optional, Union
-from utils.chat_utils import History
+
+from configs import LLM_MODELS, TEMPERATURE
+from fastapi import Body
+from langchain.callbacks import AsyncIteratorCallbackHandler
+from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
-from utils.utils import get_prompt_template
-from server.db.repository import add_message_to_db
+from langchain.prompts.chat import ChatPromptTemplate
 from server.callback.ConversationCallbackHandler import ConversationCallbackHandler
+from server.db.repository import add_message_to_db
+from sse_starlette.sse import EventSourceResponse
+from utils.chat_utils import History
+from utils.utils import get_prompt_template
+from utils.utils import wrap_done, get_ChatOpenAI
 
 
 async def chat(query: str = Body(..., description="用户输入", examples=["恼羞成怒"]),
