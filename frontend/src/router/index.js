@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import App from '../App'
 import Manage from '../views/Manage'
 import Page from '../views/Page'
+import Distrubute from "../views/Distrubute";
 const router = createBrowserRouter([
   {
     path: '/',
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'distribute',
-        element: <div>distribute</div>,
+        element: <Distrubute></Distrubute>,
       },
     ],
   },
