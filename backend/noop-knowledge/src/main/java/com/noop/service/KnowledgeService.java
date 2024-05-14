@@ -22,24 +22,13 @@ public interface KnowledgeService {
     List<KnowledgeVO> getKnowledgeListByUserId(String userId);
 
     /**
-     * 创建知识库
-     * @param dto   知识库数据传输对象
-     * @return  是否创建成功
-     */
-    boolean createKnowledge(KnowledgeDTO dto);
-
-    /**
      * 更新知识库
-     * @param dto   知识库数据传输对象
-     * @return  是否更新成功
+     * @param userId    用户ID
+     * @param knowledgeDTO  知识库数据传输对象
+     * @return
      */
-    boolean updateKnowledge(KnowledgeDTO dto);
+    boolean updateKnowledge(String userId, KnowledgeDTO knowledgeDTO);
 
-    /**
-     * 删除知识库
-     * @param id    知识库ID
-     * @return  是否删除成功
-     */
-    boolean deleteKnowledge(String id);
+    boolean deleteKnowledge(String knowledgeId);
 
 }

@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.09 (64 bit)
-MySQL - 8.0.27 : Database - cloud
+MySQL - 8.0.27 : Database - noop
 *********************************************************************
 */
 
@@ -12,18 +12,19 @@ MySQL - 8.0.27 : Database - cloud
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`cloud` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`noop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-USE `cloud`;
+USE `noop`;
 
-/*Table structure for table `account` */
+/*Table structure for table `knowledge` */
 
-DROP TABLE IF EXISTS `account`;
+DROP TABLE IF EXISTS `knowledge`;
 
-CREATE TABLE `account` (
+CREATE TABLE `knowledge` (
   `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `user_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `money` int DEFAULT NULL,
+  `parent_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `type` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '0为文件夹，1为文件',
+  `title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
   `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -31,36 +32,18 @@ CREATE TABLE `account` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-/*Data for the table `account` */
+/*Data for the table `knowledge` */
 
-insert  into `account`(`id`,`user_id`,`money`,`create_date`,`update_date`,`del_flag`,`remarks`) values ('1','1749837707132424193',0,'2024-01-26 00:40:52','2024-01-26 00:40:52','0',NULL);
+insert  into `knowledge`(`id`,`parent_id`,`type`,`title`,`create_date`,`update_date`,`del_flag`,`remarks`) values ('1749837707132421145','1749837707132424193','0','测试','2024-05-14 00:21:34','2024-05-14 00:59:30','0',NULL),('1749837777132421545','1749837707132421145','0','测测','2024-05-14 00:21:34','2024-05-14 00:59:30','0',NULL),('1790061269852020737','1749837707132424193','0','this is a 啊啊啊啊','2024-05-14 00:47:19','2024-05-14 01:00:01','1',NULL),('1790061269852020738','1790061269852020737','1','this is a 私募了','2024-05-14 00:47:19','2024-05-14 01:00:01','1',NULL),('1859846357531357435','1749837777132421545','1','私募了','2024-05-14 00:26:55','2024-05-14 00:59:30','0',NULL);
 
-/*Table structure for table `order` */
+/*Table structure for table `knowledge_page` */
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `knowledge_page`;
 
-CREATE TABLE `order` (
-  `id` varchar(255) NOT NULL,
-  `user_id` varchar(255) DEFAULT NULL,
-  `commodity_code` varchar(255) DEFAULT NULL COMMENT '商品编码',
-  `count` int DEFAULT NULL,
-  `money` int DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `del_flag` char(1) DEFAULT NULL,
-  `remarks` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
-/*Data for the table `order` */
-
-/*Table structure for table `praise` */
-
-DROP TABLE IF EXISTS `praise`;
-
-CREATE TABLE `praise` (
+CREATE TABLE `knowledge_page` (
   `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `praise` int DEFAULT NULL,
+  `knowledge_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `page_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
   `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -68,18 +51,15 @@ CREATE TABLE `praise` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-/*Data for the table `praise` */
+/*Data for the table `knowledge_page` */
 
-insert  into `praise`(`id`,`praise`,`create_date`,`update_date`,`del_flag`,`remarks`) values ('1',2,'2024-01-25 19:51:00','2024-01-25 20:17:24','0',NULL);
+/*Table structure for table `page` */
 
-/*Table structure for table `storage` */
+DROP TABLE IF EXISTS `page`;
 
-DROP TABLE IF EXISTS `storage`;
-
-CREATE TABLE `storage` (
+CREATE TABLE `page` (
   `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `commodity_code` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商品编码',
-  `count` int DEFAULT NULL,
+  `content` text COLLATE utf8mb4_general_ci,
   `create_date` datetime DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
   `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -87,9 +67,7 @@ CREATE TABLE `storage` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-/*Data for the table `storage` */
-
-insert  into `storage`(`id`,`commodity_code`,`count`,`create_date`,`update_date`,`del_flag`,`remarks`) values ('1','114514',2,'2024-01-26 00:37:17','2024-01-26 00:44:13','0',NULL);
+/*Data for the table `page` */
 
 /*Table structure for table `sys_auth` */
 
@@ -97,12 +75,12 @@ DROP TABLE IF EXISTS `sys_auth`;
 
 CREATE TABLE `sys_auth` (
   `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `url` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
-  `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `remarks` text COLLATE utf8mb4_general_ci,
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `remarks` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -116,11 +94,11 @@ DROP TABLE IF EXISTS `sys_role`;
 
 CREATE TABLE `sys_role` (
   `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
-  `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `remarks` text COLLATE utf8mb4_general_ci,
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `remarks` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -133,13 +111,13 @@ insert  into `sys_role`(`id`,`name`,`create_date`,`update_date`,`del_flag`,`rema
 DROP TABLE IF EXISTS `sys_role_auth`;
 
 CREATE TABLE `sys_role_auth` (
-  `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `role_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `auth_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `role_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `auth_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
-  `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `remarks` text COLLATE utf8mb4_general_ci,
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `remarks` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -152,13 +130,13 @@ insert  into `sys_role_auth`(`id`,`role_id`,`auth_id`,`create_date`,`update_date
 DROP TABLE IF EXISTS `sys_user`;
 
 CREATE TABLE `sys_user` (
-  `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
-  `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `remarks` text COLLATE utf8mb4_general_ci,
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `remarks` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -171,13 +149,13 @@ insert  into `sys_user`(`id`,`username`,`password`,`create_date`,`update_date`,`
 DROP TABLE IF EXISTS `sys_user_role`;
 
 CREATE TABLE `sys_user_role` (
-  `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `user_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `role_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `role_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
-  `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `remarks` text COLLATE utf8mb4_general_ci,
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `remarks` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -204,6 +182,23 @@ CREATE TABLE `undo_log` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `undo_log` */
+
+/*Table structure for table `user_knowledge` */
+
+DROP TABLE IF EXISTS `user_knowledge`;
+
+CREATE TABLE `user_knowledge` (
+  `id` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `knowledge_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `remarks` text COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `user_knowledge` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

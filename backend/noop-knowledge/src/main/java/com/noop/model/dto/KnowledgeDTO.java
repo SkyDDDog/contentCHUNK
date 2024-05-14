@@ -1,10 +1,11 @@
 package com.noop.model.dto;
 
-import com.noop.config.ValidGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
  * 知识库数据传输对象
@@ -17,15 +18,21 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class KnowledgeDTO {
 
-    @Schema(description = "用户ID", example = "1749837707132424193")
-    @NotBlank(message = "用户ID不能为空", groups = {ValidGroup.Create.class})
-    private String userId;
+    private String id;
 
-    @Schema(description = "知识库ID")
-    @NotBlank(message = "知识库ID不能为空", groups = {ValidGroup.Update.class})
-    private String knowledgeId;
+    private String type;
+
+    private List<KnowledgeDTO> children;
 
     @Schema(description = "知识库标题", example = "this is a title")
     @NotBlank(message = "知识库标题不能为空")
     private String title;
+
+    /**
+     * 是否有子节点
+     * @return  是否有子节点
+     */
+    private boolean hasChildren() {
+        return children != null && !children.isEmpty();
+    }
 }

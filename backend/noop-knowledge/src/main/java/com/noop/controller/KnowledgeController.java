@@ -2,8 +2,6 @@ package com.noop.controller;
 
 import com.noop.common.CommonResult;
 import com.noop.common.MsgCodeUtil;
-import com.noop.config.ValidGroup;
-import com.noop.exception.BusinessException;
 import com.noop.model.dto.KnowledgeDTO;
 import com.noop.model.vo.KnowledgeVO;
 import com.noop.service.KnowledgeService;
@@ -15,8 +13,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,60 +46,46 @@ public class KnowledgeController {
             result.failCustom(MsgCodeUtil.MSG_CODE_ILLEGAL_ARGUMENT,"用户ID不能为空");
             return (CommonResult) result.end();
         }
+        //TODO
         List<KnowledgeVO> list = knowledgeService.getKnowledgeListByUserId(userId);
         result.success("knowledge", list);
 
         return (CommonResult) result.end();
     }
 
-
-
-    @Operation(summary = "创建知识库")
-    @PostMapping("/")
-    public CommonResult createKnowledge(@Validated({ValidGroup.Create.class}) @RequestBody KnowledgeDTO dto, BindingResult bindingResult) {
-        CommonResult result = new CommonResult().init();
-        // 参数验证
-        if (bindingResult.hasErrors()) {
-            throw new BusinessException(MsgCodeUtil.MSG_CODE_ILLEGAL_ARGUMENT, MsgCodeUtil.getIllegalArgumentMessage(bindingResult.getFieldErrors()));
-        }
-        if (knowledgeService.createKnowledge(dto)) {
-            result.success();
-        } else {
-            result.failCustom("创建知识库失败");
-        }
-        return (CommonResult) result.end();
-    }
-
     @Operation(summary = "更新知识库")
-    @PutMapping("/")
-    public CommonResult updateKnowledge(@Validated({ValidGroup.Update.class}) @RequestBody KnowledgeDTO dto, BindingResult bindingResult) {
+    @PostMapping("/{userId}")
+    public CommonResult updateKnowledge(@PathVariable String userId, @RequestBody KnowledgeDTO dto) {
         CommonResult result = new CommonResult().init();
-        // 参数验证
-        if (bindingResult.hasErrors()) {
-            throw new BusinessException(MsgCodeUtil.MSG_CODE_ILLEGAL_ARGUMENT, MsgCodeUtil.getIllegalArgumentMessage(bindingResult.getFieldErrors()));
+        if (dto == null) {
+            result.failCustom(MsgCodeUtil.MSG_CODE_ILLEGAL_ARGUMENT,"知识库数据不能为空");
+            return (CommonResult) result.end();
         }
-        if (knowledgeService.updateKnowledge(dto)) {
+        boolean success = knowledgeService.updateKnowledge(userId, dto);
+        if (success) {
             result.success();
         } else {
-            result.failCustom("修改知识库失败");
+            result.failCustom("更新知识库失败");
         }
         return (CommonResult) result.end();
     }
 
     @Operation(summary = "删除知识库")
-    @DeleteMapping("/{id}")
-    public CommonResult deleteKnowledge(@PathVariable String id) {
+    @DeleteMapping("/{knowledgeId}")
+    public CommonResult deleteKnowledge(@PathVariable String knowledgeId) {
         CommonResult result = new CommonResult().init();
-        if (!StringUtils.hasLength(id)) {
+        if (!StringUtils.hasLength(knowledgeId)) {
             result.failCustom(MsgCodeUtil.MSG_CODE_ILLEGAL_ARGUMENT,"知识库ID不能为空");
             return (CommonResult) result.end();
         }
-        if (knowledgeService.deleteKnowledge(id)) {
+        boolean success = knowledgeService.deleteKnowledge(knowledgeId);
+        if (success) {
             result.success();
         } else {
             result.failCustom("删除知识库失败");
         }
         return (CommonResult) result.end();
     }
+
 
 }

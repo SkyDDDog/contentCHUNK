@@ -3,6 +3,8 @@ package com.noop.model.vo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
  * 知识库视图对象
  *
@@ -15,6 +17,8 @@ import lombok.experimental.Accessors;
 public class KnowledgeVO {
 
     private String id;
+    private String type;
     private String title;
+    private List<KnowledgeVO> children;
 
 }
