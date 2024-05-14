@@ -1,0 +1,129 @@
+{
+  "type": "object",
+  "title": "图文按钮卡片",
+  "properties": {
+    "picUrl": {
+      "type": "string",
+      "title": "图片",
+      "format": "file"
+    },
+    "title": {
+      "type": "string",
+      "title": "标题"
+    },
+    "content": {
+      "type": "string",
+      "title": "内容"
+    },
+    "actionOrientation": {
+      "type": "string",
+      "title": "按钮方向",
+      "enum": ["0", "1"],
+      "enumNames": ["竖直排列", "横向排列"]
+    },
+    "actionList": {
+      "type": "array",
+      "title": "按钮",
+      "description": "按钮配置，可支持多个",
+      "items": {
+        "type": "object",
+        "title": "单个按钮",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "按钮文案",
+            "description": "按钮显示文案"
+          },
+          "style": {
+            "type": "string",
+            "title": "样式",
+            "enum": ["primary", "default"],
+            "enumNames": ["主要", "普通"],
+            "default": "primary"
+          },
+          "action": {
+            "type": "string",
+            "title": "按钮动作",
+            "description": "钉钉端仅支持openWindow",
+            "enum": ["openWindow", "sendText", "telephone"],
+            "enumNames": ["打开页面", "发送文案", "拨打电话"]
+          }
+        },
+        "dependencies": {
+          "action": {
+            "oneOf": [
+              {
+                "properties": {
+                  "action": {
+                    "enum": ["openWindow"]
+                  },
+                  "param": {
+                    "type": "object",
+                    "title": "参数",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "title": "跳转地址"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "action": {
+                    "enum": ["sendText"]
+                  },
+                  "param": {
+                    "type": "object",
+                    "title": "参数",
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "title": "发送文案"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "action": {
+                    "enum": ["telephone"]
+                  },
+                  "param": {
+                    "type": "object",
+                    "title": "参数",
+                    "properties": {
+                      "tel": {
+                        "type": "string",
+                        "title": "电话号码"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "action": {
+                    "enum": ["custom"]
+                  },
+                  "param": {
+                    "type": "object",
+                    "title": "参数",
+                    "properties": {
+                      "data": {
+                        "type": "string",
+                        "title": "参数json string"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { Tree, Dropdown } from 'antd'
-import { MailOutlined } from '@ant-design/icons'
+import { Tree, Dropdown, Popover, Input } from 'antd'
+import { CopyOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import {
   deleteItemByKeyInChildren,
   findItemByKey,
   updateTitleByKeyInChildren,
 } from '../utils/tree'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addActivePage } from '../redux/page'
 
 // Tree原始数据
 // 保证key唯一，表示的是item在Tree中的位置，以 '0-'（隐藏的根节点）开头
@@ -20,15 +23,15 @@ const defaultData = [
         key: '0-0-0', // 表示
         children: [
           {
-            title: 'leaf',
+            title: 'leaf1',
             key: '0-0-0-0',
           },
           {
-            title: 'leaf',
+            title: 'leaf2',
             key: '0-0-0-1',
           },
           {
-            title: 'leaf',
+            title: 'leaf3',
             key: '0-0-0-2',
           },
         ],
@@ -74,10 +77,133 @@ const defaultData = [
 const App = () => {
   const [gData, setGData] = useState(defaultData)
   const [expandedKeys] = useState(['0-0', '0-0-0', '0-0-0-0'])
+  const [openRename, setopenRename] = useState(false) // 控制重命名
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  function handleOpenChange(e) {
+    console.log(e)
+  }
+  const hide = () => {
+    setopenRename(false)
+  }
+
   const onDragEnter = (info) => {
     console.log(info)
     // expandedKeys, set it when controlled is needed
     // setExpandedKeys(info.expandedKeys)
+  }
+
+  // 自定义渲染Tree节点，添加右键菜单组件
+  const titleRender = (nodeData) => {
+    nodeData.editable = false
+    const menuItems = [
+      {
+        label: 'Duplicate',
+        key: '1',
+        icon: <CopyOutlined />,
+        onClick: () => {
+          console.log('Duplicate', nodeData)
+        },
+      },
+      {
+        label: 'Rename',
+        key: '2',
+        icon: <EditOutlined />,
+        onClick: () => {
+          console.log('Rename', nodeData)
+          setopenRename(!openRename)
+          // 找到需要操作的item
+          let item = findItemByKey(defaultData, nodeData.key)
+          console.log(item)
+          setGData((prevData) => {
+            // 使用递归函数来遍历数据并查找对应的项
+            return prevData.map((item) => {
+              if (item.key === nodeData.key) {
+                // 如果找到了对应的项，则更新其 title 属性
+                return {
+                  ...item,
+                  editable: true,
+                  title: 'renamed title',
+                }
+              } else if (item.children) {
+                // 如果当前项有子项，则递归调用该函数查找子项并更新
+                return {
+                  ...item,
+                  children: updateTitleByKeyInChildren(
+                    item.children,
+                    nodeData.key,
+                    'renamed title',
+                  ),
+                }
+              }
+              // 如果没有找到对应的项，则直接返回原始项
+              return item
+            })
+          })
+        },
+      },
+      {
+        label: 'Delete',
+        key: '3',
+        icon: <DeleteOutlined />,
+        onClick: () => {
+          console.log('Delete', nodeData)
+          const keyToDelete = nodeData.key
+          setGData((prevData) => {
+            // 使用递归函数来遍历数据并查找对应的项
+            return prevData.filter((item) => {
+              if (item.key === keyToDelete) {
+                // 如果找到了对应的项，则过滤掉该项，即删除
+                return false
+              } else if (item.children) {
+                // 如果当前项有子项，则递归调用该函数查找子项并删除
+                item.children = deleteItemByKeyInChildren(
+                  item.children,
+                  keyToDelete,
+                )
+                return true
+              }
+              // 如果没有找到对应的项，则保留原始项
+              return true
+            })
+          })
+        },
+      },
+      {
+        label: 'Add',
+        key: '4',
+        onClick: () => {
+          console.log('Copy', nodeData)
+        },
+      },
+    ]
+
+    return (
+      <Dropdown
+        menu={{
+          items: menuItems,
+        }}
+        trigger={['contextMenu']}
+      >
+        <div>
+          <Popover
+            content={
+              <>
+                <Input></Input>
+                <a onClick={hide}>Close</a>
+              </>
+            }
+            title="Title"
+            trigger="click"
+            open={nodeData.editable}
+            onOpenChange={handleOpenChange}
+          >
+            <div>{nodeData.title}</div>
+          </Popover>
+        </div>
+      </Dropdown>
+    )
   }
   const onDrop = (info) => {
     console.log(info)
@@ -129,96 +255,21 @@ const App = () => {
     setGData(data)
   }
 
-  // 自定义渲染Tree节点，添加右键菜单组件
-  const titleRender = (nodeData) => {
-    const menuItems = [
-      {
-        label: 'Duplicate',
-        key: '1',
-        icon: <MailOutlined />,
-        onClick: () => {
-          console.log('Duplicate', nodeData)
-        },
-      },
-      {
-        label: 'Rename',
-        key: '2',
-        onClick: () => {
-          console.log('Rename', nodeData)
-          // 找到需要操作的item
-          let item = findItemByKey(defaultData, nodeData.key)
-          console.log(item)
-          setGData((prevData) => {
-            // 使用递归函数来遍历数据并查找对应的项
-            return prevData.map((item) => {
-              if (item.key === nodeData.key) {
-                // 如果找到了对应的项，则更新其 title 属性
-                return {
-                  ...item,
-                  title: 'renamed title',
-                }
-              } else if (item.children) {
-                // 如果当前项有子项，则递归调用该函数查找子项并更新
-                return {
-                  ...item,
-                  children: updateTitleByKeyInChildren(
-                    item.children,
-                    nodeData.key,
-                    'renamed title',
-                  ),
-                }
-              }
-              // 如果没有找到对应的项，则直接返回原始项
-              return item
-            })
-          })
-        },
-      },
-      {
-        label: 'Delete',
-        key: '3',
-        onClick: () => {
-          console.log('Delete', nodeData)
-          const keyToDelete = nodeData.key
-          setGData((prevData) => {
-            // 使用递归函数来遍历数据并查找对应的项
-            return prevData.filter((item) => {
-              if (item.key === keyToDelete) {
-                // 如果找到了对应的项，则过滤掉该项，即删除
-                return false
-              } else if (item.children) {
-                // 如果当前项有子项，则递归调用该函数查找子项并删除
-                item.children = deleteItemByKeyInChildren(
-                  item.children,
-                  keyToDelete,
-                )
-                return true
-              }
-              // 如果没有找到对应的项，则保留原始项
-              return true
-            })
-          })
-        },
-      },
-      {
-        label: 'Add',
-        key: '4',
-        onClick: () => {
-          console.log('Copy', nodeData)
-        },
-      },
-    ]
-    return (
-      <Dropdown
-        menu={{
-          items: menuItems,
-        }}
-        trigger={['contextMenu']}
-      >
-        <div>{nodeData.title}</div>
-      </Dropdown>
-    )
+  function onSelect(selectedKeys, info) {
+    console.log('selected', selectedKeys, info)
+    let payload = {
+      title: info.node.title,
+      pageId: info.node.key,
+    }
+    if (!info.node.children) {
+      //是叶子节点
+      console.log('叶子')
+      // 更新仓库状态
+      dispatch(addActivePage(payload))
+      navigate(`/page/${info.node.key}`)
+    }
   }
+
   return (
     <Tree
       className="draggable-tree"
@@ -232,6 +283,7 @@ const App = () => {
       onDrop={onDrop}
       treeData={gData}
       titleRender={titleRender}
+      onSelect={onSelect}
     />
   )
 }

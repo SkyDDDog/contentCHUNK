@@ -1,6 +1,8 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import App from '../App'
-import BlockNote from '../components/BlockNote'
+import Manage from '../views/Manage'
+import Page from '../views/Page'
+import Distrubute from "../views/Distrubute";
 const router = createBrowserRouter([
   {
     path: '/',
@@ -11,12 +13,12 @@ const router = createBrowserRouter([
         element: <Navigate replace to={'/home'}></Navigate>,
       },
       {
-        path: 'test',
-        element: <div>123</div>,
+        path: 'user',
+        element: <div>账号管理</div>,
       },
       {
-        path: 'page',
-        element: <BlockNote></BlockNote>,
+        path: 'page/:pageId',
+        element: <Page></Page>,
       },
       {
         path: 'home',
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: 'setting',
         element: <div>setting</div>,
+      },
+      {
+        path: 'manage',
+        element: <Manage></Manage>,
+      },
+      {
+        path: 'distribute',
+        element: <Distrubute></Distrubute>,
       },
     ],
   },

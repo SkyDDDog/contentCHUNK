@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Box,
   Spacer,
@@ -27,6 +27,8 @@ import {
 
 import Tree from '../Tree.jsx'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setSideNavWidth } from '../../redux/sideNav.js'
 
 export default function SideNav() {
   const navigate = useNavigate()
@@ -34,9 +36,14 @@ export default function SideNav() {
   const [activeNavItem, setActiveNavItem] = useState(null)
   const handleNavItemClick = (itemName) => {
     setActiveNavItem(itemName)
+    if (itemName === 'page') {
+      navigate(`/${itemName}/1`)
+      return
+    }
     navigate(`/${itemName}`)
   }
   function onSideNavChange(e) {
+    /* active item change */
     console.log(e.target)
   }
   /* drag-resize about */
@@ -45,12 +52,39 @@ export default function SideNav() {
       console.log('Resize handle clicked')
     },
   })
+
+  /* ref */
+  const resizeBoxRef = useRef(null)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const observer = new ResizeObserver((entries) => {
+      // 当尺寸变化时，更新宽度
+      for (let entry of entries) {
+        const newWidth = entry.contentRect.width
+        dispatch(setSideNavWidth(newWidth))
+        // console.log('newWidth', newWidth)
+      }
+    })
+
+    // 开始观察 DOM 元素的尺寸变化
+    observer.observe(resizeBoxRef.current)
+
+    // 组件卸载时停止观察
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
+  /* tree about */
+  const { treeData } = useState({})
+
   return (
     <Box
       {...getContainerProps()}
       position="relative"
       bg="blackAlpha.200"
       borderRightWidth="2px"
+      /* handlePosition="left" */
       width="200px"
       minWidth="15vw"
       maxWidth="30vw"
@@ -82,6 +116,7 @@ export default function SideNav() {
         minWidth="15vw"
         maxWidth="30vw"
         toggleBreakpoint="sm"
+        ref={resizeBoxRef}
       >
         <SidebarSection direction="row">
           {/* <SaasUILogo width="100px" /> */}
@@ -117,21 +152,7 @@ export default function SideNav() {
             isActive={!activeNavItem || activeNavItem === 'home'}
             onClick={() => handleNavItemClick('home')}
           >
-            Home
-          </NavItem>
-          <NavItem
-            icon={<FiUsers />}
-            isActive={activeNavItem === 'test'}
-            onClick={() => handleNavItemClick('test')}
-          >
-            Users
-          </NavItem>
-          <NavItem
-            icon={<FiSettings />}
-            isActive={activeNavItem === 'setting'}
-            onClick={() => handleNavItemClick('setting')}
-          >
-            Settings
+            团队主页
           </NavItem>
           <NavItem
             icon={<FiBook />}
@@ -141,10 +162,63 @@ export default function SideNav() {
             内容中心
           </NavItem>
           {activeNavItem === 'page' && (
-            <NavGroup onClick={onSideNavChange} isCollapsible title="teamspace">
-              <Tree></Tree>
+            <NavGroup
+              onClick={onSideNavChange}
+              isCollapsible
+              title="团队文档"
+              style={{ marginBottom: '0' }}
+            >
+              <Tree structure={treeData}></Tree>
             </NavGroup>
           )}
+          {activeNavItem === 'page' && (
+            <NavGroup onClick={onSideNavChange} isCollapsible title="个人文档">
+              {/* <Tree></Tree> */}
+              <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    marginLeft: '1%',
+                    fontSize: '13px',
+                    color: '#666',
+                    cursor: 'pointer',
+                  }}
+                >
+                  +add page
+                </div>
+              </div>
+            </NavGroup>
+          )}
+          <NavItem
+            icon={<FiBook />}
+            isActive={activeNavItem === 'distribute'}
+            onClick={() => handleNavItemClick('distribute')}
+          >
+            自动分发
+          </NavItem>
+          <NavItem
+            icon={<FiBook />}
+            isActive={activeNavItem === 'manage'}
+            onClick={() => handleNavItemClick('manage')}
+          >
+            运营管理
+          </NavItem>
+          <NavItem
+            icon={<FiUsers />}
+            isActive={activeNavItem === 'user'}
+            onClick={() => handleNavItemClick('user')}
+          >
+            账号管理
+          </NavItem>
+          <NavItem
+            icon={<FiSettings />}
+            isActive={activeNavItem === 'setting'}
+            onClick={() => handleNavItemClick('setting')}
+          >
+            其他设置
+          </NavItem>
         </SidebarSection>
       </Sidebar>
     </Box>

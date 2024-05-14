@@ -1,0 +1,12 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  background-image: none !important;
+}
+
+.css-xxuewr {
+  max-width: 100% !important;
+}

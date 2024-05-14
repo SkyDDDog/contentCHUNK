@@ -1,18 +1,10 @@
 import React from 'react'
 
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  SearchInput,
-  NavbarLink,
-} from '@saas-ui/react'
+import { Navbar, NavbarContent, NavbarItem } from '@saas-ui/react'
 
-import { Button } from '@chakra-ui/react'
-
-import { FiHome } from 'react-icons/fi'
-
+import PageTabs from '../page/PageTabs'
+import Login from '../../views/Login'
+import Signup from '../../views/Signup'
 export default function TopNav() {
   return (
     <Navbar
@@ -20,33 +12,15 @@ export default function TopNav() {
       borderBottomWidth="1px"
       background="transparent"
       backdropFilter="blur(10px)"
-      height="10vh"
+      height="8vh"
     >
-      <NavbarBrand>
-        <FiHome width="100px" />
-      </NavbarBrand>
-      <NavbarContent>
-        <NavbarItem>
-          <NavbarLink isActive aria-current="page" href="#">
-            Home
-          </NavbarLink>
-        </NavbarItem>
-        <NavbarItem>
-          <NavbarLink href="#">About</NavbarLink>
-        </NavbarItem>
-        <NavbarItem>
-          <NavbarLink href="#">Contact</NavbarLink>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent>
-        <SearchInput />
-      </NavbarContent>
+      <PageTabs></PageTabs>
       <NavbarContent justifyContent="flex-end" spacing="2">
         <NavbarItem>
-          <Button href="#">Login</Button>
+          <Login></Login>
         </NavbarItem>
         <NavbarItem>
-          <Button variant="primary">Sign up</Button>
+          <Signup></Signup>
         </NavbarItem>
       </NavbarContent>
     </Navbar>

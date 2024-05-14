@@ -1,0 +1,58 @@
+:root {
+  --brand-1: #1d979e;
+  --brand-2: #1d979e;
+  --brand-3: #1d979e;
+  --gray-5: #ffffff;
+  --gray-6: #ffffff; /* 顶部栏 */
+  --marked-color: #fff;
+  --btn-primary-color: #ffffff;
+  /* --btn-black-color: #000000; */
+}
+.ChatApp,
+.MessageContainer,
+.Navbar,
+.Message .Bubble,
+.QuickReplies,
+.ChatFooter {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.ChatApp {
+  background-color: #ececec;
+}
+.Notice {
+  background-color: #ffffff;
+}
+.Message.left .Bubble {
+  background-color: #e6f1f8;
+  color: #111;
+}
+.Message.right .Bubble {
+  color: #fff;
+}
+.QuickReply.highlight {
+  background-color: #e6f1f8;
+  border-color: #e8e3e3;
+}
+.QuickReplies,
+.ChatFooter {
+  background-color: #eee;
+}
+
+.Composer-sendBtn {
+  background-color: #1d979e !important;
+}
+:root {
+  --right: #1d979e;
+  --left: #e6f1f8;
+}
+
+/* action卡片的按钮 */
+.CardActions .Btn {
+  background-color: #1d979e;
+  color: #fff;
+}
+
+.CardTitle-title {
+  color: gray;
+}
