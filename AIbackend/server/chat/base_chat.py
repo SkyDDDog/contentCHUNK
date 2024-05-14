@@ -2,18 +2,16 @@ import asyncio
 import json
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate,HumanMessagePromptTemplate
 from AIbackend.model.init_llm import init_llm
 
 
-async def base_chat(query):
+async def base_chat(query : str):
     messages = [
         SystemMessage(
             content="你是一个专业的AI助手。"
         ),
-        HumanMessage(
-            content="{query}"
-        ),
+        HumanMessagePromptTemplate.from_template("{query}"),
     ]
     prompt = ChatPromptTemplate.from_messages(messages)
     llm=init_llm("zhipu")
@@ -27,18 +25,18 @@ async def base_chat(query):
         yield f"data: {json.dumps(js_data, ensure_ascii=False)}\n\n"
         # yield chunk.content
         text+=token
-    print(text)
+    #print(text)
 
-async def main() :
-    base_chat("bear")
-    # async for chunk in content :
-    #
-    #     print(chunk)
-# chunk =  base_chat("bear")
-# for s in chunk :
-#     print(s.content)
-# 在异步环境中运行
-
-asyncio.run(main())
+# async def main() :
+#     #await base_chat("bear")
+#     # async for chunk in content :
+#     #
+#     #     print(chunk)
+# # chunk =  base_chat("bear")
+# # for s in chunk :
+# #     print(s.content)
+# # 在异步环境中运行
+#
+# asyncio.run(main())
 
 

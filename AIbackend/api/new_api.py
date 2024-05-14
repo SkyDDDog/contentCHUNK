@@ -3,8 +3,10 @@ from fastapi.responses import StreamingResponse
 from AIbackend.server.chat.base_chat import base_chat
 app = FastAPI()
 
+
+
 @app.get("/chat")
-def chat_stream(query: str = "你是谁"):
+def chat_stream(query):
 
     generate = base_chat(query)
     return StreamingResponse(generate, media_type="text/event-stream")
