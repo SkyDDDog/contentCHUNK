@@ -1,0 +1,36 @@
+version: "3"
+services:
+  gateway-service:
+    image: noop-gateway
+    hostname: gateway-service
+    build:
+      dockerfile: ./noop-gateway/Dockerfile
+      context: ../
+    env_file:
+      - .env
+    container_name: noop-gateway
+    ports:
+      - ${GATEWAY_PORT}:${GATEWAY_PORT}
+
+  auth-service:
+    image: noop-auth
+    build:
+      dockerfile: ./noop-auth/Dockerfile
+      context: ../
+    env_file:
+      - .env
+    container_name: noop-auth
+    ports:
+      - ${AUTH_PORT}:${AUTH_PORT}
+
+  knowledge-service:
+    image: noop-knowledge
+    build:
+      dockerfile: ./noop-knowledge/Dockerfile
+      context: ../
+    env_file:
+      - .env
+    container_name: noop-knowledge
+    ports:
+      - ${KNOWLEDGE_PORT}:${KNOWLEDGE_PORT}
+
