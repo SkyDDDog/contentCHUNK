@@ -22,7 +22,10 @@ import { ExpendButton } from './editor/toolbar/ExpendButton'
 import { useEffect /* useMemo */ } from 'react'
 import { setPageFirstRenderFlag } from '../../redux/page'
 import { setAddCount } from '../../redux/chat'
-import { UpdatePageContent } from '../../api/knowledgeRequest'
+import {
+  GetPageContentById,
+  UpdatePageContent,
+} from '../../api/knowledgeRequest'
 // import { GetPageContentById } from '../../api/knowledgeRequest'
 
 export default function App() {
@@ -120,9 +123,30 @@ export default function App() {
   const rightWidth = useSelector((state) => state.chat.boxWidth)
   const mainWidth = useMainWidth(leftWidth, rightWidth)
   const curPageId = useSelector((state) => state.page.activePageKey)
-  function contentChangeHandler() {
+  useEffect(() => {
+    if (!curPageId) {
+      return
+    }
+    GetPageContentById(curPageId).then(async (res) => {
+      let pageHTML = res.data.item.page.content
+        ? res.data.item.page.content
+        : ''
+      console.log('getHTML', pageHTML)
+      const blocksFromHTML = await editor.tryParseHTMLToBlocks(pageHTML)
+      console.log(blocksFromHTML)
+      // editor.forEachBlock((block) => {
+      //   editor.removeBlocks(block)
+      // })
+      let lastBlock = editor.document[editor.document.length - 1]
+      console.log('last', lastBlock)
+      editor.replaceBlocks(editor.document, blocksFromHTML)
+    })
+  }, [curPageId])
+  async function contentChangeHandler() {
     console.log('change')
-    UpdatePageContent(curPageId, 'testContent').then((res) => {
+    const HTMLFromBlocks = await editor.blocksToHTMLLossy()
+    console.log('html', HTMLFromBlocks)
+    UpdatePageContent(curPageId, HTMLFromBlocks).then((res) => {
       console.log('更新page内容', curPageId, res)
     })
   }

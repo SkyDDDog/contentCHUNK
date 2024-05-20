@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Tabs } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeActiveTabItem } from '../../redux/page'
+import { removeActiveTabItem, setActivePageKey } from '../../redux/page'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -23,7 +23,9 @@ const App = () => {
       }
     })
   }, [tabPages])
+
   const onChange = (newActiveKey) => {
+    dispatch(setActivePageKey(newActiveKey))
     setActiveKey(newActiveKey)
     console.log('onChange', newActiveKey)
   }

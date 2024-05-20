@@ -15,8 +15,9 @@ export const pageSlice = createSlice({
   name: 'page',
   initialState,
   reducers: {
-    setActivePageKey: (state, { pageId }) => {
-      state.activePageKey = pageId
+    setActivePageKey: (state, {payload}) => {
+      console.log('pageid in redux', payload)
+      state.activePageKey = payload
     },
     addActivePage: (state, { payload }) => {
       /* 不论是否在tabs自己中存在，都要设置为AcitveTab */
