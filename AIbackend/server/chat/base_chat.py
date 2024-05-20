@@ -14,7 +14,7 @@ async def base_chat(query : str):
         HumanMessagePromptTemplate.from_template("{query}"),
     ]
     prompt = ChatPromptTemplate.from_messages(messages)
-    llm=init_llm("zhipu")
+    llm=init_llm("kimi")
     chain = prompt | llm
 
     text=" "
