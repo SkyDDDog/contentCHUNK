@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Row, Segmented, Button, Input, DatePicker, Space} from 'antd';
 import {UploadOutlined} from '@ant-design/icons'; // 导入UploadOutlined图标
 
-const Distrubute = () => (
+const Distribute = () => (
   <div> {/* 添加根div元素 */}
     <Segmented size={'large'} options={['视频分发', '图片分发']} onChange={(value) => {
       console.log(value); // string
@@ -62,4 +62,4 @@ const Distrubute = () => (
   </div>
 );
 
-export default Distrubute;
+export default Distribute;
