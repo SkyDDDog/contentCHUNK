@@ -25,7 +25,7 @@ import {
   useResize,
 } from '../../saas-ui-pro/react/src/resize/index.ts'
 
-import Tree from '../Tree.jsx'
+import Tree from '../page/tree/Tree.jsx'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setSideNavWidth } from '../../redux/sideNav.js'

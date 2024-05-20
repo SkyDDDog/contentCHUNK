@@ -11,26 +11,42 @@ import {
   FormLabel,
   FormHelperText,
   useToast,
+  Spinner,
 } from '@chakra-ui/react'
 import { Input } from '@chatui/core'
-import React from 'react'
+import React, { useState } from 'react'
 import { Login } from '../api/userRequest'
+import { useDispatch } from 'react-redux'
+import {
+  setKnowLedgeList,
+  setLoginStatus,
+  setUserInfo,
+} from '../redux/userSlice'
+import {
+  GetKnowLedgeList,
+  // GetPagesByKnowLedgeId,
+} from '../api/knowledgeRequest'
 
 export default function App() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef()
   const [username, setUsername] = React.useState('lear')
   const [password, setPassword] = React.useState('123465')
+  const [isLoading, setIsLoading] = useState(false)
   const toast = useToast()
-  function login() {
+
+  const dispatch = useDispatch()
+
+  async function login() {
+    setIsLoading(true)
     let data = {
       username,
       password,
     }
     Login(data)
-      .then((res) => {
+      .then(async (res) => {
         console.log('res', res)
-        if (res.status === 500 || res.data.msgCode != 0) {
+        if (res.data.msgCode != 0) {
           toast({
             title: '登录失败.',
             description: res.msg,
@@ -46,6 +62,23 @@ export default function App() {
         if (token) {
           localStorage.setItem('token', token)
         }
+        /* 设置登录状态 */
+        dispatch(setLoginStatus(true))
+        /* 设置用户信息 */
+        dispatch(setUserInfo(res.data.item.user))
+        /* 获取知识库 */
+        let knowledges = (await GetKnowLedgeList(res.data.item.user.id)).data
+          .item.knowledge
+        console.log('knowledges', knowledges)
+        /* 获取Page */
+        /* 循环 */
+        // knowledges.forEach(element => {
+        //   let pages = GetPagesByKnowLedgeId(knowledges[0].id)
+        // });
+
+        dispatch(setKnowLedgeList(knowledges))
+
+        /* 提示 */
         toast({
           title: '登录成功.',
           description: "Let's create !",
@@ -54,7 +87,18 @@ export default function App() {
           isClosable: true,
         })
       })
+      .catch((err) => {
+        toast({
+          title: '登录失败.',
+          description: err.msg,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      })
       .finally(() => {
+        /* 停止loading */
+        setIsLoading(false)
         /* 关闭对话框 */
         onClose()
       })
@@ -99,6 +143,17 @@ export default function App() {
             </AlertDialogBody>
 
             <AlertDialogFooter>
+              {isLoading && (
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="md"
+                  marginRight="15px"
+                />
+              )}
+
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>

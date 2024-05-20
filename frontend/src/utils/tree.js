@@ -58,3 +58,46 @@ export const deleteItemByKeyInChildren = (children, keyToDelete) => {
 }
 
 // 添加：有children就追加，没有就添加
+
+/* 将后端的目录树转换为前端的树要用的结构 */
+export function transFormBackEndToTreeData(obj) {
+  return {
+    title: obj.title,
+    key: obj.id,
+    type: obj.type,
+    children: obj.children.map((child) => {
+      if (child.type === '0') {
+        return transFormBackEndToTreeData(child)
+      } else {
+        return {
+          title: child.title,
+          key: child.id,
+          type: '1',
+        }
+      }
+    }),
+  }
+}
+
+export const transFormTreeDataToBackEnd = (obj) => {
+  console.log('objheare', obj)
+  return {
+    title: obj.title,
+    id: obj.key,
+    type: obj.type,
+    children: obj.children
+      ? obj.children.map((child) => {
+          if (child.type === '0') {
+            return transFormTreeDataToBackEnd(child)
+          } else {
+            return {
+              title: child.title,
+              id: child.key,
+              type: '1',
+              children: [],
+            }
+          }
+        })
+      : [],
+  }
+}

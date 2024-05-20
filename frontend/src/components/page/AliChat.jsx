@@ -8,11 +8,16 @@ import '@chatui/core/dist/index.css'
 import '../../assets/css/chatui-theme.css'
 /* redux */
 import { useDispatch, useSelector } from 'react-redux'
+
 import {
   setBoxWidth,
   setChatExpended,
   setEditorAddedContent,
 } from '../../redux/chat'
+import { fetchEventSource } from '@microsoft/fetch-event-source'
+/* 聊天 */
+let lastMsgId = 1
+let expendFlag = false
 let ctx
 export default function AliChat() {
   const wrapper = useRef()
@@ -161,9 +166,54 @@ export default function AliChat() {
         /* ... */
         send: function (msg) {
           console.log(msg)
+          let firstReceive = true
           // 发送文本消息时
           if (msg.type === 'text') {
-            return {
+            // return chat(msg.content.text).then((response) => response.text())
+            return new Promise((resolve) => {
+              let resStr = ''
+              fetchEventSource(
+                `http://127.0.0.1:10088/chat?query=${msg.content.text}`,
+                {
+                  /* async onopen(response) {
+                    console.log('open', response)
+                    if (response.ok) {
+                    }
+                  }, */
+                  onmessage: (event) => {
+                    // ctx.scrollToEnd()
+                    let jsonData = JSON.parse(event.data)
+                    if (jsonData.data) {
+                      resStr += jsonData.data
+                    }
+                    if (firstReceive) {
+                      resolve(' ')
+                      firstReceive = false
+                      return
+                    }
+                    // resolve(resStr)
+                    let lastMsg = Array.from(
+                      document.querySelectorAll('.Knowledge-content'),
+                    ).pop()
+                    console.log(lastMsg)
+                    lastMsg.innerHTML = resStr
+                    console.log('resStr', resStr)
+                  },
+                  onclose() {
+                    // ctx.scrollToEnd()
+                    lastMsgId++
+                    // if the server closes the connection unexpectedly, retry:
+                    console.log('close')
+                    if (expendFlag) {
+                      setContentToAdd(resStr)
+                      expendFlag = false
+                    }
+                  },
+                },
+              )
+            })
+            // .then((result) => console.log(result))
+            /* return {
               _id: '1',
               type: 'card',
               content: {
@@ -175,7 +225,7 @@ export default function AliChat() {
               meta: {
                 evaluable: true, // 是否展示点赞点踩按钮
               },
-            }
+            } */
             // ... 其它消息类型的处理
 
             // 当需要增加header或者websocket、sse等特殊形式消息处理时，可以返回Promise，假如返回Promise对象是空对象，则不会展示消息内容
@@ -197,13 +247,21 @@ export default function AliChat() {
         parseResponse: function (res, requestType) {
           console.log('res', res, requestType)
           // 根据 requestType 处理数据
-          if (requestType === 'send' && res.Messages) {
-            // 用 isv 消息解析器处理数据
-            return { data: res }
+          // 用 isv 消息解析器处理数据
+          console.log('lastMsgId_____________________________', lastMsgId)
+          return {
+            _id: ++lastMsgId + ' ',
+            type: 'card',
+            content: {
+              code: 'knowledge',
+              data: {
+                text: res,
+              },
+            },
+            meta: {
+              evaluable: true, // 是否展示点赞点踩按钮
+            },
           }
-
-          // 不需要处理的数据直接返回
-          return res
         },
       },
     })
@@ -261,7 +319,7 @@ export default function AliChat() {
               },
             },
             {
-              text: '重写',
+              text: '编辑',
               action: 'sendText',
               style: 'default',
               param: {
@@ -278,7 +336,15 @@ export default function AliChat() {
   useEffect(() => {
     if (selectedText) {
       /* 插入Chat */
-      ctx.appendMessage({
+      /* ctx.appendMessage({
+        type: 'text',
+        content: {
+          text: selectedText,
+        },
+        position: 'right',
+      }) */
+      expendFlag = true
+      ctx.postMessage({
         type: 'text',
         content: {
           text: selectedText,
@@ -288,11 +354,37 @@ export default function AliChat() {
 
       /* 扩写 */
       /* 模拟获取扩写的结果 */
-      console.log('setContentTOadd hereherehere')
-      setContentToAdd(
+      // let resStr = '扩写结果：'
+      // fetchEventSource(`http://127.0.0.1:10088/chat?query=${selectedText}`, {
+      //   /*  async onopen(response) {
+      //               console.log('open', response)
+      //               if (response.ok) {
+      //                 resolve(resStr)
+      //               }
+      //             }, */
+      //   onmessage: (event) => {
+      //     let jsonData = JSON.parse(event.data)
+      //     if (jsonData.data) {
+      //       resStr += jsonData.data
+      //     }
+      //     // resolve(resStr)
+
+      //     console.log('resStr', resStr)
+      //   },
+      //   onclose() {
+      //     lastMsgId++
+      //     // if the server closes the connection unexpectedly, retry:
+      //     console.log('close')
+      //     setContentToAdd(resStr)
+      //   },
+      //   onerror() {
+      //     console.log('error')
+      //   },
+      // })
+      /*       setContentToAdd(
         Math.random() +
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptatibus pariatur numquam reiciendis enim ab, odio placeat dolorum error, officia porro vitae aut nobis nulla asperiores omnis minima nesciunt. Corporis?',
-      )
+      ) */
     }
   }, [selectedText]) /* 到时候这里改成扩写的Flag */
 
