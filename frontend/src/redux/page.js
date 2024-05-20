@@ -19,9 +19,9 @@ export const pageSlice = createSlice({
       state.activePageKey = pageId
     },
     addActivePage: (state, { payload }) => {
-      /* 不论是否存在，都要设置为AcitveTab */
+      /* 不论是否在tabs自己中存在，都要设置为AcitveTab */
       state.activePageKey = payload.pageId
-      // 如果存在就不添加
+      // 如果tabs存在就不添加
       if (
         state.tabPages.findIndex((page) => page.pageId === payload.pageId) > -1
       ) {

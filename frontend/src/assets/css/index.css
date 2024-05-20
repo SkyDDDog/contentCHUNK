@@ -9,4 +9,18 @@
 
 .css-xxuewr {
   max-width: 100% !important;
+  max-height: 87vh !important;
+  overflow: auto !important;
+}
+
+.editorWrap {
+  max-width: 100% !important;
+  max-height: 90vh !important;
+  overflow: auto !important;
+}
+
+/* 不限制卡片长度 */
+.Knowledge-body {
+  max-height: 1000px !important;
+  overflow: auto;
 }

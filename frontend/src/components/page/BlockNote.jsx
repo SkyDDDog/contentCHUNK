@@ -19,9 +19,10 @@ import '@blocknote/mantine/style.css'
 import useMainWidth from '../../utils/useMainWidth'
 import { useDispatch, useSelector } from 'react-redux'
 import { ExpendButton } from './editor/toolbar/ExpendButton'
-import { useEffect } from 'react'
+import { useEffect /* useMemo */ } from 'react'
 import { setPageFirstRenderFlag } from '../../redux/page'
 import { setAddCount } from '../../redux/chat'
+// import { GetPageContentById } from '../../api/knowledgeRequest'
 
 export default function App() {
   // Creates a new editor instance
@@ -63,14 +64,21 @@ export default function App() {
       },
       {
         type: 'paragraph',
-        content: 'Select some text to try them out',
+        content: 'https://t7.baidu.com/it/u=954153296,2797898137&fm=193&f=GIF',
       },
       {
         type: 'paragraph',
       },
     ],
   })
-  /*  editor.insertBlocks([{ id: '1', type: 'paragraph', text: '123' }]) */
+  /* 当前Page内容 */
+  // const activePageId = useSelector((state) => state.page.activePageKey)
+  // let pageContent = useMemo(async () => {
+  //   let res = await GetPageContentById(activePageId)
+  //   console.log('pageContent', res)
+  //   return res
+  // }, [activePageId])
+  // console.log(pageContent)
 
   /* 从Chat部分添加内容 */
   const contentToAdd = useSelector((state) => state.chat.contentToAdd)
