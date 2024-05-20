@@ -11,7 +11,10 @@ import {
   transFormBackEndToTreeData,
   transFormTreeDataToBackEnd,
 } from '../../../utils/tree'
-import { UpdateKnowledgeByUserId } from '../../../api/knowledgeRequest'
+import {
+  GetKnowLedgeList,
+  UpdateKnowledgeByUserId,
+} from '../../../api/knowledgeRequest'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addActivePage } from '../../../redux/page'
@@ -26,6 +29,7 @@ import {
   Button,
   useDisclosure,
 } from '@chakra-ui/react'
+import { setKnowLedgeList } from '../../../redux/userSlice'
 
 // Tree原始数据
 // 保证key唯一，表示的是item在Tree中的位置，以 '0-'（隐藏的根节点）开头
@@ -236,6 +240,10 @@ const App = () => {
       navigate(`/page/${info.node.key}`)
     }
   }
+  async function reloadTreeData() {
+    let knowledges = (await GetKnowLedgeList(userInfo.id)).data.item.knowledge
+    dispatch(setKnowLedgeList(knowledges))
+  }
 
   function onConfirmModal() {
     if (modelTitle === '重命名') {
@@ -262,9 +270,11 @@ const App = () => {
 
     UpdateKnowledgeByUserId(userInfo.id, data).then((res) => {
       console.log('res', res)
+      /* 更新tree */
+      reloadTreeData()
+      onClose()
+      setModalValue('')
     })
-    onClose()
-    setModalValue('')
   }
 
   return (

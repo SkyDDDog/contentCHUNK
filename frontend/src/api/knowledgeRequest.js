@@ -15,11 +15,11 @@ export const GetPagesByKnowLedgeId = (knowledgeId) => {
 }
 
 /* 更新知识库目录 */
-export const UpdateKnowledgeByUserId = (userId,data) => {
+export const UpdateKnowledgeByUserId = (userId, data) => {
   return request({
     url: `/knowledge-service/knowledge/${userId}`,
-    method:'post',
-    data
+    method: 'post',
+    data,
   })
 }
 
@@ -30,4 +30,14 @@ export const GetPageContentById = (pageId) => {
   })
 }
 
-
+/* 更新page内容 */
+export const UpdatePageContent = (pageId, content) => {
+  return request({
+    method: 'put',
+    url: `/knowledge-service/page/`,
+    data: {
+      pageId,
+      content,
+    },
+  })
+}

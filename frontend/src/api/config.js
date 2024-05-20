@@ -6,7 +6,7 @@ import axios from 'axios'
 //1. 创建新的axios实例，
 const service = axios.create({
   // 公共接口--这里注意后面会讲
-  baseURL: 'http://139.9.5.117:10001',
+  baseURL: 'http://123.249.33.39:10001',
   // 超时时间 单位是ms，这里设置了3s的超时时间
   timeout: 3 * 1000,
 })

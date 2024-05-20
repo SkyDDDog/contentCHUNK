@@ -7,7 +7,7 @@ const initialState = {
       pageId:'xxx'
     } */
   ],
-  activePageKey: '',
+  activePageKey: '', // pageId
   PageFirstRenderFlag: true,
 }
 

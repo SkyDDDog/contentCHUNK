@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { GetKnowLedgeList } from '../api/knowledgeRequest'
+
 const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -23,9 +25,7 @@ const userSlice = createSlice({
     }
    */
     ],
-    pages:{
-
-    }
+    pages: {},
   },
   reducers: {
     setUserInfo(state, { payload }) {
@@ -36,9 +36,20 @@ const userSlice = createSlice({
     },
     setLoginStatus(state, { payload }) {
       state.isLogin = payload
-    }
+    },
+    /* 如何在rtk中使用异步 */
+    async reloadKnowledgeList(state) {
+      let knowledges = (await GetKnowLedgeList(state.userInfo.id)).data.item
+        .knowledge
+      state.knowledgeList = knowledges
+    },
   },
 })
 
-export const { setLoginStatus,setUserInfo, setKnowLedgeList } = userSlice.actions
+export const {
+  setLoginStatus,
+  setUserInfo,
+  setKnowLedgeList,
+  reloadKnowledgeList,
+} = userSlice.actions
 export default userSlice.reducer

@@ -22,6 +22,7 @@ import { ExpendButton } from './editor/toolbar/ExpendButton'
 import { useEffect /* useMemo */ } from 'react'
 import { setPageFirstRenderFlag } from '../../redux/page'
 import { setAddCount } from '../../redux/chat'
+import { UpdatePageContent } from '../../api/knowledgeRequest'
 // import { GetPageContentById } from '../../api/knowledgeRequest'
 
 export default function App() {
@@ -71,6 +72,7 @@ export default function App() {
       },
     ],
   })
+
   /* 当前Page内容 */
   // const activePageId = useSelector((state) => state.page.activePageKey)
   // let pageContent = useMemo(async () => {
@@ -117,14 +119,24 @@ export default function App() {
   const leftWidth = useSelector((state) => state.sideNav.sideNavWidth)
   const rightWidth = useSelector((state) => state.chat.boxWidth)
   const mainWidth = useMainWidth(leftWidth, rightWidth)
-
+  const curPageId = useSelector((state) => state.page.activePageKey)
+  function contentChangeHandler() {
+    console.log('change')
+    UpdatePageContent(curPageId, 'testContent').then((res) => {
+      console.log('更新page内容', curPageId, res)
+    })
+  }
   // Renders the editor instance using a React component.
   return (
     <div
       className="editorWrap"
       style={{ width: '100%', height: '100%', maxWidth: mainWidth + 'px' }}
     >
-      <BlockNoteView editor={editor} formattingToolbar={false}>
+      <BlockNoteView
+        editor={editor}
+        formattingToolbar={false}
+        onChange={contentChangeHandler}
+      >
         <FormattingToolbarController
           formattingToolbar={() => (
             <FormattingToolbar>
