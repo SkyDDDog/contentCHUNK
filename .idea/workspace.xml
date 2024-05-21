@@ -6,12 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="c99cfbbe-d96b-4b9d-8b82-840313a2197d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AIbackend/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIbackend/api/api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AIbackend/server/chat/base_chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIbackend/server/chat/base_chat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AIbackend/server/template/expand.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIbackend/server/template/expand.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
     <envs>
@@ -35,25 +44,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.base_chat.executor&quot;: &quot;Run&quot;,
-    &quot;Python.init_llm.executor&quot;: &quot;Run&quot;,
-    &quot;Python.new_api.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/anaconda3/condabin/conda.bat&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.api.executor": "Run",
+    "Python.base_chat.executor": "Run",
+    "Python.init_llm.executor": "Run",
+    "Python.new_api.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/anaconda3/condabin/conda.bat",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\CodeField\contentchunk-alpharush\AIbackend\other\server\chat" />
+      <recent name="D:\CodeField\contentchunk-alpharush\AIbackend\other\server" />
+      <recent name="D:\CodeField\contentchunk-alpharush\AIbackend\other\api" />
+    </key>
+  </component>
   <component name="RunManager">
-    <configuration name="new_api" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+    <configuration name="api" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="contentchunk-alpharush" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -68,7 +85,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AIbackend/api/new_api.py" />
+      <option name="SCRIPT_NAME" value="D:\CodeField\contentchunk-alpharush\AIbackend\api\api.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -97,7 +114,8 @@
       <workItem from="1715525261028" duration="589000" />
       <workItem from="1715525866511" duration="1088000" />
       <workItem from="1715659530120" duration="2090000" />
-      <workItem from="1716211751772" duration="850000" />
+      <workItem from="1716211751772" duration="1764000" />
+      <workItem from="1716293491930" duration="1769000" />
     </task>
     <servers />
   </component>
@@ -105,8 +123,9 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/contentchunk_alpharush$new_api.coverage" NAME="new_api Coverage Results" MODIFIED="1716213530411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/api" />
+    <SUITE FILE_PATH="coverage/contentchunk_alpharush$new_api.coverage" NAME="api Coverage Results" MODIFIED="1716214407161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/api" />
     <SUITE FILE_PATH="coverage/contentchunk_alpharush$base_chat.coverage" NAME="base_chat Coverage Results" MODIFIED="1715661398201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/server/chat" />
     <SUITE FILE_PATH="coverage/contentchunk_alpharush$init_llm.coverage" NAME="init_llm Coverage Results" MODIFIED="1715526389401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/model" />
+    <SUITE FILE_PATH="coverage/contentchunk_alpharush$api.coverage" NAME="api Coverage Results" MODIFIED="1716297926678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/api" />
   </component>
 </project>

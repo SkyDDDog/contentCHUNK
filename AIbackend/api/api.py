@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
-from AIbackend.server.chat.base_chat import base_chat
+from AIbackend.server.chat.base_chat import base_chat,expand
 app = FastAPI()
 
 
@@ -11,6 +11,12 @@ def chat_stream(query):
     generate = base_chat(query)
     return StreamingResponse(generate, media_type="text/event-stream")
 
+
+@app.get("/expand")
+def chat_stream(text):
+
+    generate = expand(text)
+    return StreamingResponse(generate, media_type="text/event-stream")
 
 if __name__ == "__main__":
     import uvicorn
