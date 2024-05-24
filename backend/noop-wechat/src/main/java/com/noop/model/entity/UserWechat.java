@@ -10,23 +10,25 @@ import lombok.experimental.Accessors;
 import java.io.Serial;
 
 /**
- * 用户-知识库表
+ * 用户-微信关联实体数据库映射类
  *
  * @author 天狗
  * @version 1.0
- * @date 2024/2/2 18:46
+ * @since 2024/5/22 12:37
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
-@TableName("user_knowledge")
+@TableName("user_wechat")
 @ToString(callSuper = true)
-public class UserKnowledge extends DataEntity<UserKnowledge> {
+public class UserWechat extends DataEntity<UserWechat> {
+
 
     @Serial
-    private static final long serialVersionUID = -1993747810784096600L;
+    private static final long serialVersionUID = -2777502937201053733L;
 
-   private String userId;
+    private String appId;
 
-   private String knowledgeId;
+    private String authorizerRefreshToken;
+
 }

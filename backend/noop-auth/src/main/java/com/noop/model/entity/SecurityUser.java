@@ -5,6 +5,7 @@ import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.util.Collection;
 
 /**
@@ -12,19 +13,22 @@ import java.util.Collection;
  *
  * @author 天狗
  * @version 1.0
- * @since 2024/5/6
+ * @date 2024/1/22 22:18
  */
 @Data
 @Accessors(chain = true)
 public class SecurityUser implements UserDetails {
 
+    @Serial
+    private static final long serialVersionUID = 2812281143725839544L;
+
+    //用户名
     private String username;
 
+    //密码
     private String password;
 
-    /**
-     * 权限+角色集合
-     */
+    //权限+角色集合
     private Collection<? extends GrantedAuthority> authorities;
 
     public SecurityUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: module-gateway
+    name: gateway-service
   output:
     ansi:
       enabled: always
@@ -12,7 +12,7 @@ spring:
       discovery:
         watch:
           enabled: true
-        server-addr: 127.0.0.1:8848
+        server-addr: nacos-server:18848
         namespace: noop
         group: NOOP_GROUP
         username: nacos
@@ -27,18 +27,22 @@ spring:
         enabled: false
       eager: true
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+        add-to-simple-url-handler-mapping: true
+#      default-filters:
+#        - DedupeResponseHeader=Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
+
       discovery:
         locator:
           # 根据注册中心的服务自动生成路由
           enabled: true
           # 路由名转小写
           lower-case-service-id: true
-#      routes:
-#         用户模块
-#      - id: user_route
-#        uri: lb://module-user
-#        predicates:
-#          - Path=/user/**
 
 management:
   health:
@@ -48,3 +52,4 @@ management:
     web:
       exposure:
         include: '*'
+

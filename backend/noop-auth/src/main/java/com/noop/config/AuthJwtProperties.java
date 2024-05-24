@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  *
  * @author 天狗
  * @version 1.0
- * @since 2024/5/6
+ * @date 2024/1/23 21:43
  */
 @Data
 @ConfigurationProperties(prefix = "auth.jwt")
@@ -17,24 +17,16 @@ import org.springframework.stereotype.Component;
 public class AuthJwtProperties {
 
 
-    /**
-     * 是否开启JWT，即注入相关的类对象
-     */
+    //是否开启JWT，即注入相关的类对象
     private Boolean enabled = true;
 
-    /**
-     * JWT 密钥
-     */
+    //JWT 密钥
     private String secret;
 
-    /**
-     * accessToken 有效时间(秒)
-     */
+    //accessToken 有效时间
     private Long expiration;
 
-    /**
-     * header名称
-     */
+    //header名称
     private String header;
 
     /**
@@ -46,13 +38,9 @@ public class AuthJwtProperties {
      */
     private String pwdParamName = "password";
 
-    /**
-     * 是否使用默认的JWTAuthController
-     */
+    //是否使用默认的JWTAuthController
     private Boolean useDefaultController = false;
-    /**
-     * 跳过认证的路由
-     */
+    //跳过认证的路由
     private String skipValidUrl;
 
     public Long getExpiration() {

@@ -9,6 +9,8 @@ import com.noop.model.dto.RegisterDTO;
 import com.noop.model.entity.SysUser;
 import com.noop.service.SysRoleService;
 import com.noop.service.SysUserService;
+import com.noop.service.impl.SysRoleServiceImpl;
+import com.noop.service.impl.SysUserServiceImpl;
 import com.noop.util.JwtTokenUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -30,7 +32,7 @@ import java.util.Objects;
  *
  * @author 天狗
  * @version 1.0
- * @since 2024/5/6
+ * @date 2024/1/23 23:14
  */
 @Tag(name = "AuthController", description = "认证控制器")
 @Slf4j

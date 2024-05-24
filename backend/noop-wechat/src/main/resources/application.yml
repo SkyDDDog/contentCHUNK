@@ -1,0 +1,26 @@
+server:
+  port: 10005
+
+
+spring:
+  application:
+    name: wechat-service
+  output:
+    ansi:
+      enabled: always
+  cloud:
+    nacos:
+      discovery:
+        watch:
+          enabled: true
+        server-addr: nacos-server:18848
+        namespace: noop
+        group: NOOP_GROUP
+        username: nacos
+        password: nacos
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

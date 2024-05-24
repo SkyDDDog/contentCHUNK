@@ -3,10 +3,11 @@ spring:
     nacos:
       # 配置中心
       config:
-        server-addr: 127.0.0.1:8848
+        server-addr: nacos-server:18848
         enabled: true
         file-extension: yaml
         group: NOOP_GROUP
+#        namespace: noop
         namespace: noop
         username: nacos
         password: nacos

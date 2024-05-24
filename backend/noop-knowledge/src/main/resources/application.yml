@@ -1,0 +1,26 @@
+server:
+  port: 10004
+
+
+spring:
+  application:
+    name: knowledge-service
+  output:
+    ansi:
+      enabled: always
+  cloud:
+    nacos:
+      discovery:
+        watch:
+          enabled: true
+        server-addr: nacos-server:18848
+        namespace: noop
+        group: NOOP_GROUP
+        username: nacos
+        password: nacos
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

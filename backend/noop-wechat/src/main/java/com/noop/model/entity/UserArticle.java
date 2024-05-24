@@ -10,23 +10,27 @@ import lombok.experimental.Accessors;
 import java.io.Serial;
 
 /**
- * 知识库-page表
+ * 用户-文章关联实体数据库映射类
  *
  * @author 天狗
  * @version 1.0
- * @date 2024/2/2 19:17
+ * @since 2024/5/24 10:31
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
-@TableName("knowledge_page")
+@TableName("user_article")
 @ToString(callSuper = true)
-public class KnowledgePage extends DataEntity<KnowledgePage> {
+public class UserArticle extends DataEntity<UserArticle> {
     @Serial
-    private static final long serialVersionUID = 8352587734855825318L;
+    private static final long serialVersionUID = -7833659857735737395L;
 
-    private String knowledgeId;
+    private String userId;
 
-    private String pageId;
+    private String title;;
+
+    private String platform;
+
+    public final static String PLATFORM_WECHAT = "微信";
 
 }

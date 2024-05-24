@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
 
 /**
  * RBAC权限表
@@ -21,6 +22,9 @@ import lombok.experimental.Accessors;
 @TableName("sys_auth")
 @ToString(callSuper = true)
 public class SysAuth extends DataEntity<SysAuth> {
+
+    @Serial
+    private static final long serialVersionUID = -5686446189026162162L;
 
     private String name;
 

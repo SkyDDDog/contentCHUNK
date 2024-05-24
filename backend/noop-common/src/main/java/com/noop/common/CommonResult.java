@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * 返回结果常用类
  * @author 天狗
- * @since 2024/5/4
+ * @date 2024/01/19 23:40
  */
 @Getter
 @EqualsAndHashCode(callSuper = true)

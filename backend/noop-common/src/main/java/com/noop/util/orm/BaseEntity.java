@@ -6,17 +6,23 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 数据库orm映射对象基类
  *
  * @author 天狗
  * @version 1.0
- * @since 2024/5/4
+ * @date 2024/1/20 21:49
  */
 @Data
 @Accessors(chain = true)
-public abstract class BaseEntity<T> {
+public abstract class BaseEntity<T> implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -311182549704503503L;
+
 
     public static final String DEL_FLAG_NORMAL = "0";
     public static final String DEL_FLAG_DELETE = "1";
