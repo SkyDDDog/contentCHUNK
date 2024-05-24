@@ -12,6 +12,7 @@
     <module>noop-auth</module>
     <module>noop-knowledge</module>
     <module>noop-wechat</module>
+    <module>noop-ai</module>
   </modules>
 
   <properties>

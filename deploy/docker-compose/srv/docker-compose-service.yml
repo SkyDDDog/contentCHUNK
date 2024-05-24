@@ -1,0 +1,91 @@
+version: "3"
+services:
+  gateway-service:
+    image: noop-gateway
+    hostname: gateway-service
+    build:
+      dockerfile: Dockerfile
+      context: ./noop-gateway
+    env_file:
+        - .env
+    container_name: noop-gateway
+    ports:
+      - ${GATEWAY_PORT}:${GATEWAY_PORT}
+    extra_hosts:
+      - "nacos-server:121.37.198.113"
+      - "mysql:121.37.198.113"
+      - "redis:121.37.198.113"
+      - "minio:121.37.198.113"
+
+  auth-service:
+    image: noop-auth
+    build:
+      dockerfile: Dockerfile
+      context: ./noop-auth
+    env_file:
+        - .env
+    container_name: noop-auth
+    ports:
+      - ${AUTH_PORT}:${AUTH_PORT}
+    extra_hosts:
+      - "nacos-server:121.37.198.113"
+      - "mysql:121.37.198.113"
+      - "redis:121.37.198.113"
+      - "minio:121.37.198.113"
+
+  knowledge-service:
+    image: noop-knowledge
+    build:
+      dockerfile: Dockerfile
+      context: ./noop-knowledge
+    env_file:
+        - .env
+    container_name: noop-knowledge
+    ports:
+      - ${KNOWLEDGE_PORT}:${KNOWLEDGE_PORT}
+    extra_hosts:
+      - "nacos-server:121.37.198.113"
+      - "mysql:121.37.198.113"
+      - "redis:121.37.198.113"
+      - "minio:121.37.198.113"
+
+  wechat-service:
+    image: noop-wechat
+    build:
+      dockerfile: Dockerfile
+      context: ./noop-wechat
+    env_file:
+        - .env
+    container_name: noop-wechat
+    ports:
+      - ${WECHAT_PORT}:${WECHAT_PORT}
+    extra_hosts:
+      - "nacos-server:121.37.198.113"
+      - "mysql:121.37.198.113"
+      - "redis:121.37.198.113"
+      - "minio:121.37.198.113"
+  wechat-nginx:
+    image: wechat-nginx
+    build:
+      dockerfile: Dockerfile
+      context: ./noop-nginx
+    container_name: wechat-nginx
+    ports:
+      - 80:80
+
+  ai-service:
+    image: noop-ai
+    build:
+      dockerfile: Dockerfile
+      context: ./noop-ai
+    env_file:
+      - .env
+    container_name: noop-wechat
+    ports:
+      - ${WECHAT_PORT}:${WECHAT_PORT}
+    extra_hosts:
+      - "nacos-server:121.37.198.113"
+      - "mysql:121.37.198.113"
+      - "redis:121.37.198.113"
+      - "minio:121.37.198.113"
+
