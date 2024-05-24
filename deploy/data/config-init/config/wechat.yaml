@@ -1,0 +1,7 @@
+wechat:
+  #  appId: wxb24468f82d3f382f
+  appId: wx1c225759aaee2bbd
+  #  appSecret: 985bcad65c9693c3cf2ffdc48f1e5341
+  appSecret: 23c309276f138a84ffd53d6573deb695
+  token: noop
+  encodeKey: F8Dvh44SIsdn9XzwgDrCEbVJ6mKHsBIE8NLwjgJsMle
