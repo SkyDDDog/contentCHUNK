@@ -2,6 +2,7 @@ import {Pie} from "@ant-design/plots";
 import React from "react";
 import {Line} from "@ant-design/charts";
 import { useStatistics } from '../api/WechatArticleStats';
+import { useUserStatistics } from '../api/WechatFollowerStats';
 import {
   Box, Button,
   Card,
@@ -21,6 +22,7 @@ import Jinritoutiao from "../assets/image/logo/jinritoutiao.svg";
 
 export default function ManageOverview() {
   const { stats } = useStatistics();
+  const { userStats } = useUserStatistics();
 
   return (
     <>
@@ -74,7 +76,7 @@ export default function ManageOverview() {
             <Box width="auto" height="auto" mb={2}/>
             <Text fontWeight={'bold'}>昨日浏览:&nbsp;&nbsp;</Text>
             <Box width="auto" height="auto" mb={2}/>
-            <Text fontWeight={'bold'}>新增关注:&nbsp;&nbsp;</Text>
+            <Text fontWeight={'bold'}>新增关注:&nbsp;&nbsp;{userStats.newUser - userStats.cancelUser}</Text>
           </CardBody>
           <CardFooter>
             <Button>稿件分析 &gt;&gt;</Button>
