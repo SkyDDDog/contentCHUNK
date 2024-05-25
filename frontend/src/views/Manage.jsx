@@ -4,6 +4,8 @@ import ManageOverview from "./ManageOverview";
 import ManageContent from "./ManageContent";
 import ManageTable from "./ManageTable";
 import ManageCard from "./ManageCard";
+import {StatisticsProvider} from "../api/WechatArticleStats";
+import {UserStatisticsProvider} from "../api/WechatFollowerStats";
 
 export default function Manage(){
   return (
@@ -26,7 +28,11 @@ export default function Manage(){
 
         <TabPanels>
           <TabPanel>
-            <ManageOverview />
+            <UserStatisticsProvider>
+              <StatisticsProvider>
+                <ManageOverview />
+              </StatisticsProvider>
+            </UserStatisticsProvider>
           </TabPanel>
           <TabPanel>
             <ManageContent />
