@@ -1,5 +1,5 @@
-from AIbackend.model.kimi import init_kimi
-from AIbackend.model.zhipu import init_zhipu
+from model.kimi import init_kimi
+from model.zhipu import init_zhipu
 
 def init_llm(model_name ) :
     if model_name=="kimi" :

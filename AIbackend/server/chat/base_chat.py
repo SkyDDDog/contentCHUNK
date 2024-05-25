@@ -3,8 +3,8 @@ import json
 
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate,HumanMessagePromptTemplate
-from AIbackend.model.init_llm import init_llm
-from AIbackend.server.template.expand import expand_template
+from model.init_llm import init_llm
+from server.template.expand import expand_template
 
 async def base_chat(query : str):
     messages = [
@@ -21,10 +21,12 @@ async def base_chat(query : str):
     async for chunk in chain.astream({"query":query}):
         token=chunk.content
         #print((token))
+        text = ""
         js_data = {"code": "200", "msg": "ok", "data": token}
         yield f"data: {json.dumps(js_data, ensure_ascii=False)}\n\n"
         # yield chunk.content
         text+=token
+        print(text)
 
 async def expand(text) :
     prompt =  expand_template
