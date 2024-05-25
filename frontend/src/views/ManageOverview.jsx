@@ -1,6 +1,7 @@
 import {Pie} from "@ant-design/plots";
 import React from "react";
 import {Line} from "@ant-design/charts";
+import { useStatistics } from '../api/WechatArticleStats';
 import {
   Box, Button,
   Card,
@@ -19,6 +20,8 @@ import {TikTokOutlined, WechatOutlined} from "@ant-design/icons";
 import Jinritoutiao from "../assets/image/logo/jinritoutiao.svg";
 
 export default function ManageOverview() {
+  const { stats } = useStatistics();
+
   return (
     <>
       <Tabs variant='enclosed' colorScheme='whatsapp'>
@@ -67,11 +70,11 @@ export default function ManageOverview() {
           </CardHeader>
           <CardBody>
             <Box width="auto" height="auto" mb={5}/>
-            <Text fontWeight={'bold'}>文章标题:</Text>
+            <Text fontWeight={'bold'}>文章标题:&nbsp;&nbsp;{stats.length > 0 && stats[0].title}</Text>
             <Box width="auto" height="auto" mb={2}/>
-            <Text fontWeight={'bold'}>昨日浏览:</Text>
+            <Text fontWeight={'bold'}>昨日浏览:&nbsp;&nbsp;</Text>
             <Box width="auto" height="auto" mb={2}/>
-            <Text fontWeight={'bold'}>新增评论:</Text>
+            <Text fontWeight={'bold'}>新增关注:&nbsp;&nbsp;</Text>
           </CardBody>
           <CardFooter>
             <Button>稿件分析 &gt;&gt;</Button>
