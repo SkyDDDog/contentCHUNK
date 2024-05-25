@@ -2,7 +2,9 @@ package com.noop.controller;
 
 import com.noop.common.CommonResult;
 import com.noop.model.api.Article;
+import com.noop.model.dto.PublishDTO;
 import com.noop.service.PublishService;
+import com.noop.util.BeanCustomUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -40,8 +42,14 @@ public class PublishController {
             @Parameter(name = "userId", description = "用户id", required = true, schema = @Schema(type = "string")),
     })
     @PostMapping ("/publish")
-    public CommonResult publishArticle(@RequestBody Article article, @RequestParam String userId) {
+    public CommonResult publishArticle(@RequestBody PublishDTO dto, @RequestParam String userId) {
         CommonResult result = new CommonResult().init();
+        Article article = new Article();
+        BeanCustomUtil.copyProperties(dto, article);
+        // 写死封面素材id
+        article.setThumb_media_id("xkxvl0Udrft3X-0arFJRw9jkIyZK1yqp1yuqG3RWMEsxxgqLTquWc6_D3wu_ry-o")
+                .setNeed_open_comment("1")
+                .setOnly_fans_can_comment("0");
         String publish = publishService.publish(article, userId);
         result.success("publish_id", publish);
         log.info("发布文章结果：{}", publish);
@@ -53,20 +61,25 @@ public class PublishController {
             @Parameter(name = "userId", description = "用户id", required = true, schema = @Schema(type = "string")),
     })
     @PostMapping("/send")
-    public CommonResult sendToAll(@RequestBody Article article, @RequestParam String userId) {
+    public CommonResult sendToAll(@RequestBody PublishDTO dto, @RequestParam String userId) {
         CommonResult result = new CommonResult().init();
-        boolean send = publishService.send(article, userId);
-        if (!send) {
+        Article article = new Article();
+        BeanCustomUtil.copyProperties(dto, article);
+        // 写死封面素材id
+        article.setThumb_media_id("xkxvl0Udrft3X-0arFJRw9jkIyZK1yqp1yuqG3RWMEsxxgqLTquWc6_D3wu_ry-o")
+                .setNeed_open_comment("1")
+                .setOnly_fans_can_comment("0");
+        String msgId = publishService.send(article, userId);
+        if (!StringUtils.hasLength(msgId)) {
             return (CommonResult) result.fail().end();
         }
-        result.success();
+        result.success("msg_id", msgId);
         return (CommonResult) result.end();
     }
 
 
     @Operation(summary = "发布状态轮询接口(开发者可以尝试通过下面的发布状态轮询接口获知发布情况。)")
     @Parameters({
-//            @Parameter(name = "publishId", description = "从发布文章接口获取的publish_id", required = true, schema = @Schema(type = "string")),
             @Parameter(name = "userId", description = "用户id", required = true, schema = @Schema(type = "string")),
     })
     @GetMapping("/{publishId}")
@@ -77,6 +90,19 @@ public class PublishController {
             return (CommonResult) result.fail().end();
         }
         result.success("articleUrl", articleUrl);
+        return (CommonResult) result.end();
+    }
+
+    @Operation(summary = "检查群发状态")
+    @Parameters({
+            @Parameter(name = "msgId", description = "群发消息的id", required = true, schema = @Schema(type = "string")),
+            @Parameter(name = "userId", description = "用户id", required = true, schema = @Schema(type = "string")),
+    })
+    @GetMapping("/send/{msgId}")
+    public CommonResult checkSendStatus(@PathVariable String msgId, @RequestParam String userId) {
+        CommonResult result = new CommonResult().init();
+        String status = publishService.checkSendStatus(msgId, userId);
+        result.success("status", status);
         return (CommonResult) result.end();
     }
 

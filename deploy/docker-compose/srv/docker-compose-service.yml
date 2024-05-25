@@ -72,6 +72,8 @@ services:
     container_name: wechat-nginx
     ports:
       - 80:80
+    depends_on:
+      - wechat-service
 
   ai-service:
     image: noop-ai
@@ -80,9 +82,9 @@ services:
       context: ./noop-ai
     env_file:
       - .env
-    container_name: noop-wechat
+    container_name: noop-ai
     ports:
-      - ${WECHAT_PORT}:${WECHAT_PORT}
+      - ${AI_PORT}:${AI_PORT}
     extra_hosts:
       - "nacos-server:121.37.198.113"
       - "mysql:121.37.198.113"

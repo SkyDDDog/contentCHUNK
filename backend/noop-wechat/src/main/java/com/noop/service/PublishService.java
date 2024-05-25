@@ -155,7 +155,7 @@ public class PublishService {
      * @param userId    用户id
      * @return  msg_id
      */
-    public boolean send(Article article, String userId) {
+    public String send(Article article, String userId) {
         JSONObject json = this.addDraft(article, userId);
         log.info("请求草稿箱结果: {}", json.toJSONString());
         String mediaId = json.getString("media_id");
@@ -163,7 +163,20 @@ public class PublishService {
         log.info("sendToAll: {}", resp.toJSONString());
         // 数据插入数据库
         userArticleService.insertWechatArticle(userId, article.getTitle());
-        return resp.getInteger("errcode") == 0;
+        if (resp.getInteger("errcode") == 0) {
+            return resp.getString("msg_id");
+        }
+        return null;
+    }
+
+    public String checkSendStatus(String msgId, String userId) {
+        String accessToken = openService.getAuthorizerAccessToken(userId);
+        String url = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token=" + accessToken;
+        JSONObject postData = new JSONObject();
+        postData.put("msg_id", msgId);
+        JSONObject resp = HttpRequestUtil.post(url, postData.toJSONString(), new HashMap<>(1));
+        log.info("checkSendStatus: {}", resp.toJSONString());
+        return resp.getString("msg_status");
     }
 
     public void freeArticle(String articleId, String userId) {
@@ -184,6 +197,9 @@ public class PublishService {
         JSONObject postData = new JSONObject();
         postData.put("publish_id", publishId);
         JSONObject resp = HttpRequestUtil.post(url, postData.toJSONString(), new HashMap<>(1));
+        if (resp.getInteger("publish_status") != 0) {
+            return null;
+        }
         log.info("发布状态轮询接口结果：{}", resp.toJSONString());
         JSONObject item = resp.getJSONObject("article_detail").getJSONArray("item").getJSONObject(0);
         return item.getString("article_url");

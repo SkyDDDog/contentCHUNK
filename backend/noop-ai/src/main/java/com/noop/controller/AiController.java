@@ -6,10 +6,13 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -27,10 +30,10 @@ import reactor.core.publisher.Mono;
 @SecurityRequirement(name = "Bearer Authentication")
 public class AiController {
 
-    @Operation(summary = "测试流式返回接口")
-    @GetMapping("test")
-    public Mono<String> test() {
-        return Mono.just("test");
-    }
+//    @Operation(summary = "测试流式返回接口")
+//    @GetMapping(value = "test", produces  = MediaType.TEXT_EVENT_STREAM_VALUE)
+//    public Flux<String> test() {
+//        return Flux<String>.
+//    }
 
 }
