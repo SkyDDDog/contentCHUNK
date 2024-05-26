@@ -9,15 +9,25 @@ const initialState = {
   ],
   activePageKey: '', // pageId
   PageFirstRenderFlag: true,
+  activePageContent: '',
+  activePageTitle: '',
 }
 
 export const pageSlice = createSlice({
   name: 'page',
   initialState,
   reducers: {
-    setActivePageKey: (state, {payload}) => {
+    setActivePageKey: (state, { payload }) => {
       console.log('pageid in redux', payload)
       state.activePageKey = payload
+      // setTimeout(() => {
+      //   state.tabPages.forEach((item) => {
+      //     if (item.pageId === state.activePageKey) {
+      //       console.log('找到了!!!!!!!!!!!!!!!')
+      //       state.activePageTitle = item.title
+      //     }
+      //   }, 500)
+      // })
     },
     addActivePage: (state, { payload }) => {
       /* 不论是否在tabs自己中存在，都要设置为AcitveTab */
@@ -43,6 +53,10 @@ export const pageSlice = createSlice({
       console.log('setset')
       state.PageFirstRenderFlag = payload.flag
     },
+    setActivePageContent: (state, { payload }) => {
+      console.log('activePageContent', payload)
+      state.activePageContent = payload
+    },
   },
 })
 
@@ -52,6 +66,7 @@ export const {
   removeActiveTabItem,
   setActivePageKey,
   setPageFirstRenderFlag,
+  setActivePageContent,
 } = pageSlice.actions
 
 export default pageSlice.reducer

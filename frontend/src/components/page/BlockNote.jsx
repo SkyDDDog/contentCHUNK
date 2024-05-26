@@ -20,7 +20,7 @@ import useMainWidth from '../../utils/useMainWidth'
 import { useDispatch, useSelector } from 'react-redux'
 import { ExpendButton } from './editor/toolbar/ExpendButton'
 import { useEffect /* useMemo */ } from 'react'
-import { setPageFirstRenderFlag } from '../../redux/page'
+import { setActivePageContent, setPageFirstRenderFlag } from '../../redux/page'
 import { setAddCount } from '../../redux/chat'
 import {
   GetPageContentById,
@@ -123,6 +123,7 @@ export default function App() {
   const rightWidth = useSelector((state) => state.chat.boxWidth)
   const mainWidth = useMainWidth(leftWidth, rightWidth)
   const curPageId = useSelector((state) => state.page.activePageKey)
+  const isLogin = useSelector((state) => state.user.isLogin)
   useEffect(() => {
     if (!curPageId) {
       return
@@ -132,6 +133,7 @@ export default function App() {
         ? res.data.item.page.content
         : ''
       console.log('getHTML', pageHTML)
+      dispatch(setActivePageContent(pageHTML))
       const blocksFromHTML = await editor.tryParseHTMLToBlocks(pageHTML)
       console.log(blocksFromHTML)
       // editor.forEachBlock((block) => {
@@ -143,11 +145,12 @@ export default function App() {
     })
   }, [curPageId])
   async function contentChangeHandler() {
-    console.log('change')
+    if (!isLogin) return
     const HTMLFromBlocks = await editor.blocksToHTMLLossy()
+    dispatch(setActivePageContent(HTMLFromBlocks))
     console.log('html', HTMLFromBlocks)
-    UpdatePageContent(curPageId, HTMLFromBlocks).then((res) => {
-      console.log('更新page内容', curPageId, res)
+    UpdatePageContent(curPageId, HTMLFromBlocks).then(() => {
+      console.log('更新page内容', curPageId)
     })
   }
   // Renders the editor instance using a React component.

@@ -12,6 +12,12 @@ const useMainWidth = (leftWidth, rightWidth) => {
     if (!isChatExpended) {
       rightWidth = 0
     }
+    console.log(
+      leftWidth,
+      rightWidth,
+      viewportWidth,
+      viewportWidth - leftWidth - rightWidth,
+    )
     setMainWidth(viewportWidth - leftWidth - rightWidth - 100)
   }, [leftWidth, rightWidth, viewportWidth, isChatExpended])
 
