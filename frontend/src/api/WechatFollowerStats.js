@@ -9,7 +9,7 @@ const UserStatisticsProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUserStatistics = async () => {
-      const userId = '1749837707132424193'; // 这应该是你想查询的实际用户ID
+      const userId = '1749837707132424193'; // TODO 替换为实际的用户 ID
       try {
         const response = await axios.get(`http://123.249.33.39:10001/wechat-service/statistics/user/${userId}`, {
           headers: {
