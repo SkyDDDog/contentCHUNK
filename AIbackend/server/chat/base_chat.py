@@ -1,30 +1,39 @@
 import asyncio
 import json
-
+import time
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_core.prompts import ChatPromptTemplate,HumanMessagePromptTemplate
+from langchain_core.prompts import ChatPromptTemplate,HumanMessagePromptTemplate,MessagesPlaceholder
 from AIbackend.model.init_llm import init_llm
 from AIbackend.server.template.expand import expand_template
 
-async def base_chat(query : str):
-    messages = [
-        SystemMessage(
-            content="你是一个专业的AI助手。"
-        ),
-        HumanMessagePromptTemplate.from_template("{query}"),
-    ]
-    prompt = ChatPromptTemplate.from_messages(messages)
+async def base_chat(history, input):
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "You are a helpful assistant."),
+            MessagesPlaceholder("history"),
+            ("human", "{input}")
+        ]
+    )
+
+    # messages = [
+    #     SystemMessage(
+    #         content="你是一个专业的AI助手。"
+    #     ),
+    #     HumanMessagePromptTemplate.from_template("{query}"),
+    # ]
+    # prompt = ChatPromptTemplate.from_messages(messages)
     llm=init_llm("kimi")
     chain = prompt | llm
 
 
-    async for chunk in chain.astream({"query":query}):
+    async for chunk in chain.astream({"history": history,"input": input}):
         token=chunk.content
         #print((token))
+        #time.sleep(2)
         js_data = {"code": "200", "msg": "ok", "data": token}
         yield f"data: {json.dumps(js_data, ensure_ascii=False)}\n\n"
         # yield chunk.content
-        text+=token
+        #text+=token
 
 async def expand(text) :
     prompt =  expand_template

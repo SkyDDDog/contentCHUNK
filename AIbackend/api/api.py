@@ -1,22 +1,39 @@
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 from AIbackend.server.chat.base_chat import base_chat,expand
+from AIbackend.server.chat.chat_tools import chat_tools
+class ChatRequest(BaseModel):
+    history: list = []
+    input:str
+
+history=[
+    {"role": "assistant", "content": "你好搜索xx"},
+    {"role": "user", "content": "你ss a axx"},
+]
+
+prompt="n你是和a "
+
 app = FastAPI()
-
-
-
 @app.get("/chat")
-def chat_stream(query):
+def chat_stream(chatRequest:ChatRequest):
 
-    generate = base_chat(query)
+    generate = base_chat(chatRequest.history,chatRequest.input)
     return StreamingResponse(generate, media_type="text/event-stream")
 
 
 @app.get("/expand")
-def chat_stream(text):
+def chat_stream(input):
 
-    generate = expand(text)
+    generate = expand(input)
     return StreamingResponse(generate, media_type="text/event-stream")
+
+@app.get("/chat_tools")
+def chat_stream(chatRequest:ChatRequest):
+
+    generate = chat_tools(chatRequest.history,chatRequest.input)
+    return StreamingResponse(generate, media_type="text/event-stream")
+
 
 if __name__ == "__main__":
     import uvicorn
