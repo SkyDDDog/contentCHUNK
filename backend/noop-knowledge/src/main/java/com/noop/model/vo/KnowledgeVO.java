@@ -1,5 +1,6 @@
 package com.noop.model.vo;
 
+import com.noop.model.entity.Knowledge;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

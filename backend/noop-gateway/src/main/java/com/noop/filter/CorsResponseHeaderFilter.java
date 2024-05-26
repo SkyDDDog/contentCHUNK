@@ -5,6 +5,7 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.NettyWriteResponseFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @since 2024/5/5
  */
-//@Component
+@Component
 public class CorsResponseHeaderFilter implements GlobalFilter, Ordered {
 
     private static final String ANY = "*";

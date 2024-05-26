@@ -14,7 +14,7 @@ import java.io.Serial;
  *
  * @author 天狗
  * @version 1.0
- * @since 2024/5/6
+ * @date 2024/1/22 16:11
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -22,6 +22,9 @@ import java.io.Serial;
 @TableName("sys_user")
 @ToString(callSuper = true)
 public class SysUser extends DataEntity<SysUser> {
+
+    @Serial
+    private static final long serialVersionUID = -4863592397325535302L;
 
     private String username;
 

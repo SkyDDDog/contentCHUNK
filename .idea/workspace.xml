@@ -5,10 +5,167 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c99cfbbe-d96b-4b9d-8b82-840313a2197d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/AIbackend/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AIbackend/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-ai/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-ai/src/main/java/com/noop/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-ai/src/main/java/com/noop/controller/AiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-ai/src/main/java/com/noop/service/ChatCallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-ai/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-ai/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-auth/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-gateway/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-knowledge/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/config/RedisKeyExpireConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/config/RedisListenerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/config/WechatConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/controller/OpenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/controller/PublishController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/controller/StatisticsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/controller/WechatController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/model/api/Article.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/model/dto/PublishDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/model/vo/WechatArticleDataVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/model/vo/WechatUserSummaryVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/service/OpenService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/service/PublishService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/service/StatisticsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/service/UserArticleService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/service/UserWechatService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/service/WechatService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/AccessTokenUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/ElementUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/FileTransUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/aes/.WXBizMsgCrypt.java.swp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/aes/AesException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/aes/ByteGroup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/aes/PKCS7Encoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/aes/SHA1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/aes/WXBizMsgCrypt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/aes/WxMsgCrypter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/util/aes/XMLParse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/data/config-init/config/wechat.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/env/docker-compose-env.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/docker-compose-service.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-ai/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-ai/noop-ai-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-auth/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-auth/noop-auth-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-gateway/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-gateway/noop-gateway-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-knowledge/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-knowledge/noop-knowledge-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-nginx/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-nginx/default.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-nginx/dist/test/test_page.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-wechat/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/docker-compose/srv/noop-wechat/noop-wechat-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/WechatArticleStats.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/WechatFollowerStats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/contentchunk-alpharush.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AIbackend/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIbackend/api/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AIbackend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIbackend/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AIbackend/references/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AIbackend/references/requirements_api.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AIbackend/references/requirements_webui.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AIbackend/server/chat/base_chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIbackend/server/chat/base_chat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AIbackend/server/chat/chat_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIbackend/server/chat/chat_tools.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AIbackend/server/template/expand.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIbackend/server/template/expand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/config/AuthJwtProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/config/AuthJwtProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/dto/LoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/dto/LoginDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/dto/RegisterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/dto/RegisterDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SecurityUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SecurityUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SysAuth.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SysAuth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SysRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SysRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SysRoleAuth.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SysRoleAuth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SysUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SysUserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/entity/SysUserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/vo/AuthUrlRoleVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/model/vo/AuthUrlRoleVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/LoadRolePermissionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/LoadRolePermissionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/SysAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/SysAuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/SysRoleAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/SysRoleAuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/SysRoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/SysRoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/SysUserRoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/SysUserRoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/SysUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/SysUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/impl/SysAuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/impl/SysAuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/impl/SysRoleAuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/impl/SysRoleAuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/impl/SysRoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/impl/SysRoleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/impl/SysUserRoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/impl/SysUserRoleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/impl/SysUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/service/impl/SysUserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/util/JwtTokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/java/com/noop/util/JwtTokenUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-auth/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-auth/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/common/BaseResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/common/BaseResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/common/CommonResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/common/CommonResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/common/MsgCodeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/common/MsgCodeUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/config/SpringDocConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/config/SpringDocConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/config/ValidGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/config/ValidGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/constant/AuthConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/constant/AuthConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/constant/JwtTokenConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/constant/JwtTokenConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/exception/BusinessException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/exception/BusinessException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/BeanCustomUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/BeanCustomUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/HttpRequestUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/HttpRequestUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/RedisUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/RedisUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/orm/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/orm/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/orm/CrudService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/orm/CrudService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/orm/DataEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-common/src/main/java/com/noop/util/orm/DataEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-gateway/src/main/java/com/noop/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-gateway/src/main/java/com/noop/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-gateway/src/main/java/com/noop/config/GatewayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-gateway/src/main/java/com/noop/config/GatewayConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-gateway/src/main/java/com/noop/filter/CorsResponseHeaderFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-gateway/src/main/java/com/noop/filter/CorsResponseHeaderFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-gateway/src/main/java/com/noop/filter/JwtAuthCheckFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-gateway/src/main/java/com/noop/filter/JwtAuthCheckFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-gateway/src/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-gateway/src/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-gateway/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/controller/KnowledgeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/controller/KnowledgeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/controller/PageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/mapper/KnowledgePageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/mapper/UserArticleMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/mapper/UserKnowledgeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/mapper/UserWechatMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/model/dto/KnowledgeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/model/dto/KnowledgeDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/model/dto/PageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/model/dto/PageDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/model/entity/Knowledge.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/model/entity/Knowledge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/model/entity/KnowledgePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/model/entity/UserArticle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/model/entity/UserKnowledge.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-wechat/src/main/java/com/noop/model/entity/UserWechat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/model/vo/KnowledgeVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/model/vo/KnowledgeVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/KnowledgePageService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/KnowledgeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/KnowledgeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/PageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/PageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/UserKnowledgeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/impl/KnowledgePageServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/impl/KnowledgeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/impl/KnowledgeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/impl/PageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/impl/PageServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/java/com/noop/service/impl/UserKnowledgeServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/noop-knowledge/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/noop-knowledge/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/data/config-init/config/mq-consumer.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/data/config-init/config/mq-provider.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/data/config-init/config/mysql-druid.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/data/config-init/config/mysql-druid.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/data/config-init/config/redis.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/data/config-init/config/redis.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/data/config-init/config/seata.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/data/config-init/config/springdoc.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/data/config-init/config/springdoc.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/data/config-init/sql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/data/config-init/sql/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/docker-compose/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/docker-compose/docker-compose-env.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/docker-compose/docker-compose-service.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/Manage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/Manage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/ManageOverview.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/ManageOverview.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,8 +207,9 @@
     "Python.base_chat.executor": "Run",
     "Python.init_llm.executor": "Run",
     "Python.new_api.executor": "Run",
+    "Python.test_Chat.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging main",
     "last_opened_file_path": "D:/anaconda3/condabin/conda.bat",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -115,7 +273,13 @@
       <workItem from="1715525866511" duration="1088000" />
       <workItem from="1715659530120" duration="2090000" />
       <workItem from="1716211751772" duration="1764000" />
-      <workItem from="1716293491930" duration="1769000" />
+      <workItem from="1716293491930" duration="2489000" />
+      <workItem from="1716383217188" duration="8762000" />
+      <workItem from="1716460563134" duration="9001000" />
+      <workItem from="1716562339077" duration="2011000" />
+      <workItem from="1716642422308" duration="2869000" />
+      <workItem from="1716713758958" duration="7490000" />
+      <workItem from="1716721903416" duration="1310000" />
     </task>
     <servers />
   </component>
@@ -125,7 +289,8 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/contentchunk_alpharush$new_api.coverage" NAME="api Coverage Results" MODIFIED="1716214407161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/api" />
     <SUITE FILE_PATH="coverage/contentchunk_alpharush$base_chat.coverage" NAME="base_chat Coverage Results" MODIFIED="1715661398201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/server/chat" />
+    <SUITE FILE_PATH="coverage/contentchunk_alpharush$test_Chat.coverage" NAME="test_Chat Coverage Results" MODIFIED="1716714748994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/other/server/chat" />
     <SUITE FILE_PATH="coverage/contentchunk_alpharush$init_llm.coverage" NAME="init_llm Coverage Results" MODIFIED="1715526389401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/model" />
-    <SUITE FILE_PATH="coverage/contentchunk_alpharush$api.coverage" NAME="api Coverage Results" MODIFIED="1716297926678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/api" />
+    <SUITE FILE_PATH="coverage/contentchunk_alpharush$api.coverage" NAME="api Coverage Results" MODIFIED="1716723163832" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AIbackend/api" />
   </component>
 </project>

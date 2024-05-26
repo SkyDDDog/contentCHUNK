@@ -20,6 +20,6 @@ expand_prompt="""
 
 expand_template = ChatPromptTemplate.from_messages([
     ("system", expand_prompt),
-    ("user", "原文段落：{text}")
+    ("user", "原文段落：{input}")
 ])
 

@@ -17,9 +17,9 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class PageDTO {
 
-    @Schema(description = "知识库ID")
-    @NotBlank(message = "知识库ID不能为空", groups = {ValidGroup.Create.class})
-    private String knowledgeId;
+//    @Schema(description = "知识库ID")
+//    @NotBlank(message = "知识库ID不能为空", groups = {ValidGroup.Create.class})
+//    private String knowledgeId;
 
     @Schema(description = "页面ID")
     @NotBlank(message = "页面ID不能为空", groups = {ValidGroup.Update.class})

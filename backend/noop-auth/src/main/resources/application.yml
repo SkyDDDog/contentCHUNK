@@ -20,8 +20,6 @@ spring:
         group: NOOP_GROUP
         username: nacos
         password: nacos
-  redis:
-    host:
 
 management:
   endpoints:

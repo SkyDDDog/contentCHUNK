@@ -35,21 +35,21 @@ public class PageController {
     @Autowired
     private PageService pageService;
 
-    @Operation(summary = "获取知识库中的页面")
-    @Parameters({
-        @Parameter(name = "knowledgeId", description = "知识库ID", required = true)
-    })
-    @GetMapping("/{knowledgeId}")
-    public CommonResult getKnowledgePage(@PathVariable String knowledgeId) {
-        CommonResult result = new CommonResult().init();
-        if (!StringUtils.hasLength(knowledgeId)) {
-            result.failCustom(MsgCodeUtil.MSG_CODE_ILLEGAL_ARGUMENT,"用户ID不能为空");
-            return (CommonResult) result.end();
-        }
-        List<PageVO> list = pageService.getPageListByKnowledgeId(knowledgeId);
-        result.success("page", list);
-        return (CommonResult) result.end();
-    }
+//    @Operation(summary = "获取知识库中的页面")
+//    @Parameters({
+//        @Parameter(name = "knowledgeId", description = "知识库ID", required = true)
+//    })
+//    @GetMapping("/{knowledgeId}")
+//    public CommonResult getKnowledgePage(@PathVariable String knowledgeId) {
+//        CommonResult result = new CommonResult().init();
+//        if (!StringUtils.hasLength(knowledgeId)) {
+//            result.failCustom(MsgCodeUtil.MSG_CODE_ILLEGAL_ARGUMENT,"用户ID不能为空");
+//            return (CommonResult) result.end();
+//        }
+//        List<PageVO> list = pageService.getPageListByKnowledgeId(knowledgeId);
+//        result.success("page", list);
+//        return (CommonResult) result.end();
+//    }
 
     @Operation(summary = "获取页面详情")
     @Parameters({
@@ -67,35 +67,35 @@ public class PageController {
         return (CommonResult) result.end();
     }
 
-    @Operation(summary = "删除页面")
-    @DeleteMapping("/{pageId}")
-    public CommonResult deletePage(@PathVariable String pageId) {
-        CommonResult result = new CommonResult().init();
-        if (!StringUtils.hasLength(pageId)) {
-            result.failCustom(MsgCodeUtil.MSG_CODE_ILLEGAL_ARGUMENT,"页面ID不能为空");
-            return (CommonResult) result.end();
-        }
-        if (pageService.deletePage(pageId)) {
-            result.success();
-        } else {
-            result.failCustom("删除页面失败");
-        }
-        return (CommonResult) result.end();
-    }
+//    @Operation(summary = "删除页面")
+//    @DeleteMapping("/{pageId}")
+//    public CommonResult deletePage(@PathVariable String pageId) {
+//        CommonResult result = new CommonResult().init();
+//        if (!StringUtils.hasLength(pageId)) {
+//            result.failCustom(MsgCodeUtil.MSG_CODE_ILLEGAL_ARGUMENT,"页面ID不能为空");
+//            return (CommonResult) result.end();
+//        }
+//        if (pageService.deletePage(pageId)) {
+//            result.success();
+//        } else {
+//            result.failCustom("删除页面失败");
+//        }
+//        return (CommonResult) result.end();
+//    }
 
-    @Operation(summary = "创建页面")
-    @PostMapping("/")
-    public CommonResult createPage(@RequestBody PageDTO dto) {
-        CommonResult result = new CommonResult().init();
-        if (pageService.createPage(dto)) {
-            result.success();
-        } else {
-            result.failCustom("创建页面失败");
-        }
-        return (CommonResult) result.end();
-    }
+//    @Operation(summary = "创建页面")
+//    @PostMapping("/")
+//    public CommonResult createPage(@RequestBody PageDTO dto) {
+//        CommonResult result = new CommonResult().init();
+//        if (pageService.createPage(dto)) {
+//            result.success();
+//        } else {
+//            result.failCustom("创建页面失败");
+//        }
+//        return (CommonResult) result.end();
+//    }
 
-    @Operation(summary = "更新页面")
+    @Operation(summary = "更新页面内容")
     @PutMapping("/")
     public CommonResult updatePage(@RequestBody PageDTO dto) {
         CommonResult result = new CommonResult().init();

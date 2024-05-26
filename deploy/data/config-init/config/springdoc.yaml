@@ -4,10 +4,11 @@ springdoc:
     enabled: true
     # 文档基本信息
     info:
-      title: ${spring.application.name}-api文档
+      title: ${spring.application.name}-api
       description: 文档说明
       terms-of-service: https://github.com/SkyDDDog
-      gateway-url: http://gateway-service:10001/${spring.application.name}
+#      gateway-url: http://gateway-service:10001/${spring.application.name}
+      gateway-url: http://123.249.33.39:10001/${spring.application.name}
       contact:
         name: Lear
         email: lear@qq.com

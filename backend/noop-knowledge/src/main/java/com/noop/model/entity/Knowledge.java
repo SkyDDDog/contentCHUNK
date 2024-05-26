@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
+
 /**
  * 知识库表
  *
@@ -23,6 +25,9 @@ public class Knowledge extends DataEntity<Knowledge> {
 
     public static final String FILE = "1";
     public static final String FOLDER = "0";
+
+    @Serial
+    private static final long serialVersionUID = -2888536681344995071L;
 
     /**
      * 文件夹的父id (根目录则取用户id)

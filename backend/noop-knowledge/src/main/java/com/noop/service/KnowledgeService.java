@@ -27,7 +27,7 @@ public interface KnowledgeService {
      * @param knowledgeDTO  知识库数据传输对象
      * @return
      */
-    boolean updateKnowledge(String userId, KnowledgeDTO knowledgeDTO);
+    boolean updateKnowledge(String userId, List<KnowledgeDTO> knowledgeDTO);
 
     boolean deleteKnowledge(String knowledgeId);
 

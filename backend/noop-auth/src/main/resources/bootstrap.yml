@@ -7,6 +7,7 @@ spring:
         enabled: true
         file-extension: yaml
         group: NOOP_GROUP
+#        namespace: noop
         namespace: noop
         username: nacos
         password: nacos

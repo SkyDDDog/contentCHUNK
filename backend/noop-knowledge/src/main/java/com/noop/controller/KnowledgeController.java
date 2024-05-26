@@ -2,6 +2,8 @@ package com.noop.controller;
 
 import com.noop.common.CommonResult;
 import com.noop.common.MsgCodeUtil;
+import com.noop.config.ValidGroup;
+import com.noop.exception.BusinessException;
 import com.noop.model.dto.KnowledgeDTO;
 import com.noop.model.vo.KnowledgeVO;
 import com.noop.service.KnowledgeService;
@@ -13,12 +15,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * TODO
+ * 知识库控制器
  *
  * @author 天狗
  * @version 1.0
@@ -55,7 +59,7 @@ public class KnowledgeController {
 
     @Operation(summary = "更新知识库")
     @PostMapping("/{userId}")
-    public CommonResult updateKnowledge(@PathVariable String userId, @RequestBody KnowledgeDTO dto) {
+    public CommonResult updateKnowledge(@PathVariable String userId, @RequestBody List<KnowledgeDTO> dto) {
         CommonResult result = new CommonResult().init();
         if (dto == null) {
             result.failCustom(MsgCodeUtil.MSG_CODE_ILLEGAL_ARGUMENT,"知识库数据不能为空");

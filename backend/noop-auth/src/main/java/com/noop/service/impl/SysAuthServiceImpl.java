@@ -18,7 +18,7 @@ import java.util.List;
  * 权限服务实现类
  * @author 天狗
  * @version 1.0
- * @since 2024/5/6
+ * @date 2024/1/22 22:38
  */
 @Service
 public class SysAuthServiceImpl extends CrudService<SysAuthMapper, SysAuth> implements SysAuthService {
