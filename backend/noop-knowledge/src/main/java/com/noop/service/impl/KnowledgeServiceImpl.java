@@ -1,11 +1,14 @@
 package com.noop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.noop.exception.BusinessException;
 import com.noop.mapper.KnowledgeMapper;
 import com.noop.model.dto.KnowledgeDTO;
 import com.noop.model.entity.Knowledge;
+import com.noop.model.entity.Page;
 import com.noop.model.vo.KnowledgeVO;
+import com.noop.model.vo.PageVO;
 import com.noop.service.KnowledgeService;
 import com.noop.util.BeanCustomUtil;
 import com.noop.util.orm.CrudService;
@@ -28,7 +31,8 @@ import java.util.List;
 public class KnowledgeServiceImpl extends CrudService<KnowledgeMapper, Knowledge> implements KnowledgeService {
 
     @Autowired
-    private UserKnowledgeServiceImpl userKnowledgeService;
+    private PageServiceImpl pageService;
+
     @Override
     public List<KnowledgeVO> getKnowledgeListByUserId(String userId) {
         List<KnowledgeVO> result = dfsKnowledge(userId);
@@ -37,21 +41,45 @@ public class KnowledgeServiceImpl extends CrudService<KnowledgeMapper, Knowledge
 
     @Transactional(rollbackFor = BusinessException.class)
     @Override
+    public boolean updateKnowledge(String userId, List<KnowledgeDTO> knowledgeDTO) {
+        for (KnowledgeDTO dto : knowledgeDTO) {
+            updateKnowledge(userId, dto);
+        }
+        return true;
+    }
+
+    @Transactional(rollbackFor = BusinessException.class)
     public boolean updateKnowledge(String parentId, KnowledgeDTO dto) {
         Knowledge knowledge = this.get(dto.getId());
+        boolean isNewRecord = true;
+        String id = IdWorker.getIdStr();
         if (knowledge == null) {
             knowledge = new Knowledge();
-            knowledge.setNewRecord(true);
+            isNewRecord = true;
+            knowledge.setId(id);
         } else {
-            knowledge.setNewRecord(false);
+            isNewRecord = false;
+            id = knowledge.getId();
         }
-        knowledge.setType(dto.getType());
-        knowledge.setTitle(dto.getTitle());
-        knowledge.setParentId(parentId);
+
+        if (Knowledge.FILE.equals(dto.getType())) {
+            PageVO pageById = pageService.getPageById(dto.getId());
+            Page page = new Page();
+            if (pageById != null) {
+                BeanCustomUtil.copyProperties(pageById, page);
+            }
+            page.setId(id);
+            page.setNewRecord(pageById == null);
+            pageService.save(page);
+        }
+        knowledge.setNewRecord(isNewRecord);
+        knowledge.setType(dto.getType())
+                .setTitle(dto.getTitle())
+                .setParentId(parentId);
         this.save(knowledge);
         List<KnowledgeDTO> children = dto.getChildren();
         for (KnowledgeDTO child : children) {
-            updateKnowledge(knowledge.getId(), child);
+            updateKnowledge(id, child);
         }
         return true;
     }

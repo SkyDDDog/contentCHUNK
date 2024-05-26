@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author 天狗
  * @version 1.0
- * @since 2024/5/4
+ * @date 2024/1/30 21:41
  */
 public class HttpRequestUtil {
 
@@ -27,6 +27,11 @@ public class HttpRequestUtil {
 
     public static JSONObject post(String url, String json, Map<String, String> headers) {
         String body = HttpRequest.post(url).body(json).addHeaders(headers).execute().body();
+        return JSONObject.parseObject(body);
+    }
+
+    public static JSONObject post(String url, Map<String,Object> formData, Map<String, String> headers) {
+        String body = HttpRequest.post(url).form(formData).addHeaders(headers).execute().body();
         return JSONObject.parseObject(body);
     }
 

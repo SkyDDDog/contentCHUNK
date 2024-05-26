@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.FieldError;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
@@ -13,11 +15,13 @@ import java.util.List;
 /**
  * 返回结果基础类
  * @author 天狗
- * @since 2024/5/4
+ * @date 2024/01/19 23:40
  */
 @Getter
 @Slf4j
-public class BaseResult {
+public class BaseResult implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private int msgCode = 0;
 

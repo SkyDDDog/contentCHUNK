@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect Page</title>
+</head>
+<body>
+<script>
+    let url = window.location.href;
+    let params = url.split('?url=')[1];
+    console.log(params);
+
+    // const searchParams = new URLSearchParams(window.location.search);
+    // let url = searchParams.get('url');
+    // console.log(url); // 输出: John
+
+
+    // 创建一个 XMLHttpRequest 对象
+    var xhr = new XMLHttpRequest();
+
+    // 设置请求方式和目标网页的 URL
+    xhr.open('GET', params, true);
+
+
+    // 监听状态变化，当状态为4（请求已完成）时进行页面跳转
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            window.location.href = params; // 页面跳转到目标网页
+        }
+    };
+
+    // 发送请求
+    xhr.send();
+</script>
+</body>
+</html>

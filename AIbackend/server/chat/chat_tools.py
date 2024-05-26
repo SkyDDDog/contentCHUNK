@@ -41,7 +41,7 @@ agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
 async def chat_tools(history,input):
     async for event in agent_executor.astream_events(
-            {"input":input,"history":history},
+            {"input":input,"chat_history":history},
             version="v1",
     ):
         kind = event["event"]

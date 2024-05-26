@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cloud?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=Asia/Shanghai
+    url: jdbc:mysql://mysql:13306/noop?useUnicode=true%26characterEncoding=UTF-8%26serverTimeZone=Asia/Shanghai
     username: root
     password: 123456
     druid:
@@ -27,3 +27,9 @@ spring:
         enabled: false
       stat-view-servlet:
         enabled: false
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true

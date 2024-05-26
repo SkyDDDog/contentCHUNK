@@ -1,0 +1,73 @@
+version: "3"
+services:
+  # nacos
+  nacos:
+    image: nacos/nacos-server:v2.2.0
+    hostname: nacos-server
+    restart: always
+    container_name: noop-nacos
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - JVM_XMS=128m
+      - JVM_XMX=128m
+      - JVM_XMN=64m
+    privileged: true
+    ports:
+      - "18848:8848"
+      - "19848:9848"
+      - "19849:9849"
+
+  # mysql
+  mysql:
+    container_name: noop-mysql
+    hostname: mysql-server
+    restart: always
+    image: mysql:5.7
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "13306:3306"
+    volumes:
+      - ./data/config-init/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data/mysql/:/var/lib/mysql/
+    command:
+      [
+        --character-set-server=utf8mb4,
+        --collation-server=utf8mb4_unicode_ci
+      ]
+
+  # redis
+  redis:
+    image: "library/redis:alpine"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "16379:6379"
+#    command: redis-server /usr/local/etc/redis/redis.conf
+    command: redis-server --requirepass 123456
+    restart: always
+
+  # MinIO
+#  minio:
+#    image: minio/minio
+#    hostname: minio
+#    ports:
+#      - 19000:9000 # api 端口
+#      - 19001:9001 # 控制台端口
+#    environment:
+#      MINIO_ACCESS_KEY: root    #管理后台用户名
+#      MINIO_SECRET_KEY: 12345678 #管理后台密码，最小8个字符
+#    volumes:
+#      - /data/minio/data:/data               #映射当前目录下的data目录至容器内/data目录
+#      - /data/minio/config:/root/.minio/     #映射配置目录
+#    command: server --console-address ':9001' /data  #指定容器中的目录 /data
+#    privileged: true
+#    restart: always
+
+
+#networks:
+#  noop-net:
+#    driver: bridge

@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
 import java.util.Date;
 
 /**
@@ -13,13 +14,16 @@ import java.util.Date;
  *
  * @author 天狗
  * @version 1.0
- * @since 2024/5/4
+ * @date 2024/1/20 22:16
  */
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
 public abstract class DataEntity<T> extends BaseEntity<T> {
+
+    @Serial
+    private static final long serialVersionUID = -3203149607445361388L;
 
     /**
      * 备注信息

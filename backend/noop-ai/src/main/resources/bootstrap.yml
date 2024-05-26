@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    nacos:
+      # 配置中心
+      config:
+        server-addr: nacos-server:18848
+        enabled: true
+        file-extension: yaml
+        group: NOOP_GROUP
+#        namespace: noop
+        namespace: noop
+        username: nacos
+        password: nacos
+        shared-configs[0]:
+          data-id: mysql-druid.yaml
+          group: NOOP_GROUP
+          refresh: true
+        shared-configs[1]:
+          data-id: springdoc.yaml
+          group: NOOP_GROUP
+          refresh: true
+#        shared-configs[2]:
+#          data-id: wechat.yaml
+#          group: NOOP_GROUP
+#          refresh: true
+#        shared-configs[3]:
+#          data-id: redis.yaml
+#          group: NOOP_GROUP
+#          refresh: true

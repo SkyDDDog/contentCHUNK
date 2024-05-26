@@ -7,24 +7,13 @@ class ChatRequest(BaseModel):
     history: list = []
     input:str
 
-history=[
-    {"role": "assistant", "content": "你好搜索xx"},
-    {"role": "user", "content": "你ss a axx"},
-]
-
-prompt="n你是和a "
-
 app = FastAPI()
 @app.get("/chat")
 def chat_stream(chatRequest:ChatRequest):
-
     generate = base_chat(chatRequest.history,chatRequest.input)
-    return StreamingResponse(generate, media_type="text/event-stream")
-
 
 @app.get("/expand")
 def chat_stream(input):
-
     generate = expand(input)
     return StreamingResponse(generate, media_type="text/event-stream")
 
@@ -39,5 +28,3 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app=app, host="127.0.0.1", port=10088)
-
-
