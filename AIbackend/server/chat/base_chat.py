@@ -24,14 +24,12 @@ async def base_chat(history, input):
         js_data = {"code": "200", "msg": "ok", "data": token}
         yield f"data: {json.dumps(js_data, ensure_ascii=False)}\n\n"
 
-
 async def expand(input) :
     prompt =  expand_template
     llm = init_llm("kimi")
     chain = prompt | llm
     async for chunk in chain.astream({"input":input}):
         token=chunk.content
-        #print((token))
         js_data = {"code": "200", "msg": "ok", "data": token}
         yield f"data: {json.dumps(js_data, ensure_ascii=False)}\n\n"
 

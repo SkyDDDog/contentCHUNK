@@ -5,9 +5,11 @@ import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.noop.model.api.Article;
+import com.noop.model.vo.WechatArticleVO;
 import com.noop.util.AccessTokenUtil;
 import com.noop.util.FileTransUtil;
 import com.noop.util.HttpRequestUtil;
+import com.noop.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,10 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 发布公众号文章服务
@@ -40,6 +39,9 @@ public class PublishService {
     private OpenService openService;
     @Autowired
     private UserArticleService userArticleService;
+    @Autowired
+    private RedisUtil redisUtil;
+    private final String ARTICLE_HISTORY_KEY = "wechat:article-history";
 
     private JSONObject addDraft(Article article, String userId) {
         String accessToken = openService.getAuthorizerAccessToken(userId);
@@ -145,6 +147,7 @@ public class PublishService {
         log.info("请求草稿箱结果: {}", json.toJSONString());
         String mediaId = json.getString("media_id");
         JSONObject resp = this.publishDraft(mediaId, userId);
+        List<WechatArticleVO> data = (List)this.redisUtil.hget("wechat:article-history", userId);
         log.info("请求发布文章结果: {}", resp.toJSONString());
         return resp.getString("publish_id");
     }
@@ -193,19 +196,74 @@ public class PublishService {
 
     public String checkPublishId(String publishId, String userId) {
         String accessToken = openService.getAuthorizerAccessToken(userId);
-        String url = "https://api.weixin.qq.com/cgi-bin/freepublish/get?access_token=" + accessToken;
+        String requestUrl = "https://api.weixin.qq.com/cgi-bin/freepublish/get?access_token=" + accessToken;
         JSONObject postData = new JSONObject();
         postData.put("publish_id", publishId);
-        JSONObject resp = HttpRequestUtil.post(url, postData.toJSONString(), new HashMap<>(1));
+        JSONObject resp = HttpRequestUtil.post(requestUrl, postData.toJSONString(), new HashMap<>(1));
         if (resp.getInteger("publish_status") != 0) {
             return null;
         }
         log.info("发布状态轮询接口结果：{}", resp.toJSONString());
         JSONObject item = resp.getJSONObject("article_detail").getJSONArray("item").getJSONObject(0);
-        return item.getString("article_url");
+        String url = item.getString("article_url");
+        List<WechatArticleVO> list = (List<WechatArticleVO>) redisUtil.hget(ARTICLE_HISTORY_KEY, userId);
 
+        for (int i = 0; i < list.size(); i++) {
+            WechatArticleVO vo = list.get(i);
+            if (publishId.equals(vo.getPublishId())) {
+                vo.setUrl(url);
+                vo.setContent(resp.getString("publish_id"));
+                list.set(i, vo);
+            }
+        }
+
+        return url;
     }
 
+    public List<WechatArticleVO> requestHistoryArticles(String userId) {
+        List<WechatArticleVO> result = new ArrayList();
+        String accessToken = this.openService.getAuthorizerAccessToken(userId);
+        String url = "https://api.weixin.qq.com/cgi-bin/freepublish/batchget?access_token=" + accessToken;
+        JSONObject postData = new JSONObject();
+        int offset = 0;
+        int count = 20;
+        postData.put("offset", 0);
+        postData.put("count", 20);
+        postData.put("no_content", 0);
+
+        JSONObject resp;
+        do {
+            resp = HttpRequestUtil.post(url, postData.toJSONString(), new HashMap(1));
+            log.info("getHistoryArticles: {}", resp.toJSONString());
+            JSONArray itemList = resp.getJSONArray("item");
+            for (Object o : itemList) {
+                JSONObject item = (JSONObject)o;
+                WechatArticleVO article = new WechatArticleVO();
+                article.setArticleId(item.getString("article_id"));
+                JSONObject newItem = item.getJSONObject("content").getJSONArray("news_item").getJSONObject(0);
+                article.setTitle(newItem.getString("title"));
+                article.setAuthor(newItem.getString("author"));
+                article.setContent(newItem.getString("content"));
+                article.setUrl(newItem.getString("url"));
+                result.add(article);
+            }
+            offset += count;
+            postData.put("offset", offset);
+        } while(resp.getInteger("total_count") > offset + count);
+
+        return result;
+    }
+
+    public List<WechatArticleVO> getHistoryArticles(String userId) {
+        List<WechatArticleVO> data = (List)this.redisUtil.hget("wechat:article-history", userId);
+        if (data == null || data.isEmpty()) {
+            log.info("重新请求历史文章");
+            data = this.requestHistoryArticles(userId);
+            this.redisUtil.hset("wechat:article-history", userId, data, 86400L);
+        }
+
+        return data;
+    }
 
 
 }
