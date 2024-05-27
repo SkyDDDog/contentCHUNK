@@ -20,12 +20,14 @@ import { useDispatch } from 'react-redux'
 import {
   setKnowLedgeList,
   setLoginStatus,
+  setPublishHistory,
   setUserInfo,
 } from '../redux/userSlice'
 import {
   GetKnowLedgeList,
   // GetPagesByKnowLedgeId,
 } from '../api/knowledgeRequest'
+import { GetSuccessPublishedHistory } from '../api/wechat'
 
 export default function App() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -69,6 +71,11 @@ export default function App() {
         /* 获取知识库 */
         let knowledges = (await GetKnowLedgeList(res.data.item.user.id)).data
           .item.knowledge
+        // 获取成功发布的文章
+        let articles = (await GetSuccessPublishedHistory(res.data.item.user.id))
+          .data.item.articles
+        console.log('articles', articles)
+        dispatch(setPublishHistory(articles.reverse()))
         console.log('knowledges', knowledges)
         /* 获取Page */
         /* 循环 */

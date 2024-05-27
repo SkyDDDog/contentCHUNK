@@ -11,6 +11,7 @@ const initialState = {
   PageFirstRenderFlag: true,
   activePageContent: '',
   activePageTitle: '',
+  isPublishing: false,
 }
 
 export const pageSlice = createSlice({
@@ -57,6 +58,9 @@ export const pageSlice = createSlice({
       console.log('activePageContent', payload)
       state.activePageContent = payload
     },
+    setIsPublish(state, { payload }) {
+      state.isPublishing = payload
+    },
   },
 })
 
@@ -67,6 +71,7 @@ export const {
   setActivePageKey,
   setPageFirstRenderFlag,
   setActivePageContent,
+  setIsPublish,
 } = pageSlice.actions
 
 export default pageSlice.reducer

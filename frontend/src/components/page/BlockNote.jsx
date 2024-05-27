@@ -26,55 +26,29 @@ import {
   GetPageContentById,
   UpdatePageContent,
 } from '../../api/knowledgeRequest'
+import { UploadFileToWx } from '../../api/wechat'
+// import { uploadToTmpFilesDotOrg_DEV_ONLY } from '@blocknote/core'
 // import { GetPageContentById } from '../../api/knowledgeRequest'
 
 export default function App() {
+  const userId = useSelector((state) => state.user.userInfo.id)
+  console.log('userId', userId)
   // Creates a new editor instance
-  const editor = useCreateBlockNote({
-    initialContent: [
-      {
-        type: 'paragraph',
-        content: 'Welcome to this demo!',
+  const editor = useCreateBlockNote(
+    {
+      uploadFile: async (file) => {
+        const formData = new FormData()
+        formData.append('file', file)
+        return new Promise((resolve) => {
+          UploadFileToWx(userId, formData).then((res) => {
+            console.log('uploadFile', res)
+            resolve(res.data.item.image)
+          })
+        })
       },
-      {
-        type: 'paragraph',
-        content: [
-          {
-            type: 'text',
-            text: 'You can now toggle ',
-            styles: {},
-          },
-          {
-            type: 'text',
-            text: 'blue',
-            styles: { textColor: 'blue', backgroundColor: 'blue' },
-          },
-          {
-            type: 'text',
-            text: ' and ',
-            styles: {},
-          },
-          {
-            type: 'text',
-            text: 'code',
-            styles: { code: true },
-          },
-          {
-            type: 'text',
-            text: ' styles with new buttons in the Formatting Toolbar',
-            styles: {},
-          },
-        ],
-      },
-      {
-        type: 'paragraph',
-        content: 'https://t7.baidu.com/it/u=954153296,2797898137&fm=193&f=GIF',
-      },
-      {
-        type: 'paragraph',
-      },
-    ],
-  })
+    },
+    [userId],
+  )
 
   /* 当前Page内容 */
   // const activePageId = useSelector((state) => state.page.activePageKey)
@@ -129,8 +103,8 @@ export default function App() {
       return
     }
     GetPageContentById(curPageId).then(async (res) => {
-      let pageHTML = res.data.item.page.content
-        ? res.data.item.page.content
+      let pageHTML = res.data.item.page?.content
+        ? res.data.item.page?.content
         : ''
       console.log('getHTML', pageHTML)
       dispatch(setActivePageContent(pageHTML))
@@ -145,13 +119,17 @@ export default function App() {
     })
   }, [curPageId])
   async function contentChangeHandler() {
-    if (!isLogin) return
-    const HTMLFromBlocks = await editor.blocksToHTMLLossy()
-    dispatch(setActivePageContent(HTMLFromBlocks))
-    console.log('html', HTMLFromBlocks)
-    UpdatePageContent(curPageId, HTMLFromBlocks).then(() => {
-      console.log('更新page内容', curPageId)
-    })
+    try {
+      if (!isLogin) return
+      const HTMLFromBlocks = await editor.blocksToHTMLLossy()
+      dispatch(setActivePageContent(HTMLFromBlocks))
+      console.log('html', HTMLFromBlocks)
+      UpdatePageContent(curPageId, HTMLFromBlocks).then(() => {
+        console.log('更新page内容', curPageId)
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
   // Renders the editor instance using a React component.
   return (

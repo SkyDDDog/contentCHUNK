@@ -153,6 +153,23 @@ const App = () => {
               return true
             })
           })
+
+          setTimeout(() => {
+            console.log('treeData', treeData)
+
+            let data = treeData.map((item) => {
+              return transFormTreeDataToBackEnd(item)
+            })
+            console.log('datatatat', data)
+
+            UpdateKnowledgeByUserId(userInfo.id, data).then((res) => {
+              console.log('res', res)
+              /* 更新tree */
+
+              onClose()
+              setModalValue('')
+            })
+          }, 1000)
         },
       },
     ]
@@ -170,6 +187,7 @@ const App = () => {
       </Dropdown>
     )
   }
+
   const onDrop = (info) => {
     console.log(info)
     const dropKey = info.node.key
