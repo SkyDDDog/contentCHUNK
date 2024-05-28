@@ -19,6 +19,7 @@ import '@blocknote/mantine/style.css'
 import useMainWidth from '../../utils/useMainWidth'
 import { useDispatch, useSelector } from 'react-redux'
 import { ExpendButton } from './editor/toolbar/ExpendButton'
+
 import { useEffect /* useMemo */ } from 'react'
 import { setActivePageContent, setPageFirstRenderFlag } from '../../redux/page'
 import { setAddCount } from '../../redux/chat'
@@ -27,6 +28,7 @@ import {
   UpdatePageContent,
 } from '../../api/knowledgeRequest'
 import { UploadFileToWx } from '../../api/wechat'
+import { ModifyButton } from './editor/toolbar/ModifyButton'
 // import { uploadToTmpFilesDotOrg_DEV_ONLY } from '@blocknote/core'
 // import { GetPageContentById } from '../../api/knowledgeRequest'
 
@@ -149,7 +151,7 @@ export default function App() {
 
               {/* Extra button to toggle blue text & background */}
               <ExpendButton key={'customButton'} />
-
+              <ModifyButton key={'modifyButton'} />
               <ImageCaptionButton key={'imageCaptionButton'} />
               <ReplaceImageButton key={'replaceImageButton'} />
 

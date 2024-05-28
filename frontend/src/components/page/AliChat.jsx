@@ -19,7 +19,7 @@ import { fetchEventSource } from '@microsoft/fetch-event-source'
 let lastMsgId = 1
 let expendFlag = false
 let ctx
-let SPEED = 200
+let SPEED = 400
 let interval
 export default function AliChat() {
   const wrapper = useRef()
@@ -177,7 +177,7 @@ export default function AliChat() {
             return new Promise((resolve) => {
               let resStr = ''
               fetchEventSource(
-                `http://123.249.33.39:10001/ai-service/ai/chat/tool/${curPageId ? curPageId : '1315021555'}`,
+                `http://123.249.33.39:10001/ai-service/ai/chat/tool/${curPageId ? curPageId : '1234'}`,
                 {
                   /* async onopen(response) {
                     console.log('open', response)
@@ -217,6 +217,10 @@ export default function AliChat() {
                     }, SPEED)
                   },
                   onclose() {
+                    let lastMsg = Array.from(
+                      document.querySelectorAll('.Knowledge-content'),
+                    ).pop()
+                    lastMsg.innerHTML = resStr
                     // ctx.scrollToEnd()
                     lastMsgId++
                     // if the server closes the connection unexpectedly, retry:
@@ -307,7 +311,7 @@ export default function AliChat() {
       content: {
         code: 'adaptable-action-card', // 卡片code
         data: {
-          title: '扩写结果',
+          title: selectedText.slice(0, 2) + '结果',
           // picUrl:
           //   'https://gw.alicdn.com/tfs/TB1FwxTGxnaK1RjSZFtXXbC2VXa-1200-800.jpg',
           content: contentToAdd,
