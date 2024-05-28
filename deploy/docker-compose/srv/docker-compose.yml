@@ -1,0 +1,12 @@
+version: "3"
+services:
+  ai-backend:
+    image: ai-backend
+    build:
+      dockerfile: Dockerfile
+      context: ./AIbackend
+  #  env_file:
+  #    - .env
+    container_name: ai-backend
+    ports:
+      - 10086:10088
