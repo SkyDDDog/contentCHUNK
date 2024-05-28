@@ -2,6 +2,7 @@ import React from 'react'
 import { Col, Row, Segmented, Button, Input, DatePicker, Space } from 'antd'
 import { UploadOutlined } from '@ant-design/icons' // 导入UploadOutlined图标
 import { useLocation } from 'react-router-dom'
+
 import { GetSuccessPublishedHistory, PublishPage } from '../api/wechat'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -26,6 +27,7 @@ import {
 import '../assets/css/history.css'
 import { Spin } from 'antd'
 import { setPublishHistory } from '../redux/userSlice'
+
 
 const Distribute = () => {
   const [spinning, setSpinning] = React.useState(false)

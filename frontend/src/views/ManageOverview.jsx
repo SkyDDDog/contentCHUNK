@@ -84,7 +84,7 @@ export default function ManageOverview() {
             </Text>
             <Box width="auto" height="auto" mb={2} />
             <Text fontWeight={'bold'}>
-              总浏览量:&nbsp;&nbsp;{stats[0]?.read}
+              总浏览量:&nbsp;&nbsp;{stats.length > 0 && stats[0].read}
             </Text>
             <Box width="auto" height="auto" mb={2} />
             <Text fontWeight={'bold'}>
