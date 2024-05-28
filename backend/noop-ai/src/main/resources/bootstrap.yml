@@ -19,11 +19,8 @@ spring:
           data-id: springdoc.yaml
           group: NOOP_GROUP
           refresh: true
-#        shared-configs[2]:
-#          data-id: wechat.yaml
-#          group: NOOP_GROUP
-#          refresh: true
-#        shared-configs[3]:
-#          data-id: redis.yaml
-#          group: NOOP_GROUP
-#          refresh: true
+        shared-configs[2]:
+          data-id: redis.yaml
+          group: NOOP_GROUP
+          refresh: true
+#

@@ -1,25 +1,18 @@
 package com.noop.service;
 
-import cn.hutool.crypto.OpensslKeyUtil;
-import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.noop.model.api.Article;
 import com.noop.model.vo.WechatArticleVO;
-import com.noop.util.AccessTokenUtil;
 import com.noop.util.FileTransUtil;
 import com.noop.util.HttpRequestUtil;
 import com.noop.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -147,7 +140,14 @@ public class PublishService {
         log.info("请求草稿箱结果: {}", json.toJSONString());
         String mediaId = json.getString("media_id");
         JSONObject resp = this.publishDraft(mediaId, userId);
-        List<WechatArticleVO> data = (List)this.redisUtil.hget("wechat:article-history", userId);
+        List<WechatArticleVO> data = (List<WechatArticleVO>)this.redisUtil.hget(ARTICLE_HISTORY_KEY, userId);
+        WechatArticleVO vo = new WechatArticleVO();
+        vo.setPublishId(resp.getString("publish_id"))
+                .setTitle(article.getTitle())
+                .setContent(article.getContent())
+                .setAuthor(article.getAuthor());
+        data.add(vo);
+        redisUtil.hset(ARTICLE_HISTORY_KEY, userId, data, 86400L);
         log.info("请求发布文章结果: {}", resp.toJSONString());
         return resp.getString("publish_id");
     }
@@ -207,7 +207,10 @@ public class PublishService {
         JSONObject item = resp.getJSONObject("article_detail").getJSONArray("item").getJSONObject(0);
         String url = item.getString("article_url");
         List<WechatArticleVO> list = (List<WechatArticleVO>) redisUtil.hget(ARTICLE_HISTORY_KEY, userId);
-
+        log.info("list: {}", list);
+        for (WechatArticleVO vo : list) {
+            log.info("vo: {}", vo);
+        }
         for (int i = 0; i < list.size(); i++) {
             WechatArticleVO vo = list.get(i);
             if (publishId.equals(vo.getPublishId())) {
@@ -264,6 +267,7 @@ public class PublishService {
 
         return data;
     }
+
 
 
 }

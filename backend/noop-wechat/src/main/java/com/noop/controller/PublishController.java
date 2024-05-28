@@ -129,4 +129,15 @@ public class PublishController {
         return (CommonResult) result.end();
     }
 
+    @Operation(summary = "查看文章发布历史")
+    @Parameters({
+            @Parameter(name = "userId", description = "用户id", required = true, schema = @Schema(type = "string")),
+    })
+    @GetMapping("/history")
+    public CommonResult getHistory(@RequestParam String userId) {
+        CommonResult result = new CommonResult().init();
+        result.success("articles", publishService.getHistoryArticles(userId));
+        return (CommonResult) result.end();
+    }
+
 }

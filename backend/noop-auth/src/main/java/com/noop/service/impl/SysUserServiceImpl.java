@@ -57,15 +57,17 @@ public class SysUserServiceImpl extends CrudService<SysUserMapper, SysUser> impl
         SysUser user = new SysUser()
                 .setUsername(username)
                 .setPassword(passwordEncoder.encode(rawPassword));
+        user.setNewRecord(true);
         String userId = IdWorker.getIdStr(user);
         user.setId(userId);
         SysUserRole userRole = new SysUserRole()
                 .setRoleId(AuthConstants.DEFAULT_ROLE_ID)
                 .setUserId(userId);
-        if (0 < sysUserRoleService.save(userRole)) {
+        userRole.setNewRecord(true);
+        if (0 >= sysUserRoleService.save(userRole)) {
             throw new BusinessException("注册失败:保存用户角色失败");
         }
-        if (0 < this.save(user)) {
+        if (0 >= this.save(user)) {
             throw new BusinessException("注册失败:保存用户信息失败");
         }
         return true;
