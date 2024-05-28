@@ -2,7 +2,7 @@ import React from 'react'
 import { Col, Row, Segmented, Button, Input, DatePicker, Space } from 'antd'
 import { UploadOutlined } from '@ant-design/icons' // 导入UploadOutlined图标
 import { useLocation } from 'react-router-dom'
-import { PublishPage, GetPublishState } from '../api/wechat'
+import { PublishPage, GetPublishState } from '../api/weChat'
 import { useSelector } from 'react-redux'
 const Distribute = () => {
   const {
