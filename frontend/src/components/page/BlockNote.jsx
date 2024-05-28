@@ -135,7 +135,7 @@ export default function App() {
   return (
     <div
       className="editorWrap"
-      style={{ width: '100%', height: '100%', maxWidth: mainWidth + 'px' }}
+      style={{ width: '100%', height: '90%', maxWidth: mainWidth + 'px' }}
     >
       <BlockNoteView
         editor={editor}

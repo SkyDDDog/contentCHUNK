@@ -19,6 +19,8 @@ import { fetchEventSource } from '@microsoft/fetch-event-source'
 let lastMsgId = 1
 let expendFlag = false
 let ctx
+let SPEED = 200
+let interval
 export default function AliChat() {
   const wrapper = useRef()
 
@@ -26,6 +28,7 @@ export default function AliChat() {
   const dispatch = useDispatch()
   const selectedText = useSelector((state) => state.chat.selectedText)
   let [contentToAdd, setContentToAdd] = useState('')
+  const curPageId = useSelector((state) => state.page.activePageKey)
   useEffect(() => {
     const bot = new window.ChatSDK({
       root: wrapper.current,
@@ -165,6 +168,7 @@ export default function AliChat() {
       requests: {
         /* ... */
         send: function (msg) {
+          console.log('send1')
           console.log(msg)
           let firstReceive = true
           // 发送文本消息时
@@ -173,13 +177,20 @@ export default function AliChat() {
             return new Promise((resolve) => {
               let resStr = ''
               fetchEventSource(
-                `http://127.0.0.1:10088/chat?query=${msg.content.text}`,
+                `http://123.249.33.39:10001/ai-service/ai/chat/tool/${curPageId ? curPageId : '1315021555'}`,
                 {
                   /* async onopen(response) {
                     console.log('open', response)
                     if (response.ok) {
                     }
                   }, */
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    input: msg.content.text,
+                  }),
                   onmessage: (event) => {
                     // ctx.scrollToEnd()
                     let jsonData = JSON.parse(event.data)
@@ -192,17 +203,25 @@ export default function AliChat() {
                       return
                     }
                     // resolve(resStr)
-                    let lastMsg = Array.from(
-                      document.querySelectorAll('.Knowledge-content'),
-                    ).pop()
-                    console.log(lastMsg)
-                    lastMsg.innerHTML = resStr
-                    console.log('resStr', resStr)
+                    if (interval) return
+                    interval = setInterval(() => {
+                      let lastMsg = Array.from(
+                        document.querySelectorAll('.Knowledge-content'),
+                      ).pop()
+                      console.log('lastMsg', lastMsg)
+                      lastMsg.innerHTML = resStr
+                      var div = document.querySelector('.PullToRefresh')
+                      div.scrollTop = div.scrollHeight - div.clientHeight
+                      clearInterval(interval)
+                      interval = null
+                    }, SPEED)
                   },
                   onclose() {
                     // ctx.scrollToEnd()
                     lastMsgId++
                     // if the server closes the connection unexpectedly, retry:
+                    clearInterval(interval)
+                    interval = null
                     console.log('close')
                     if (expendFlag) {
                       setContentToAdd(resStr)
@@ -212,23 +231,6 @@ export default function AliChat() {
                 },
               )
             })
-            // .then((result) => console.log(result))
-            /* return {
-              _id: '1',
-              type: 'card',
-              content: {
-                code: 'knowledge',
-                data: {
-                  text: '...',
-                },
-              },
-              meta: {
-                evaluable: true, // 是否展示点赞点踩按钮
-              },
-            } */
-            // ... 其它消息类型的处理
-
-            // 当需要增加header或者websocket、sse等特殊形式消息处理时，可以返回Promise，假如返回Promise对象是空对象，则不会展示消息内容
           }
         },
 
@@ -351,40 +353,6 @@ export default function AliChat() {
         },
         position: 'right',
       })
-
-      /* 扩写 */
-      /* 模拟获取扩写的结果 */
-      // let resStr = '扩写结果：'
-      // fetchEventSource(`http://127.0.0.1:10088/chat?query=${selectedText}`, {
-      //   /*  async onopen(response) {
-      //               console.log('open', response)
-      //               if (response.ok) {
-      //                 resolve(resStr)
-      //               }
-      //             }, */
-      //   onmessage: (event) => {
-      //     let jsonData = JSON.parse(event.data)
-      //     if (jsonData.data) {
-      //       resStr += jsonData.data
-      //     }
-      //     // resolve(resStr)
-
-      //     console.log('resStr', resStr)
-      //   },
-      //   onclose() {
-      //     lastMsgId++
-      //     // if the server closes the connection unexpectedly, retry:
-      //     console.log('close')
-      //     setContentToAdd(resStr)
-      //   },
-      //   onerror() {
-      //     console.log('error')
-      //   },
-      // })
-      /*       setContentToAdd(
-        Math.random() +
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptatibus pariatur numquam reiciendis enim ab, odio placeat dolorum error, officia porro vitae aut nobis nulla asperiores omnis minima nesciunt. Corporis?',
-      ) */
     }
   }, [selectedText]) /* 到时候这里改成扩写的Flag */
 

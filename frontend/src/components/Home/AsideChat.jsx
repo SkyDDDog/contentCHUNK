@@ -53,7 +53,7 @@ export default function AsideChat() {
           right="0"
           minWidth="30vw"
           maxWidth="50vw"
-          height={'89vh'}
+          height={'87vh'}
           borderLeftWidth="3px"
           bg="blackAlpha.300"
           handlePosition="left"
@@ -65,7 +65,7 @@ export default function AsideChat() {
             isOpen={isOpen}
             width="100%"
             maxWidth="50vw"
-            height="89vh"
+            height="87vh"
           >
             <AliChat></AliChat>
           </Sidebar>

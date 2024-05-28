@@ -49,6 +49,16 @@ const App = () => {
       console.log('Tree data', tmp)
       return tmp
     })
+    if (data.length === 0) {
+      data = [
+        {
+          type: '0',
+          title: '根目录',
+          key: '0',
+          children: [],
+        },
+      ]
+    }
     setTreeData(data)
   }, [knowledgeList])
   /*  const treeData = useMemo(() => {

@@ -28,7 +28,6 @@ import '../assets/css/history.css'
 import { Spin } from 'antd'
 import { setPublishHistory } from '../redux/userSlice'
 
-
 const Distribute = () => {
   const [spinning, setSpinning] = React.useState(false)
   /*   const showLoader = (duration) => {
@@ -69,13 +68,18 @@ const Distribute = () => {
   }
 
   async function getPublishState() {
-    let articles = (await GetSuccessPublishedHistory(userId)).data.item.articles
+    let articles = (await GetSuccessPublishedHistory(userId)).data.item
+      ?.articles
     console.log('articles', articles)
     dispatch(setPublishHistory(articles.reverse()))
   }
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef()
-  function showHistoryDialog() {
+  async function showHistoryDialog() {
+    let articles = (await GetSuccessPublishedHistory(userId)).data.item
+      ?.articles
+    console.log('articles', articles)
+    dispatch(setPublishHistory(articles.reverse()))
     console.log('open dialog')
     onOpen()
   }
@@ -273,9 +277,7 @@ const Distribute = () => {
             <AlertDialogBody>
               <TableContainer maxHeight={'60vh'} overflowY={'auto'}>
                 <Table variant="simple">
-                  <TableCaption>
-                    Imperial to metric conversion factors
-                  </TableCaption>
+                  <TableCaption>没有更多记录了</TableCaption>
                   <Thead>
                     <Tr>
                       <Th>文章标题</Th>
