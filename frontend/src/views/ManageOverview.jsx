@@ -74,7 +74,7 @@ export default function ManageOverview() {
             <Box width="auto" height="auto" mb={5}/>
             <Text fontWeight={'bold'}>文章标题:&nbsp;&nbsp;{stats.length > 0 && stats[0].title}</Text>
             <Box width="auto" height="auto" mb={2}/>
-            <Text fontWeight={'bold'}>总浏览量:&nbsp;&nbsp;{stats[0].read}</Text>
+            <Text fontWeight={'bold'}>总浏览量:&nbsp;&nbsp;{stats.length > 0 && stats[0].read}</Text>
             <Box width="auto" height="auto" mb={2}/>
             <Text fontWeight={'bold'}>新增关注:&nbsp;&nbsp;{userStats.newUser - userStats.cancelUser}</Text>
           </CardBody>
