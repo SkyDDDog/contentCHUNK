@@ -24,6 +24,9 @@ public class PageServiceImpl extends CrudService<PageMapper, Page> implements Pa
     public boolean updatePage(PageDTO dto) {
         String id = dto.getPageId();
         Page page = this.get(id);
+        if (page==null) {
+            return false;
+        }
         if (!StringUtils.hasLength(dto.getContent())) {
             return false;
         }

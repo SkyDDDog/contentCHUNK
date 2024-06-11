@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/chunk/static/css/main.eedd3dcb.css",
+    "main.js": "/chunk/static/js/main.d99f1841.js",
+    "static/media/inter-v12-latin-800.woff": "/chunk/static/media/inter-v12-latin-800.f8e8bd61bdf890048dd1.woff",
+    "static/media/inter-v12-latin-700.woff": "/chunk/static/media/inter-v12-latin-700.7ad0df5561cc0933cead.woff",
+    "static/media/inter-v12-latin-600.woff": "/chunk/static/media/inter-v12-latin-600.a8909bb7bbff51df8622.woff",
+    "static/media/inter-v12-latin-500.woff": "/chunk/static/media/inter-v12-latin-500.2e89c7eec639d70f9770.woff",
+    "static/media/inter-v12-latin-200.woff": "/chunk/static/media/inter-v12-latin-200.5ebc8670af89597cf4f0.woff",
+    "static/media/inter-v12-latin-300.woff": "/chunk/static/media/inter-v12-latin-300.72b6ab1c5164d2f7a60a.woff",
+    "static/media/inter-v12-latin-900.woff": "/chunk/static/media/inter-v12-latin-900.c5ccfaf539e28bfddffe.woff",
+    "static/media/inter-v12-latin-regular.woff": "/chunk/static/media/inter-v12-latin-regular.817c4274293e221c5076.woff",
+    "static/media/inter-v12-latin-100.woff": "/chunk/static/media/inter-v12-latin-100.b0c3cec995c079348d2e.woff",
+    "static/media/inter-v12-latin-700.woff2": "/chunk/static/media/inter-v12-latin-700.54321e26b8bf4739a16d.woff2",
+    "static/media/inter-v12-latin-800.woff2": "/chunk/static/media/inter-v12-latin-800.7e1a31f93354d23987f4.woff2",
+    "static/media/inter-v12-latin-600.woff2": "/chunk/static/media/inter-v12-latin-600.8f1e0300e8d26fa8919d.woff2",
+    "static/media/inter-v12-latin-500.woff2": "/chunk/static/media/inter-v12-latin-500.c72c72b70c82b1f4bacf.woff2",
+    "static/media/inter-v12-latin-200.woff2": "/chunk/static/media/inter-v12-latin-200.7b1cdef5c4317d8dfe5a.woff2",
+    "static/media/inter-v12-latin-300.woff2": "/chunk/static/media/inter-v12-latin-300.1d901654d5968b3d2af1.woff2",
+    "static/media/inter-v12-latin-900.woff2": "/chunk/static/media/inter-v12-latin-900.6453f04550c5da4cc6b8.woff2",
+    "static/media/inter-v12-latin-regular.woff2": "/chunk/static/media/inter-v12-latin-regular.be7cb18dc7caf47cf7e9.woff2",
+    "static/media/inter-v12-latin-100.woff2": "/chunk/static/media/inter-v12-latin-100.9094111633a8ff639a30.woff2",
+    "static/media/jinritoutiao.svg": "/chunk/static/media/jinritoutiao.9425c2f1947ad1832ebabdea4d046a3f.svg",
+    "static/media/index.less": "/chunk/static/media/index.7c07c6dde5b9e90ab1ba.less",
+    "index.html": "/chunk/index.html",
+    "main.eedd3dcb.css.map": "/chunk/static/css/main.eedd3dcb.css.map",
+    "main.d99f1841.js.map": "/chunk/static/js/main.d99f1841.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.eedd3dcb.css",
+    "static/js/main.d99f1841.js"
+  ]
+}

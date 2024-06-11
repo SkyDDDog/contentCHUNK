@@ -8,7 +8,7 @@ spring:
         file-extension: yaml
         group: NOOP_GROUP
 #        namespace: noop
-        namespace: noop
+        namespace: test
         username: nacos
         password: nacos
         shared-configs[0]:

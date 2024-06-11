@@ -105,12 +105,17 @@ public class AiController {
         List<Context> history = (List<Context>) redisUtil.hget(CHAT_CACHE_KEY, id);
         if (history == null) {
             history = new ArrayList<>();
+            Context context = new Context();
+            context.setRole("user").setContent("今天是2024.05.29");
+            history.add(context);
         }
+
         ChatModel req = new ChatModel();
         req.setHistory(history)
                 .setInput(dto.getInput());
-        log.info("req: {}", req);
-        log.info("req json: {}", JSONObject.toJSONString(req));
+//        log.info("req: {}", req);
+//        log.info("req json: {}", JSONObject.toJSONString(req));
+
         List<Context> finalHistory = history;
         return webClient().post()
                 .uri("/chat_tools")
@@ -122,6 +127,8 @@ public class AiController {
                     vo.setId(id);
                     if ("on_chat_model_stream".equals(vo.getStep())) {
                         sb.append(vo.getData());
+                    } else {
+                        vo.setData("");
                     }
                     return vo;
                 })

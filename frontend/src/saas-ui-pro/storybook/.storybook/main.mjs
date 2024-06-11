@@ -17,7 +17,7 @@ export default {
     '@storybook/addon-controls',
     '@storybook/addon-links',
   ],
-  staticDirs: ['./static'],
+  staticDirs: ['./chunk/static'],
   typescript: {
     reactDocgen: true,
   },

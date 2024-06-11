@@ -3,7 +3,6 @@ FROM openjdk:17-jdk-alpine as builder
 LABEL author="lear" \
 	email="362664609@qq.com"
 
-#ADD ./target/noop-gateway-*.jar /app.jar
 ADD ./noop-gateway-*.jar /app.jar
 
 RUN sh -c 'touch /app.jar'

@@ -102,21 +102,4 @@ public class GatewayConfig {
         GatewayCallbackManager.setBlockHandler(blockRequestHandler);
     }
 
-//    /**
-//     * 注册跨域过滤器
-//     * @return CorsWebFilter 跨域过滤器
-//     */
-//    @Bean
-//    public CorsWebFilter corsFilter() {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true);
-//        config.addAllowedHeader("*");
-//        config.addAllowedMethod("*");
-//        config.addAllowedOriginPattern("*");
-//        source.registerCorsConfiguration("/**", config);
-//
-//        return new CorsWebFilter(source);
-//    }
-
 }

@@ -13,7 +13,8 @@ spring:
         watch:
           enabled: true
         server-addr: nacos-server:18848
-        namespace: noop
+#        namespace: noop
+        namespace: test
         group: NOOP_GROUP
         username: nacos
         password: nacos

@@ -206,19 +206,15 @@ public class PublishService {
         log.info("发布状态轮询接口结果：{}", resp.toJSONString());
         JSONObject item = resp.getJSONObject("article_detail").getJSONArray("item").getJSONObject(0);
         String url = item.getString("article_url");
-        List<WechatArticleVO> list = (List<WechatArticleVO>) redisUtil.hget(ARTICLE_HISTORY_KEY, userId);
-        log.info("list: {}", list);
-        for (WechatArticleVO vo : list) {
-            log.info("vo: {}", vo);
-        }
-        for (int i = 0; i < list.size(); i++) {
-            WechatArticleVO vo = list.get(i);
-            if (publishId.equals(vo.getPublishId())) {
-                vo.setUrl(url);
-                vo.setContent(resp.getString("publish_id"));
-                list.set(i, vo);
-            }
-        }
+//        List<WechatArticleVO> list = (List<WechatArticleVO>) redisUtil.hget(ARTICLE_HISTORY_KEY, userId);
+//        for (int i = 0; i < list.size(); i++) {
+//            WechatArticleVO vo = list.get(i);
+//            if (publishId.equals(vo.getPublishId())) {
+//                vo.setUrl(url);
+//                vo.setContent(resp.getString("publish_id"));
+//                list.set(i, vo);
+//            }
+//        }
 
         return url;
     }
@@ -262,7 +258,7 @@ public class PublishService {
         if (data == null || data.isEmpty()) {
             log.info("重新请求历史文章");
             data = this.requestHistoryArticles(userId);
-            this.redisUtil.hset("wechat:article-history", userId, data, 86400L);
+            this.redisUtil.hset("wechat:article-history", userId, data, 60*60*3);
         }
 
         return data;
