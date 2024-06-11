@@ -20,12 +20,14 @@ import { useDispatch } from 'react-redux'
 import {
   setKnowLedgeList,
   setLoginStatus,
+  setPublishHistory,
   setUserInfo,
 } from '../redux/userSlice'
 import {
   GetKnowLedgeList,
   // GetPagesByKnowLedgeId,
 } from '../api/knowledgeRequest'
+import { GetSuccessPublishedHistory } from '../api/wechat'
 
 export default function App() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -57,6 +59,14 @@ export default function App() {
           return
         }
         /* 登录成功 */
+        /* 提示 */
+        toast({
+          title: '登录成功.',
+          description: '开始创作吧!',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
         /* 设置token */
         const token = res.data.item.token.access_token
         if (token) {
@@ -69,32 +79,21 @@ export default function App() {
         /* 获取知识库 */
         let knowledges = (await GetKnowLedgeList(res.data.item.user.id)).data
           .item.knowledge
+        // 获取成功发布的文章
+        dispatch(setKnowLedgeList(knowledges))
+        let articles = (await GetSuccessPublishedHistory(res.data.item.user.id))
+          .data.item.articles
+        console.log('articles', articles)
+        dispatch(setPublishHistory(articles.reverse()))
         console.log('knowledges', knowledges)
         /* 获取Page */
         /* 循环 */
         // knowledges.forEach(element => {
         //   let pages = GetPagesByKnowLedgeId(knowledges[0].id)
         // });
-
-        dispatch(setKnowLedgeList(knowledges))
-
-        /* 提示 */
-        toast({
-          title: '登录成功.',
-          description: "Let's create !",
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        })
       })
       .catch((err) => {
-        toast({
-          title: '登录失败.',
-          description: err.msg,
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        })
+        console.log(err)
       })
       .finally(() => {
         /* 停止loading */

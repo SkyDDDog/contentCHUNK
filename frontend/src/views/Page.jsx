@@ -3,8 +3,9 @@ import BlockNote from '../components/page/BlockNote'
 import { useMatch, useNavigate } from 'react-router-dom'
 // import { GetPageContentById } from '../api/knowledgeRequest'
 import { Button } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import useMainWidth from '../utils/useMainWidth'
+import { setIsPublish } from '../redux/page'
 // import { PublishPage } from '../api/weChat'
 // import Chat from '../components/page/Chat'
 
@@ -15,6 +16,7 @@ export default function Page() {
   const mainWidth = useMainWidth(leftWidth, rightWidth)
   let { pageId } = match.params
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   console.log('pageId', pageId)
   const activeContent = useSelector((state) => state.page.activePageContent)
   const tabPages = useSelector((state) => state.page.tabPages)
@@ -51,6 +53,8 @@ export default function Page() {
         content: activeContent,
       },
     })
+    // 设置store flag
+    dispatch(setIsPublish(true))
   }
   return (
     <div

@@ -26,6 +26,7 @@ const userSlice = createSlice({
    */
     ],
     pages: {},
+    publishHistory:[]
   },
   reducers: {
     setUserInfo(state, { payload }) {
@@ -43,6 +44,9 @@ const userSlice = createSlice({
         .knowledge
       state.knowledgeList = knowledges
     },
+    setPublishHistory(state, { payload }) {
+      state.publishHistory = payload
+    }
   },
 })
 
@@ -51,5 +55,6 @@ export const {
   setUserInfo,
   setKnowLedgeList,
   reloadKnowledgeList,
+  setPublishHistory,
 } = userSlice.actions
 export default userSlice.reducer

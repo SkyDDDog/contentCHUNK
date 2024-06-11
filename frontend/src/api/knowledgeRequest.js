@@ -32,12 +32,16 @@ export const GetPageContentById = (pageId) => {
 
 /* 更新page内容 */
 export const UpdatePageContent = (pageId, content) => {
-  return request({
-    method: 'put',
-    url: `/knowledge-service/page/`,
-    data: {
-      pageId,
-      content,
-    },
-  })
+  try {
+    return request({
+      method: 'put',
+      url: `/knowledge-service/page/`,
+      data: {
+        pageId,
+        content,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
